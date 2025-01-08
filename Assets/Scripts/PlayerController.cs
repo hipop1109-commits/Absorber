@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         vx = Input.GetAxisRaw("Horizontal") * speed;
-        float vy = rb.velocity.y;
+        float vy = rb.linearVelocity.y;
 
         if (vx < 0)
         {
@@ -53,23 +53,27 @@ public class PlayerController : MonoBehaviour
 
         prevVx = vx;
 
-        rb.velocity = new Vector2(vx, vy);
+        rb.linearVelocity = new Vector2(vx, vy);
     }
 
-    // 바닥에 닿았는지 확인
-    private void OnCollisionEnter2D(Collision2D collision)
+    // 바닥에 닿았는지
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.gameObject.CompareTag("ground"))
         {
+            Debug.Log("TESt");
             isGround = true;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("ground"))
         {
             isGround = false;
         }
+
     }
+
 }
