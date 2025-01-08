@@ -1,14 +1,12 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5;
     public float jumpSpeed = 5;
     public Collider2D bottomCollider;
-    public Collider2D terrainCollider;
 
     private Rigidbody2D rb;
-   
     private float prevVx = 0;
     private float vx = 0;
     private bool isGround;
@@ -21,7 +19,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         vx = Input.GetAxisRaw("Horizontal") * speed;
-        float vy = GetComponent<Rigidbody2D>().linearVelocityY;
+        float vy = rb.velocity.y;
 
         if (vx < 0)
         {
@@ -32,52 +30,46 @@ public class PlayerController : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
         }
 
-        //∂•ø° ¥Íæ∆¿÷¥¬∞°
-        if (bottomCollider.IsTouching(terrainCollider))
+        if (isGround)
         {
-            if (!isGround)
+            if (vx == 0)
             {
-                if (vx == 0)
-                {
-                    GetComponent<Animator>().SetTrigger("Idle");
-                }
-                else
-                {
-                    GetComponent<Animator>().SetTrigger("Walk");
-                }
+                GetComponent<Animator>().SetTrigger("Idle");
             }
             else
             {
-                if (vx != prevVx)
-                {
-                    if (vx == 0)
-                    {
-                        GetComponent<Animator>().SetTrigger("Idle");
-                    }
-                    else
-                    {
-                        GetComponent<Animator>().SetTrigger("Walk");
-                    }
-                }
+                GetComponent<Animator>().SetTrigger("Walk");
             }
         }
         else
         {
-            if (isGround)
-            {
-                GetComponent<Animator>().SetTrigger("Jump");
-            }
+            GetComponent<Animator>().SetTrigger("Jump");
         }
 
-        //«√∑π¿ÃæÓ πﬂ¿Ã πŸ¥⁄ ƒ›∂Û¿Ã¥ıøÕ ¥Íæ“¥Ÿ∏È
-        isGround = bottomCollider.IsTouching(terrainCollider);
-
-        if (Input.GetButtonDown("Jump") && isGround == true)
+        if (Input.GetButtonDown("Jump") && isGround)
         {
             vy = jumpSpeed;
         }
+
         prevVx = vx;
 
-        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(vx, vy);
+        rb.velocity = new Vector2(vx, vy);
+    }
+
+    // Î∞îÎã•Ïóê ÎãøÏïòÎäîÏßÄ ÌôïÏù∏
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            isGround = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            isGround = false;
+        }
     }
 }
