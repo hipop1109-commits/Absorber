@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private float prevVx = 0;
-    private float vx = 0;
+    public float vx = 0;
     private bool isGround;
 
     void Start()
