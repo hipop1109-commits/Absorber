@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 30f; // 대쉬 속도
     [SerializeField] private float dashDuration = 0.2f; // 대쉬 지속 시간
     [SerializeField] private float dashCooldown = 1f; // 대쉬 쿨타임
+    private int a = 1;
 
     private Rigidbody2D rb;
     private Vector2 moveDirection; //이동 방향
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        a = 10;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
