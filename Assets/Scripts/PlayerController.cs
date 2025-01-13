@@ -85,6 +85,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Q
+    public void OnSelect1(InputValue value)
+    {
+        Debug.Log("Q");
+    }
+
+    //E
+    public void OnSelect2(InputValue value)
+    {
+        Debug.Log("E");
+
+    }
+
+    //좌클릭 흡수
+    public void OnAbsorb(InputValue value)
+    {
+        Debug.Log("흡수");
+    }
+
+    //우클릭 흡수
+    public void OnEmit(InputValue value)
+    {
+        Debug.Log("방출");
+
+    }
+
 
     private void ApplyMovement()
     {
