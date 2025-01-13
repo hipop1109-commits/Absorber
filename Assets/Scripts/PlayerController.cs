@@ -40,14 +40,12 @@ public class PlayerController : MonoBehaviour
             new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Mathf.Abs(UnityEngine.Camera.main.transform.position.z))
         );
 
-        if (mouseWorldPosition.x > transform.position.x)
+        if ((mouseWorldPosition.x > transform.position.x && spriteRenderer.flipX) ||
+            (mouseWorldPosition.x < transform.position.x && !spriteRenderer.flipX))
         {
-            spriteRenderer.flipX = false; // 오른쪽
+            spriteRenderer.flipX = !spriteRenderer.flipX;
         }
-        else
-        {
-            spriteRenderer.flipX = true; // 왼쪽
-        }
+
 
         // 대쉬 쿨타임 타이머 업데이트
         if (dashCooldownTimer > 0)
@@ -108,21 +106,16 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
     }
-
     private System.Collections.IEnumerator Dash()
     {
-        isDashing = true; // 대쉬 상태 설정
-        float originalMoveSpeed = moveSpeed; // 기존 속도 저장
-        moveSpeed = dashSpeed; // 대쉬 속도로 설정
-
-        rb.linearVelocity = new Vector2(moveDirection.x * dashSpeed, rb.linearVelocity.y);
-
-        yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간만큼 대기
-
-        moveSpeed = originalMoveSpeed; // 기존 속도로 복원
-        isDashing = false; // 대쉬 상태 해제
-        dashCooldownTimer = dashCooldown; // 쿨타임 설정
+        isDashing = true;
+        Vector2 dashForce = new Vector2(moveDirection.x * dashSpeed, 0);
+        rb.AddForce(dashForce, ForceMode2D.Impulse); // 대쉬에 Impulse 사용
+        yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간
+        isDashing = false;
+        dashCooldownTimer = dashCooldown;
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
