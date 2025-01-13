@@ -1,86 +1,134 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
 
-    [SerializeField] private float moveSpeed = 10f; //이동 속도
-    [SerializeField] private float jumpSpeed = 10f; //점프 속도
-    [SerializeField] private float dashSpeed = 30f; // 대쉬 속도
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float jumpSpeed = 10f;
+    [SerializeField] private float dashSpeed = 20f; // 대쉬 속도
     [SerializeField] private float dashDuration = 0.2f; // 대쉬 지속 시간
     [SerializeField] private float dashCooldown = 1f; // 대쉬 쿨타임
-    private int a = 1;
 
     private Rigidbody2D rb;
-    private float prevVx = 0;
-    public float vx = 0;
-    private bool isGround;
-    public int trash = 1;
+    private Vector2 moveDirection;
+    private bool isJump;
+    private bool isDashing; // 대쉬 상태 확인
+    private float dashCooldownTimer; // 대쉬 쿨타임 타이머
 
-    void Start()
+    private void Awake()
     {
-        a = 10;
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        vx = Input.GetAxisRaw("Horizontal") * speed;
-        float vy = rb.linearVelocity.y;
-
-        if (vx < 0)
+        if (!isDashing) // 대쉬 중이 아니면 일반 이동 처리
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            ApplyMovement();
         }
-        if (vx > 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
+    }
 
-        if (isGround)
+    private void Update()
+    {
+        // 마우스 위치를 받아와 캐릭터의 방향을 설정
+        Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
+        Vector3 mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint(
+            new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Mathf.Abs(UnityEngine.Camera.main.transform.position.z))
+        );
+
+        if (mouseWorldPosition.x > transform.position.x)
         {
-            if (vx == 0)
-            {
-                GetComponent<Animator>().SetTrigger("Idle");
-            }
-            else
-            {
-                GetComponent<Animator>().SetTrigger("Walk");
-            }
+            spriteRenderer.flipX = false; // 오른쪽
         }
         else
         {
-            GetComponent<Animator>().SetTrigger("Jump");
+            spriteRenderer.flipX = true; // 왼쪽
         }
 
-        if (Input.GetButtonDown("Jump") && isGround)
+        // 대쉬 쿨타임 타이머 업데이트
+        if (dashCooldownTimer > 0)
         {
-            vy = jumpSpeed;
+            dashCooldownTimer -= Time.deltaTime;
         }
 
-        prevVx = vx;
-
-        rb.linearVelocity = new Vector2(vx, vy);
     }
 
-    // 바닥에 닿았는지
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnMove(InputValue value)
     {
+        moveDirection = value.Get<Vector2>();
+    }
 
+    public void OnJump(InputValue value)
+    {
+        if (value.isPressed && !isJump)
+        {
+            isJump = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
+        }
+    }
+
+    public void OnSprint(InputValue value)
+    {
+        if (value.isPressed && !isDashing && dashCooldownTimer <= 0)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+    //Q
+    public void OnSelect1(InputValue value)
+    {
+        Debug.Log("Q");
+    }
+
+    //E
+    public void OnSelect2(InputValue value)
+    {
+        Debug.Log("E");
+
+    }
+
+    //좌클릭 흡수
+    public void OnAbsorb(InputValue value)
+    {
+        Debug.Log("흡수");
+    }
+
+    //우클릭 흡수
+    public void OnEmit(InputValue value)
+    {
+        Debug.Log("방출");
+
+    }
+
+    private void ApplyMovement()
+    {
+        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
+    }
+
+    private System.Collections.IEnumerator Dash()
+    {
+        isDashing = true; // 대쉬 상태 설정
+        float originalMoveSpeed = moveSpeed; // 기존 속도 저장
+        moveSpeed = dashSpeed; // 대쉬 속도로 설정
+
+        rb.linearVelocity = new Vector2(moveDirection.x * dashSpeed, rb.linearVelocity.y);
+
+        yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간만큼 대기
+
+        moveSpeed = originalMoveSpeed; // 기존 속도로 복원
+        isDashing = false; // 대쉬 상태 해제
+        dashCooldownTimer = dashCooldown; // 쿨타임 설정
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject.CompareTag("ground"))
         {
-            Debug.Log("TESt");
-            isGround = true;
+            isJump = false;
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("ground"))
-        {
-            isGround = false;
-        }
-
-    }
-
 }
