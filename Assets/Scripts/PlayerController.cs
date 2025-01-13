@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //대쉬
     public void OnSprint(InputValue value)
     {
         if(value.isPressed && !isDash && dashCooldownTimer <= 0)
