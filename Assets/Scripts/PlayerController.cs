@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private float prevVx = 0;
     public float vx = 0;
     private bool isGround;
+    public int trash = 1;
 
     void Start()
     {
