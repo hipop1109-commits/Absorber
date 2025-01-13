@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -5,7 +8,7 @@ using UnityEngine.TextCore.Text;
 public class WeaponController : MonoBehaviour
 {
     //빨아들이는 범위 (콜라이더로 구현)
-    //public GameObject AbsorbRange;
+    public GameObject AbsorbRange;
 
     //빨아들이고 있는 상태를 설정
     private bool isAbsorbing = false;
@@ -15,12 +18,19 @@ public class WeaponController : MonoBehaviour
     private bool isGrassActive = false;
     private bool isWaterActive = false;
 
-    //public GameObject RockEffect;
-    //public GameObject WaterEffect;
-    //public GameObject GrassEffect;
+    public GameObject RockEffect;
+    public GameObject WaterEffect;
+    public GameObject GrassEffect;
 
+    //게이지 현재값
+    public float RockGauge = 0f;
+    public float GrassGauge = 0f;
+    public float WaterGauge = 0f;
+
+    //게이지 최대값
+    public float MaxGauge = 100f;
     //게이지가 차는 속도
-    public float FillSpeed = 0.1f;
+    public float FillSpeed = 1f;
 
     //총을 놓을 기준점
     public Transform GunPivot;
@@ -28,11 +38,23 @@ public class WeaponController : MonoBehaviour
 
     //총의 모드
     public int WeaponMode;
-    
+
+    //총 관련 설정
+    public GameObject bulletPrefab;
+    public GameObject bombPrefab;
+    public Transform firePoint;
+    public float bulletSpeed = 10f;
+    public float fireCooldown = 0.5f;
+    public float BombFireCooldown = 2f;
+    private bool canShoot = true;
+
     private void Start()
     {
         //빨아들이는 범위를 꺼둠
-        //AbsorbRange.SetActive(false);
+        AbsorbRange.SetActive(false);
+        RockEffect.SetActive(false);
+        WaterEffect.SetActive(false);
+        GrassEffect.SetActive(false);
     }
 
     private void Update()
@@ -65,52 +87,64 @@ public class WeaponController : MonoBehaviour
         }
 
         //오른버튼을 클릭했을 때 빨아들이는 기능을 시작
-        //if (Input.GetMouseButton(1))
-       // {
-        //    Absorb();
-        //}
+        if (Input.GetMouseButton(1))
+       {
+            isAbsorbing = true;
+            AbsorbRange.SetActive(true);
+        }
+        //오른 마우스를 떼면 흡수 중단
+        if (Input.GetMouseButtonUp(1))
+        {
+            isAbsorbing = false;
+            AbsorbRange.SetActive(false);
 
-       // if(Input.GetMouseButton(0))
-       // {
-       //     WeaponSelect();
-       // }
+            RockEffect.SetActive(false);
+            GrassEffect.SetActive(false);
+            WaterEffect.SetActive(false);
+        }
+        //왼 마우스를 누르면 무기 선택
+        if (Input.GetMouseButton(0))
+        {
+            WeaponSelect();
+        }
     }
 
-    private void Absorb()
+    public void OnAbsorbEffectTriggerStay(Collider2D other)
     {
-        isAbsorbing = true;
-        //AbsorbRange.SetActive(true);
-    }
+        Debug.Log($"OnTriggerStay2D 호출됨: {other.name}");
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (!isAbsorbing) return;
-
+        if (!isAbsorbing)
+        {
+            Debug.Log("isAbsorbing이 false여서 리턴됨");
+            return;
+        }
         // 태그에 따라 효과 활성화
         switch (other.tag)
         {
             case "Rock":
-                //ActivateEffect(RockEffect);
+                Debug.Log("인식");
+                ActivateEffect(RockEffect);
                 isRockActive = true;
                 FillGauge();
                 break;
-            case "Tree":
-               //ActivateEffect(GrassEffect);
+            case "Grass":
+                Debug.Log("인식");
+                ActivateEffect(GrassEffect);
                 isGrassActive = true;
                 FillGauge();
                 break;
             case "Water":
-               // ActivateEffect(WaterEffect);
+                Debug.Log("인식");
+                ActivateEffect(WaterEffect);
                 isWaterActive = true;
                 FillGauge();
                 break;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void OnAbsorbEffectTriggerExit(Collider2D other)
     {
-        // SuckEffect가 충돌한 Collider에서 빠져나갈 때 호출
-        Debug.Log($"OnTriggerExit2D 호출: {other.name}");
+       
 
         // 모든 효과를 비활성화
         DeactivateAllEffects();
@@ -118,6 +152,7 @@ public class WeaponController : MonoBehaviour
 
     private void ActivateEffect(GameObject effect)
     {
+        
         // 다른 효과 비활성화
         DeactivateAllEffects();
 
@@ -127,9 +162,9 @@ public class WeaponController : MonoBehaviour
 
     private void DeactivateAllEffects()
     {
-        //RockEffect.SetActive(false);
-        //GrassEffect.SetActive(false);
-        //WaterEffect.SetActive(false);
+        RockEffect.SetActive(false);
+        GrassEffect.SetActive(false);
+        WaterEffect.SetActive(false);
         isRockActive = false;
         isGrassActive = false;
         isWaterActive = false;
@@ -137,7 +172,26 @@ public class WeaponController : MonoBehaviour
 
     private void FillGauge()
     {
-        
+        if (isRockActive)
+        {
+            RockGauge += FillSpeed * Time.deltaTime;
+            RockGauge = Mathf.Clamp(RockGauge, 0, MaxGauge);
+            Debug.Log("돌 게이지: " + RockGauge);
+        }
+
+        if (isGrassActive)
+        {
+            GrassGauge += FillSpeed * Time.deltaTime;
+            GrassGauge = Mathf.Clamp(GrassGauge, 0, MaxGauge);
+            Debug.Log("풀 게이지: " + GrassGauge);
+        }
+
+        if (isWaterActive)
+        {
+            WaterGauge += FillSpeed * Time.deltaTime;
+            WaterGauge = Mathf.Clamp(WaterGauge, 0, MaxGauge);
+            Debug.Log("물 게이지: " + WaterGauge);
+        }
     }
 
 
@@ -150,8 +204,10 @@ public class WeaponController : MonoBehaviour
             case 2:
                 break;
             case 3:
+                StartCoroutine(RockBullet());
                 break;
             case 4:
+                StartCoroutine(RockBomb());
                 break;
             case 5:
                 break;
@@ -160,14 +216,62 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    private void RockBullet()
+    private IEnumerator RockBullet()
     {
+        Debug.Log("발사");
+        if (canShoot && RockGauge > 0 && WaterGauge > 0)
+        {
+            Debug.Log("발사2");
+            WaterGauge -= 1f;
+            RockGauge -= 1f;
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
+            // 총알의 Rigidbody2D에 속도 추가
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.gravityScale = 0; // 중력 영향 제거
+                rb.linearVelocity = firePoint.right * bulletSpeed; // 발사 방향과 속도 설정
+            }
+            StartCoroutine(ShootCooldown());
+            yield return new WaitForSeconds(2f);
+            Destroy(bullet);
+        }
     }
 
-    private void RockBomb()
+    IEnumerator ShootCooldown()
     {
+        canShoot = false; // 발사 불가능 상태로 전환
+        yield return new WaitForSeconds(fireCooldown); // 쿨다운 시간 기다림
+        canShoot = true; // 발사 가능 상태로 전환
+    }
 
+    private IEnumerator RockBomb()
+    {
+        Debug.Log("발사");
+        if (canShoot && RockGauge > 0)
+        {
+            Debug.Log("발사2");
+            RockGauge -= 5f;
+            GameObject Bomb = Instantiate(bombPrefab, firePoint.position, firePoint.rotation);
+
+            // 총알의 Rigidbody2D에 속도 추가
+            Rigidbody2D rb = Bomb.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = firePoint.right * bulletSpeed; // 발사 방향과 속도 설정
+            }
+            StartCoroutine(BombCooldown());
+            yield return new WaitForSeconds(2f);
+            Destroy(Bomb);
+        }
+    }
+
+    IEnumerator BombCooldown()
+    {
+        canShoot = false; // 발사 불가능 상태로 전환
+        yield return new WaitForSeconds(BombFireCooldown); // 쿨다운 시간 기다림
+        canShoot = true; // 발사 가능 상태로 전환
     }
 
     private void WaterSpray()

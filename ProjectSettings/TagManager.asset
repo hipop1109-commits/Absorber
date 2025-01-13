@@ -7,6 +7,9 @@ TagManager:
   - platform
   - ground
   - enemys
+  - Water
+  - Grass
+  - Rock
   layers:
   - Default
   - TransparentFX
