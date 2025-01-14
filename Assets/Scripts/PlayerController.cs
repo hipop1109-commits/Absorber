@@ -118,14 +118,14 @@ public class PlayerController : MonoBehaviour
         WeaponController.Instance.AbsorbClick();
     }
 
-    //우클릭 흡수
+    //우클릭 흡수 취소
     public void OnAbsorbCancle(InputValue value)
     {
         Debug.Log("흡수 취소");
         WeaponController.Instance.AbsorbClickUp();
     }
 
-    //좌클릭 흡수
+    //좌클릭 방출
     public void OnEmit(InputValue value)
     {
         Debug.Log("방출");
