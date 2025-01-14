@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    SpriteRenderer spriteRenderer; // 캐릭터의 스프라이트 렌더러
-    private Animator animator; // 캐릭터 애니메이션을 제어할 Animator
+    private SpriteRenderer spriteRenderer; // 캐릭터의 스프라이트 렌더러
+    private Player player;
+
+    private float dashCooldownTimer; // 대쉬 쿨타임을 계산하기 위한 타이머
+
+    [SerializeField] private int select1 = 1;
+    [SerializeField] private int select2 = 1;
 
     [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
     [SerializeField] private float jumpSpeed = 10f; // 캐릭터 점프 속도
-    [SerializeField] private float dashSpeed = 20f; // 캐릭터 대쉬 속도
-    [SerializeField] private float dashCooldown = 1f; // 대쉬 쿨타임
-    private float dashDuration = 0.2f; // 대쉬 지속 시간
-    private float dashCooldownTimer; // 대쉬 쿨타임을 계산하기 위한 타이머
 
     private Rigidbody2D rb; // 캐릭터의 Rigidbody2D
 
@@ -28,8 +30,18 @@ public class PlayerController : MonoBehaviour
         // 컴포넌트 초기화
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        stateMachine = new StateMachine(this); // 상태 머신 초기화
+
+        player = new Player(
+                maxHp: 100, // 최대 HP
+/*                moveSpeed: 10f, // 이동 속도
+                jumpSpeed: 10f, // 점프 속도*/
+                dashSpeed: 20f, // 대쉬 속도
+                dashCooldown: 1f, // 대쉬 쿨타임
+                dashDuration: 0.2f // 대쉬 지속 시간
+            );
+
+        // 상태 머신 초기화
+        stateMachine = new StateMachine(this);
     }
 
     private void Start()
@@ -71,17 +83,32 @@ public class PlayerController : MonoBehaviour
             dashCooldownTimer -= Time.deltaTime;
         }
     }
-    //Q
+
+
+    //Q(물(1), 풀(2), 바위(3))
     public void OnSelect1(InputValue value)
     {
-        Debug.Log("Q");
+        if (select1 >= 3)
+        {
+            select1 = 1;
+        }
+        else
+        {
+            select1 += 1;
+        }
     }
 
     //E
     public void OnSelect2(InputValue value)
     {
-        Debug.Log("E");
-
+        if (select2 >= 3)
+        {
+            select2 = 1;
+        }
+        else
+        {
+            select2 += 1;
+        }
     }
 
     //우클릭 흡수
@@ -102,7 +129,40 @@ public class PlayerController : MonoBehaviour
     public void OnEmit(InputValue value)
     {
         Debug.Log("방출");
+        Combination();
     }
+
+
+    //조합 결과
+    private void Combination()
+    {
+        Dictionary<(int, int), string> combinations = new Dictionary<(int, int), string>
+        {
+            { (1, 1), "파도타기"}, //물+물
+            { (2, 2), "나무덩쿨" }, // 풀+풀
+            { (3, 3), "바위 폭탄" }, // 바위+바위
+            { (1, 2), "힐링 포션" }, // 물+풀
+            { (2, 1), "힐링 포션" }, // 풀+물
+            { (2, 3), "발판 생성" }, // 풀+바위
+            { (3, 2), "발판 생성" }, // 바위+풀
+            { (1, 3), "바위 총알" }, // 물+바위
+            { (3, 1), "바위 총알" }  // 바위+물
+        };
+
+        //선택된 조합
+        var selectedCombination = (select1, select2);
+
+        // 조합에 해당하는 결과 출력
+        if (combinations.TryGetValue(selectedCombination, out string result))
+        {
+            Debug.Log($"방출: {result}");
+        }
+        else
+        {
+            Debug.Log("유효하지 않은 조합입니다.");
+        }
+    }
+
 
     // 이동 입력 처리
     public void OnMove(InputValue value)
@@ -128,7 +188,7 @@ public class PlayerController : MonoBehaviour
         if (value.isPressed && !isJump)
         {
             isJump = true; // 점프 플래그 설정
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed); // 점프 속도 적용
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, moveSpeed); // 점프 속도 적용
             stateMachine.TransitionTo(stateMachine.jumpState); // 점프 상태로 전환
         }
     }
@@ -153,11 +213,11 @@ public class PlayerController : MonoBehaviour
     private System.Collections.IEnumerator Dash()
     {
         isDashing = true; // 대쉬 플래그 설정
-        Vector2 dashForce = new Vector2(moveDirection.x * dashSpeed, 0); // 대쉬 방향 설정
+        Vector2 dashForce = new Vector2(moveDirection.x * player.DashSpeed, 0); // 대쉬 방향 설정
         rb.AddForce(dashForce, ForceMode2D.Impulse); // 대쉬 힘 적용
-        yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간 대기
+        yield return new WaitForSeconds(player.DashDuration); // 대쉬 지속 시간 대기
         isDashing = false; // 대쉬 플래그 해제
-        dashCooldownTimer = dashCooldown; // 대쉬 쿨타임 설정
+        dashCooldownTimer = player.DashCooldown; // 대쉬 쿨타임 설정
         stateMachine.TransitionTo(stateMachine.idleState); // Idle 상태로 전환
     }
 

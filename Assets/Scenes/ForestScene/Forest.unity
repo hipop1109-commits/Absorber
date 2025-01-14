@@ -5023,13 +5023,10 @@ MonoBehaviour:
   fireCooldown: 0.5
   BombFireCooldown: 2
   mouseWorldPosition: {x: 0, y: 0, z: 0}
-  hookPrefab: {fileID: 0}
-  hookSpeed: 30
-  attachableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  joint: {fileID: 1028525232}
-  lineRenderer: {fileID: 726011185}
+  platformPrefab: {fileID: 0}
+  platformSpeed: 5
+  maxPlatformDistance: 1
+  maxPlatforms: 2
 --- !u!212 &145565814
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21876,10 +21873,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca678355025548429f9794bce344a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  select1: 1
+  select2: 1
   moveSpeed: 10
-  jumpSpeed: 20
-  dashSpeed: 20
-  dashCooldown: 1
+  jumpSpeed: 10
 --- !u!95 &528240011
 Animator:
   serializedVersion: 7

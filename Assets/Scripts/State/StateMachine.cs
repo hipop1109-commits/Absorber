@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class StateMachine
 {
@@ -19,15 +19,15 @@ public class StateMachine
         jumpState = new JumpState(player);
     }
 
-    //ÃÖÃÊ state¸¦ ¹Ş¾Æ ÀÌ¸¦ CurrentState¿¡ ³Ö°í Enter
+    //ìµœì´ˆ stateë¥¼ ë°›ì•„ ì´ë¥¼ CurrentStateì— ë„£ê³  Enter
     public void Initalize(IState state)
     {
         CurrentState = state;
         state.Enter();
     }
 
-    //¹Ù²ğ state¸¦ ¹Ş¾Æ ÇöÀç state¿¡ ´ëÇØ¼­´Â Exit¸¦ ¼öÇàÇÏ°í CurrentState¸¦ ¹Ù²Ù¸ç 
-    //¹Ù²ğ stateÀÇ Enter¸¦ ¼öÇà
+    //ë°”ë€” stateë¥¼ ë°›ì•„ í˜„ì¬ stateì— ëŒ€í•´ì„œëŠ” Exitë¥¼ ìˆ˜í–‰í•˜ê³  CurrentStateë¥¼ ë°”ê¾¸ë©° 
+    //ë°”ë€” stateì˜ Enterë¥¼ ìˆ˜í–‰
     public void TransitionTo(IState nextState) 
     { 
         CurrentState.Exit();
