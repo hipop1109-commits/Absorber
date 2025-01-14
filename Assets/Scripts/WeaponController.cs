@@ -8,13 +8,13 @@ using UnityEngine.TextCore.Text;
 
 public class WeaponController : MonoBehaviour
 {
-    //»¡¾ÆµéÀÌ´Â ¹üÀ§ (ÄÝ¶óÀÌ´õ·Î ±¸Çö)
+    //ï¿½ï¿½ï¿½Æµï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     public GameObject AbsorbRange;
 
-    //»¡¾ÆµéÀÌ°í ÀÖ´Â »óÅÂ¸¦ ¼³Á¤
+    //ï¿½ï¿½ï¿½Æµï¿½ï¿½Ì°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½
     private bool isAbsorbing = false;
 
-    //3°¡Áö ¿ø¼Ò¸¦ »¡¾ÆµéÀÌ°í ÀÖ´Â »óÅÂ ¼³Á¤
+    //3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½Æµï¿½ï¿½Ì°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private bool isRockActive = false;
     private bool isGrassActive = false;
     private bool isWaterActive = false;
@@ -23,24 +23,24 @@ public class WeaponController : MonoBehaviour
     public GameObject WaterEffect;
     public GameObject GrassEffect;
 
-    //°ÔÀÌÁö ÇöÀç°ª
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ç°ª
     public float RockGauge = 0f;
     public float GrassGauge = 0f;
     public float WaterGauge = 0f;
 
-    //°ÔÀÌÁö ÃÖ´ë°ª
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ª
     public float MaxGauge = 100f;
-    //°ÔÀÌÁö°¡ Â÷´Â ¼Óµµ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
     public float FillSpeed = 1f;
 
-    //ÃÑÀ» ³õÀ» ±âÁØÁ¡
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public Transform GunPivot;
     public Transform Gun;
 
-    //ÃÑÀÇ ¸ðµå
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     public string WeaponMode;
 
-    //ÃÑ °ü·Ã ¼³Á¤
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject bulletPrefab;
     public GameObject bombPrefab;
     public Transform firePoint;
@@ -50,24 +50,21 @@ public class WeaponController : MonoBehaviour
     private bool canShoot = true;
     public Vector3 mouseWorldPosition;
 
-    //¹ßÆÇ °ü·Ã ¼³Á¤
-    public GameObject platformPrefab; // ¹ßÆÇ ÇÁ¸®ÆÕ
-    public float platformSpeed = 5f; // ¹ßÆÇ ÀÌµ¿ ¼Óµµ
-    public float maxPlatformDistance = 1f; // ¹ßÆÇÀÌ ÀÌµ¿ÇÒ ÃÖ´ë °Å¸®
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public GameObject platformPrefab; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float platformSpeed = 5f; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½
+    public float maxPlatformDistance = 1f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Å¸ï¿½
     public int maxPlatforms = 2;
     private List<GameObject> activePlatforms = new List<GameObject>();
 
-    //Èú¸µ Æ÷¼Ç º¯¼ö
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject HealPrefab;
 
-    //¹°ÃÑ º¯¼ö
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject WaterPrefab;
 
-    //·ÎÇÁ º¯¼ö
-    public LineRenderer line;
-    public Transform hook;
-    public bool isHookActive = false;
-    public bool isLineMax;
+    public RopeActive rope;
+
 
     public static WeaponController Instance { get; private set; }
 
@@ -86,60 +83,52 @@ public class WeaponController : MonoBehaviour
 
         private void Start()
     {
-        //»¡¾ÆµéÀÌ´Â ¹üÀ§¸¦ ²¨µÒ
+        //ï¿½ï¿½ï¿½Æµï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         AbsorbRange.SetActive(false);
         RockEffect.SetActive(false);
         WaterEffect.SetActive(false);
         GrassEffect.SetActive(false);
-
-        line.positionCount = 2;
-        line.endWidth = line.startWidth = 0.05f;
-        line.SetPosition(0, Gun.position);
-        line.SetPosition(1, hook.position);
-        line.useWorldSpace = true;
     }
 
     private void Update()
     {
 
-        //¸¶¿ì½ºÀÇ ÇöÀç À§Ä¡¸¦ Å½»öÇÏ´Â º¯¼ö ¼³Á¤ (¸ÞÀÎÄ«¸Þ¶ó È°¿ë)
+        //ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Å½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½Ä«ï¿½Þ¶ï¿½ È°ï¿½ï¿½)
         Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
         mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint
         (new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, transform.position.z - GunPivot.position.z));
         
 
-        // ÃÑ±¸ÀÇ È¸Àü¹æÇâ ¼³Á¤
+        // ï¿½Ñ±ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector2 direction = new Vector2(
              mouseWorldPosition.x - GunPivot.position.x,
              mouseWorldPosition.y - GunPivot.position.y
          );
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        //ÃÑÀÌ ¸Ó¸® À§³ª ¹Ù´Ú ¾Æ·¡·Î Áö³ª°¡¸é ÃÑÀÌ µÚÁýÇÏ´Â Á¶°Ç
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ó¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
         bool shouldFlipGun = angle > 90 || angle < -90;
 
-        //µÚÁýÈ÷´Â ·ÎÁ÷ ¼³Á¤
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (shouldFlipGun)
         {
-            Gun.rotation = Quaternion.Euler(180, 0, -angle); // ÃÑÀ» µÚÁýÀ½
+            Gun.rotation = Quaternion.Euler(180, 0, -angle); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         else
         {
-            Gun.rotation = Quaternion.Euler(0, 0, angle); // ÃÑÀ» Á¤»óÀûÀ¸·Î È¸Àü
+            Gun.rotation = Quaternion.Euler(0, 0, angle); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
         }
 
-        line.SetPosition(0, Gun.position);
-        line.SetPosition(1, hook.position);
     }
 
-    //¿À¸¥¸¶¿ì½º ´­·¶À»¶§
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void AbsorbClick()
     {
         isAbsorbing = true;
         AbsorbRange.SetActive(true);
     }
 
-    //¿À¸¥¸¶¿ì½º ¶ÃÀ»¶§
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void AbsorbClickUp()
     {
         isAbsorbing = false;
@@ -152,30 +141,30 @@ public class WeaponController : MonoBehaviour
 
     public void OnAbsorbEffectTriggerStay(Collider2D other)
     {
-        Debug.Log($"OnTriggerStay2D È£ÃâµÊ: {other.name}");
+        Debug.Log($"OnTriggerStay2D È£ï¿½ï¿½ï¿½: {other.name}");
 
         if (!isAbsorbing)
         {
-            Debug.Log("isAbsorbingÀÌ false¿©¼­ ¸®ÅÏµÊ");
+            Debug.Log("isAbsorbingï¿½ï¿½ falseï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½");
             return;
         }
-        // ÅÂ±×¿¡ µû¶ó È¿°ú È°¼ºÈ­
+        // ï¿½Â±×¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ È°ï¿½ï¿½È­
         switch (other.tag)
         {
             case "Rock":
-                Debug.Log("ÀÎ½Ä");
+                Debug.Log("ï¿½Î½ï¿½");
                 ActivateEffect(RockEffect);
                 isRockActive = true;
                 FillGauge();
                 break;
             case "Grass":
-                Debug.Log("ÀÎ½Ä");
+                Debug.Log("ï¿½Î½ï¿½");
                 ActivateEffect(GrassEffect);
                 isGrassActive = true;
                 FillGauge();
                 break;
             case "Water":
-                Debug.Log("ÀÎ½Ä");
+                Debug.Log("ï¿½Î½ï¿½");
                 ActivateEffect(WaterEffect);
                 isWaterActive = true;
                 FillGauge();
@@ -187,17 +176,17 @@ public class WeaponController : MonoBehaviour
     {
        
 
-        // ¸ðµç È¿°ú¸¦ ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         DeactivateAllEffects();
     }
 
     private void ActivateEffect(GameObject effect)
     {
         
-        // ´Ù¸¥ È¿°ú ºñÈ°¼ºÈ­
+        // ï¿½Ù¸ï¿½ È¿ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         DeactivateAllEffects();
 
-        // ¿øÇÏ´Â È¿°ú¸¸ È°¼ºÈ­
+        // ï¿½ï¿½ï¿½Ï´ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         effect.SetActive(true);
     }
 
@@ -217,67 +206,67 @@ public class WeaponController : MonoBehaviour
         {
             RockGauge += FillSpeed * Time.deltaTime;
             RockGauge = Mathf.Clamp(RockGauge, 0, MaxGauge);
-            Debug.Log("µ¹ °ÔÀÌÁö: " + RockGauge);
+            Debug.Log("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + RockGauge);
         }
 
         if (isGrassActive)
         {
             GrassGauge += FillSpeed * Time.deltaTime;
             GrassGauge = Mathf.Clamp(GrassGauge, 0, MaxGauge);
-            Debug.Log("Ç® °ÔÀÌÁö: " + GrassGauge);
+            Debug.Log("Ç® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + GrassGauge);
         }
 
         if (isWaterActive)
         {
             WaterGauge += FillSpeed * Time.deltaTime;
             WaterGauge = Mathf.Clamp(WaterGauge, 0, MaxGauge);
-            Debug.Log("¹° °ÔÀÌÁö: " + WaterGauge);
+            Debug.Log("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + WaterGauge);
         }
     }
 
-    //¹«±â °í¸£´Â (¿Þ¸¶¿ì½º ´­·¶À» ¶§ ¹ßµ¿)
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Þ¸ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ßµï¿½)
     public void WeaponSelect()
     {
         switch (WeaponMode)
         {
-            case "ÆÄµµÅ¸±â":
-                StartCoroutine(WaterSpray()); //ÆÄµµÅ¸±â
+            case "ï¿½Äµï¿½Å¸ï¿½ï¿½":
+                StartCoroutine(WaterSpray()); //ï¿½Äµï¿½Å¸ï¿½ï¿½
                 break;
-            case "Èú¸µ Æ÷¼Ç":
-                StartCoroutine(HealPotion()); //È¸º¹Æ÷¼Ç
+            case "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½":
+                StartCoroutine(HealPotion()); //È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 break;
-            case "¹ÙÀ§ ÃÑ¾Ë":
-                StartCoroutine(RockBullet()); //µ¹ÃÑ¾Ë
+            case "ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½":
+                StartCoroutine(RockBullet()); //ï¿½ï¿½ï¿½Ñ¾ï¿½
                 break;
-            case "¹ÙÀ§ ÆøÅº":
-                StartCoroutine(RockBomb()); //µ¹ÆøÅº
+            case "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åº":
+                StartCoroutine(RockBomb()); //ï¿½ï¿½ï¿½ï¿½Åº
                 break;
-            case "³ª¹«µ¢Äð":
-                RopeActive(); //³ª¹«µ¢Äð
+            case 5:
+                rope.RopeAction(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 break;
-            case "¹ßÆÇ »ý¼º":
-                Debug.Log("¹ß»ç4");
-                StartCoroutine(RockPlatform()); //¹ßÆÇ
+            case "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½":
+                Debug.Log("ï¿½ß»ï¿½4");
+                RockPlatform(); //ï¿½ï¿½ï¿½ï¿½
                 break;
         }
     }
 
     private IEnumerator RockBullet()
     {
-        Debug.Log("¹ß»ç");
+        Debug.Log("ï¿½ß»ï¿½");
         if (canShoot && RockGauge > 0 && WaterGauge > 0)
         {
-            Debug.Log("¹ß»ç2");
+            Debug.Log("ï¿½ß»ï¿½2");
             WaterGauge -= 1f;
             RockGauge -= 1f;
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-            // ÃÑ¾ËÀÇ Rigidbody2D¿¡ ¼Óµµ Ãß°¡
+            // ï¿½Ñ¾ï¿½ï¿½ï¿½ Rigidbody2Dï¿½ï¿½ ï¿½Óµï¿½ ï¿½ß°ï¿½
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.gravityScale = 0; // Áß·Â ¿µÇâ Á¦°Å
-                rb.linearVelocity = firePoint.right * bulletSpeed; // ¹ß»ç ¹æÇâ°ú ¼Óµµ ¼³Á¤
+                rb.gravityScale = 0; // ï¿½ß·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                rb.linearVelocity = firePoint.right * bulletSpeed; // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             StartCoroutine(Cooldown(0.2f));
             yield return new WaitForSeconds(2f);
@@ -287,25 +276,25 @@ public class WeaponController : MonoBehaviour
 
     IEnumerator Cooldown(float CoolDown)
     {
-        canShoot = false; // ¹ß»ç ºÒ°¡´É »óÅÂ·Î ÀüÈ¯
-        yield return new WaitForSeconds(CoolDown); // Äð´Ù¿î ½Ã°£ ±â´Ù¸²
-        canShoot = true; // ¹ß»ç °¡´É »óÅÂ·Î ÀüÈ¯
+        canShoot = false; // ï¿½ß»ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½È¯
+        yield return new WaitForSeconds(CoolDown); // ï¿½ï¿½Ù¿ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½Ù¸ï¿½
+        canShoot = true; // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½È¯
     }
 
     private IEnumerator RockBomb()
     {
-        Debug.Log("¹ß»ç3");
+        Debug.Log("ï¿½ß»ï¿½3");
         if (canShoot && RockGauge > 0)
         {
-            Debug.Log("¹ß»ç2");
+            Debug.Log("ï¿½ß»ï¿½2");
             RockGauge -= 5f;
             GameObject Bomb = Instantiate(bombPrefab, firePoint.position, firePoint.rotation);
 
-            // ÃÑ¾ËÀÇ Rigidbody2D¿¡ ¼Óµµ Ãß°¡
+            // ï¿½Ñ¾ï¿½ï¿½ï¿½ Rigidbody2Dï¿½ï¿½ ï¿½Óµï¿½ ï¿½ß°ï¿½
             Rigidbody2D rb = Bomb.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = firePoint.right * bulletSpeed; // ¹ß»ç ¹æÇâ°ú ¼Óµµ ¼³Á¤
+                rb.linearVelocity = firePoint.right * bulletSpeed; // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             StartCoroutine(Cooldown(3f));
             yield return new WaitForSeconds(2f);
@@ -314,9 +303,9 @@ public class WeaponController : MonoBehaviour
     }
 
     
-    IEnumerator RockPlatform()
+    public void RockPlatform()
     {
-        Debug.Log("¹ß»ç3");
+        Debug.Log("ï¿½ß»ï¿½3");
         if (canShoot && RockGauge > 0 && GrassGauge > 0)
         {
             RockGauge -= 5f;
@@ -324,7 +313,7 @@ public class WeaponController : MonoBehaviour
 
             if (activePlatforms.Count >= maxPlatforms)
             {
-                // È°¼ºÈ­µÈ ¹ßÆÇÀÌ ÃÖ´ë °¹¼öÀÏ °æ¿ì Ã¹ ¹øÂ° ¹ßÆÇ Á¦°Å
+                // È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¹ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 Destroy(activePlatforms[0]);
                 activePlatforms.RemoveAt(0);
             }
@@ -334,7 +323,6 @@ public class WeaponController : MonoBehaviour
 
             rb.linearVelocity = firePoint.right * platformSpeed;
             platform.transform.rotation = Quaternion.identity;
-            yield return new WaitForSeconds(2f);
 
             StartCoroutine(PlatformBehavior(platform, rb));
         }
@@ -346,63 +334,63 @@ public class WeaponController : MonoBehaviour
         float traveledDistance = 0f;
         Vector2 lastPosition = platform.transform.position;
         Vector3 initialScale = platform.transform.localScale;
-        Vector3 targetScale = new Vector3(4f, 1f, 1f); // ÃÖÁ¾ ¹ßÆÇ Å©±â
+        Vector3 targetScale = new Vector3(4f, 1f, 1f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
 
         while (traveledDistance < maxPlatformDistance)
         {
-            // ¹ßÆÇ Å©±â Á¡ÁøÀûÀ¸·Î º¯°æ
+            // ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             platform.transform.localScale = Vector3.Lerp(initialScale, targetScale, traveledDistance / maxPlatformDistance);
 
-            // ÀÌµ¿ °Å¸® °è»ê
+            // ï¿½Ìµï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½
             traveledDistance += Vector2.Distance(lastPosition, platform.transform.position);
             lastPosition = platform.transform.position;
 
             yield return null;
         }
 
-        // ¹ßÆÇ °íÁ¤
-        rb.linearVelocity = Vector2.zero; // ¼Óµµ Á¦°Å
-        rb.GetComponent<Collider2D>().enabled = true; // Ãæµ¹ °¡´É È°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        rb.linearVelocity = Vector2.zero; // ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+        rb.GetComponent<Collider2D>().enabled = true; // ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
     }
 
     IEnumerator HealPotion()
     {
         if (canShoot && RockGauge > 0 && GrassGauge > 0)
         {
-            //Å¬¸¯Äð´Ù¿î ¹®Á¦¸¦ ÇØ°áÇØ¾ßÇÒµí?
+            //Å¬ï¿½ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø°ï¿½ï¿½Ø¾ï¿½ï¿½Òµï¿½?
             WaterGauge -= 20f;
             GrassGauge -= 20f;
 
             yield return new WaitForSeconds(2f);
             GameObject Bomb = Instantiate(HealPrefab, firePoint.position, firePoint.rotation);
 
-            // ÃÑ¾ËÀÇ Rigidbody2D¿¡ ¼Óµµ Ãß°¡
+            // ï¿½Ñ¾ï¿½ï¿½ï¿½ Rigidbody2Dï¿½ï¿½ ï¿½Óµï¿½ ï¿½ß°ï¿½
             Rigidbody2D rb = Bomb.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = firePoint.right * 5f; // ¹ß»ç ¹æÇâ°ú ¼Óµµ ¼³Á¤
+                rb.linearVelocity = firePoint.right * 5f; // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             StartCoroutine(Cooldown(5f));
         }
     }
     
-    //¹° ¹«±â ÄÚµå
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
     IEnumerator WaterSpray()
     {
-        Debug.Log("¹ß»ç");
+        Debug.Log("ï¿½ß»ï¿½");
         if (canShoot && WaterGauge > 0)
         {
-            Debug.Log("¹ß»ç2");
+            Debug.Log("ï¿½ß»ï¿½2");
             WaterGauge -= 5f;
             
             GameObject WaterGun = Instantiate(WaterPrefab, firePoint.position, firePoint.rotation);
 
-            // ÃÑ¾ËÀÇ Rigidbody2D¿¡ ¼Óµµ Ãß°¡
+            // ï¿½Ñ¾ï¿½ï¿½ï¿½ Rigidbody2Dï¿½ï¿½ ï¿½Óµï¿½ ï¿½ß°ï¿½
             Rigidbody2D rb = WaterGun.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.gravityScale = 0; // Áß·Â ¿µÇâ Á¦°Å
-                rb.linearVelocity = firePoint.right * 15f; // ¹ß»ç ¹æÇâ°ú ¼Óµµ ¼³Á¤
+                rb.gravityScale = 0; // ï¿½ß·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                rb.linearVelocity = firePoint.right * 15f; // ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
             }
             StartCoroutine(Cooldown(1f));
             yield return new WaitForSeconds(3f);
@@ -410,23 +398,4 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    //ÈÅÀ» ½î´Â ¸ð¼Ç
-    private void RopeActive()
-    {
-        if (!isHookActive)
-        {
-            hook.position = firePoint.position;
-            isHookActive = true;
-        }
-
-        if (isHookActive && !isLineMax)
-        {
-            hook.Translate(mouseWorldPosition.normalized * Time.deltaTime * 15);
-
-            if(Vector2.Distance(transform.position, hook.position) > 5)
-            {
-                isLineMax = true;
-            }
-        }
-    }
 }
