@@ -3,7 +3,7 @@ using UnityEngine;
 public class StateMachine
 {
     public IState CurrentState { get; private set; }
-    PlayerController controller;
+    PlayerController player;
 
     public IdleState idleState;
     public JumpState jumpState;
@@ -12,7 +12,7 @@ public class StateMachine
 
     public StateMachine(PlayerController player)
     {
-        controller = player;
+        this.player = player;
         idleState = new IdleState(player);
         walkState = new WalkState(player);
         dashState = new DashState(player);

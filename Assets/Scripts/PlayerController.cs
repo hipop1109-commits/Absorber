@@ -70,20 +70,57 @@ public class PlayerController : MonoBehaviour
         {
             dashCooldownTimer -= Time.deltaTime;
         }
+    }
+    //Q
+    public void OnSelect1(InputValue value)
+    {
+        Debug.Log("Q");
+    }
 
-        // 애니메이터 상태 업데이트
-        UpdateAnimatorStates();
+    //E
+    public void OnSelect2(InputValue value)
+    {
+        Debug.Log("E");
+
+    }
+
+    //우클릭 흡수
+    public void OnAbsorb(InputValue value)
+    {
+        Debug.Log("흡수");
+        WeaponController.Instance.AbsorbClick();
+    }
+
+    //우클릭 흡수
+    public void OnAbsorbCancle(InputValue value)
+    {
+        Debug.Log("흡수 취소");
+        WeaponController.Instance.AbsorbClickUp();
+    }
+
+    //좌클릭 흡수
+    public void OnEmit(InputValue value)
+    {
+        Debug.Log("방출");
     }
 
     // 이동 입력 처리
     public void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>(); // 이동 방향 설정
+
         if (moveDirection.x != 0)
         {
-            stateMachine.TransitionTo(stateMachine.walkState); // 이동 중 상태로 전환
+            // 이동 입력이 있는 경우 Walk 상태로 전환
+            stateMachine.TransitionTo(stateMachine.walkState);
+        }
+        else
+        {
+            // 이동 입력이 없는 경우 Idle 상태로 전환
+            stateMachine.TransitionTo(stateMachine.idleState);
         }
     }
+
 
     // 점프 입력 처리
     public void OnJump(InputValue value)
@@ -116,13 +153,12 @@ public class PlayerController : MonoBehaviour
     private System.Collections.IEnumerator Dash()
     {
         isDashing = true; // 대쉬 플래그 설정
-        animator.SetBool("isDashing", true); // 대쉬 애니메이션 활성화
         Vector2 dashForce = new Vector2(moveDirection.x * dashSpeed, 0); // 대쉬 방향 설정
         rb.AddForce(dashForce, ForceMode2D.Impulse); // 대쉬 힘 적용
         yield return new WaitForSeconds(dashDuration); // 대쉬 지속 시간 대기
         isDashing = false; // 대쉬 플래그 해제
         dashCooldownTimer = dashCooldown; // 대쉬 쿨타임 설정
-        animator.SetBool("isDashing", false); // 대쉬 애니메이션 비활성화
+        stateMachine.TransitionTo(stateMachine.idleState); // Idle 상태로 전환
     }
 
     // 바닥 충돌 감지
@@ -131,14 +167,17 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("ground"))
         {
             isJump = false; // 점프 플래그 해제
-            stateMachine.TransitionTo(stateMachine.idleState); // Idle 상태로 전환
+            if (moveDirection.x != 0)
+            {
+                // 이동 입력이 있는 경우 Walk 상태로 전환
+                stateMachine.TransitionTo(stateMachine.walkState);
+            }
+            else
+            {
+                // 이동 입력이 없는 경우 Idle 상태로 전환
+                stateMachine.TransitionTo(stateMachine.idleState);
+            }
         }
     }
 
-    // 애니메이터 상태 업데이트
-    private void UpdateAnimatorStates()
-    {
-        animator.SetBool("isWalking", moveDirection.x != 0 && !isJump && !isDashing); // 걷기 상태
-        animator.SetBool("isJumping", isJump); // 점프 상태
-    }
 }
