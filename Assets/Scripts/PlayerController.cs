@@ -94,14 +94,15 @@ public class PlayerController : MonoBehaviour
     //좌클릭 흡수
     public void OnAbsorb(InputValue value)
     {
-        Debug.Log("흡수");
+        Debug.Log("방출");
+        WeaponController.Instance.AbsorbClick();
     }
 
     //우클릭 흡수
     public void OnEmit(InputValue value)
     {
-        Debug.Log("방출");
-
+        Debug.Log("흡수");
+        WeaponController.Instance.WeaponSelect();
     }
 
     private void ApplyMovement()

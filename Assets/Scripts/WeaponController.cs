@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
 
 
@@ -47,22 +48,52 @@ public class WeaponController : MonoBehaviour
     public float fireCooldown = 0.5f;
     public float BombFireCooldown = 2f;
     private bool canShoot = true;
+    public Vector3 mouseWorldPosition;
 
-    private void Start()
+
+    //훅에 필요한 변수들
+    public GameObject hookPrefab; // 훅 프리팹
+    public float hookSpeed = 20f; // 훅 발사 속도
+    public LayerMask attachableLayer; // 훅이 붙을 수 있는 레이어
+    public DistanceJoint2D joint; // 캐릭터에 붙을 DistanceJoint2D
+
+    private GameObject hookInstance; // 생성된 훅 인스턴스
+    private Rigidbody2D hookRb; // 훅의 Rigidbody2D
+    private bool isHookAttached = false; // 훅이 고정되었는지 확인
+    public LineRenderer lineRenderer;
+
+    public static WeaponController Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+        private void Start()
     {
         //빨아들이는 범위를 꺼둠
         AbsorbRange.SetActive(false);
         RockEffect.SetActive(false);
         WaterEffect.SetActive(false);
         GrassEffect.SetActive(false);
+
+      
     }
 
     private void Update()
     {
-       
+
         //마우스의 현재 위치를 탐색하는 변수 설정 (메인카메라 활용)
-        Vector3 mouseScreenPosition = Input.mousePosition;
-        Vector3 mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint
+        Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
+        mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint
         (new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, transform.position.z - GunPivot.position.z));
         
 
@@ -86,27 +117,31 @@ public class WeaponController : MonoBehaviour
             Gun.rotation = Quaternion.Euler(0, 0, angle); // 총을 정상적으로 회전
         }
 
-        //오른버튼을 클릭했을 때 빨아들이는 기능을 시작
-        if (Input.GetMouseButton(1))
-       {
-            isAbsorbing = true;
-            AbsorbRange.SetActive(true);
-        }
-        //오른 마우스를 떼면 흡수 중단
-        if (Input.GetMouseButtonUp(1))
+        //로프 거리 업데이트
+        if (isHookAttached)
         {
-            isAbsorbing = false;
-            AbsorbRange.SetActive(false);
+            UpdateJoint(); 
+        }
+        //라인 렌더러 업데이트
+        UpdateLineRenderer();
+    }
 
-            RockEffect.SetActive(false);
-            GrassEffect.SetActive(false);
-            WaterEffect.SetActive(false);
-        }
-        //왼 마우스를 누르면 무기 선택
-        if (Input.GetMouseButton(0))
-        {
-            WeaponSelect();
-        }
+    //오른마우스 눌렀을때
+    public void AbsorbClick()
+    {
+        isAbsorbing = true;
+        AbsorbRange.SetActive(true);
+    }
+
+    //오른마우스 뗐을때
+    public void AbsorbClickUp()
+    {
+        isAbsorbing = false;
+        AbsorbRange.SetActive(false);
+
+        RockEffect.SetActive(false);
+        GrassEffect.SetActive(false);
+        WaterEffect.SetActive(false);
     }
 
     public void OnAbsorbEffectTriggerStay(Collider2D other)
@@ -194,8 +229,8 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-
-    private void WeaponSelect()
+    //무기 고르는 (왼마우스 눌렀을 때 발동)
+    public void WeaponSelect()
     {
         switch (WeaponMode)
         {
@@ -210,6 +245,7 @@ public class WeaponController : MonoBehaviour
                 StartCoroutine(RockBomb());
                 break;
             case 5:
+                RopeActive();
                 break;
             case 6:
                 break;
@@ -279,9 +315,69 @@ public class WeaponController : MonoBehaviour
 
     }
 
-    private void GrassRope()
+    //훅을 쏘는 모션
+    private void RopeActive()
     {
+        Vector2 direction = (mouseWorldPosition - firePoint.position).normalized;
 
+        hookInstance = Instantiate(hookPrefab, firePoint.position, Quaternion.identity);
+        hookRb = hookInstance.GetComponent<Rigidbody2D>();
+        hookRb.linearVelocity = direction * hookSpeed;
+
+        // Raycast로 충돌 지점 감지
+        RaycastHit2D hit = Physics2D.Raycast(firePoint.position, direction, Mathf.Infinity, attachableLayer);
+        if (hit.collider != null)
+        {
+            AttachHook(hit.point);
+        }
+
+        lineRenderer.enabled = true;
+    }
+
+    //훅이 붙었을 때 기능
+    private void AttachHook(Vector2 attachPoint)
+    {
+        isHookAttached = true;
+
+        // 훅 고정
+        hookRb.linearVelocity = Vector2.zero;
+        hookRb.position = attachPoint;
+
+        // DistanceJoint2D 연결
+        joint.enabled = true;
+        joint.connectedAnchor = attachPoint;
+        joint.distance = Vector2.Distance(transform.position, attachPoint);
+    }
+
+    //훅이 떨어질 때 기능
+    private void DetachHook()
+    {
+        isHookAttached = false;
+
+        // 훅 및 로프 해제
+        if (hookInstance != null)
+        {
+            Destroy(hookInstance);
+        }
+        joint.enabled = false;
+
+        lineRenderer.enabled = false;
+    }
+
+    private void UpdateJoint()
+    {
+        // 캐릭터와 훅 간 거리 갱신
+        joint.distance = Vector2.Distance(transform.position, joint.connectedAnchor);
+    }
+
+    private void UpdateLineRenderer()
+    {
+        if (lineRenderer.enabled && hookInstance != null)
+        {
+            // LineRenderer의 시작점과 끝점 설정
+            lineRenderer.SetPosition(0, firePoint.position); // 시작점: 캐릭터의 총구
+            lineRenderer.SetPosition(1, hookInstance.transform.position); // 끝점: 훅 위치
+        }
     }
 
     private void RockPlatform()
