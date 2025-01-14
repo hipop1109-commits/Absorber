@@ -50,17 +50,12 @@ public class WeaponController : MonoBehaviour
     private bool canShoot = true;
     public Vector3 mouseWorldPosition;
 
-
-    //훅에 필요한 변수들
-    public GameObject hookPrefab; // 훅 프리팹
-    public float hookSpeed = 20f; // 훅 발사 속도
-    public LayerMask attachableLayer; // 훅이 붙을 수 있는 레이어
-    public DistanceJoint2D joint; // 캐릭터에 붙을 DistanceJoint2D
-
-    private GameObject hookInstance; // 생성된 훅 인스턴스
-    private Rigidbody2D hookRb; // 훅의 Rigidbody2D
-    private bool isHookAttached = false; // 훅이 고정되었는지 확인
-    public LineRenderer lineRenderer;
+    //발판 관련 설정
+    public GameObject platformPrefab; // 발판 프리팹
+    public float platformSpeed = 5f; // 발판 이동 속도
+    public float maxPlatformDistance = 1f; // 발판이 이동할 최대 거리
+    public int maxPlatforms = 2;
+    private List<GameObject> activePlatforms = new List<GameObject>();
 
     public static WeaponController Instance { get; private set; }
 
@@ -85,7 +80,7 @@ public class WeaponController : MonoBehaviour
         WaterEffect.SetActive(false);
         GrassEffect.SetActive(false);
 
-      
+        
     }
 
     private void Update()
@@ -116,14 +111,6 @@ public class WeaponController : MonoBehaviour
         {
             Gun.rotation = Quaternion.Euler(0, 0, angle); // 총을 정상적으로 회전
         }
-
-        //로프 거리 업데이트
-        if (isHookAttached)
-        {
-            UpdateJoint(); 
-        }
-        //라인 렌더러 업데이트
-        UpdateLineRenderer();
     }
 
     //오른마우스 눌렀을때
@@ -248,6 +235,7 @@ public class WeaponController : MonoBehaviour
                 RopeActive();
                 break;
             case 6:
+                RockPlatform();
                 break;
         }
     }
@@ -310,6 +298,46 @@ public class WeaponController : MonoBehaviour
         canShoot = true; // 발사 가능 상태로 전환
     }
 
+    private void RockPlatform()
+    {
+        if (activePlatforms.Count >= maxPlatforms)
+        {
+            // 활성화된 발판이 최대 갯수일 경우 첫 번째 발판 제거
+            Destroy(activePlatforms[0]);
+            activePlatforms.RemoveAt(0);
+        }
+        GameObject platform = Instantiate(platformPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody2D rb = platform.GetComponent<Rigidbody2D>();
+
+        rb.linearVelocity = firePoint.right * platformSpeed;
+        platform.transform.rotation = Quaternion.identity;
+
+        StartCoroutine(PlatformBehavior(platform, rb));
+    }
+
+    IEnumerator PlatformBehavior(GameObject platform, Rigidbody2D rb)
+    {
+        float traveledDistance = 0f;
+        Vector2 lastPosition = platform.transform.position;
+        Vector3 initialScale = platform.transform.localScale;
+        Vector3 targetScale = new Vector3(4f, 1f, 1f); // 최종 발판 크기
+
+        while (traveledDistance < maxPlatformDistance)
+        {
+            // 발판 크기 점진적으로 변경
+            platform.transform.localScale = Vector3.Lerp(initialScale, targetScale, traveledDistance / maxPlatformDistance);
+
+            // 이동 거리 계산
+            traveledDistance += Vector2.Distance(lastPosition, platform.transform.position);
+            lastPosition = platform.transform.position;
+
+            yield return null;
+        }
+
+        // 발판 고정
+        rb.linearVelocity = Vector2.zero; // 속도 제거
+        rb.GetComponent<Collider2D>().enabled = true; // 충돌 가능 활성화
+    }
     private void WaterSpray()
     {
 
@@ -317,73 +345,9 @@ public class WeaponController : MonoBehaviour
 
     //훅을 쏘는 모션
     private void RopeActive()
-    {
-        Vector2 direction = (mouseWorldPosition - firePoint.position).normalized;
-
-        hookInstance = Instantiate(hookPrefab, firePoint.position, Quaternion.identity);
-        hookRb = hookInstance.GetComponent<Rigidbody2D>();
-        hookRb.linearVelocity = direction * hookSpeed;
-
-        // Raycast로 충돌 지점 감지
-        RaycastHit2D hit = Physics2D.Raycast(firePoint.position, direction, Mathf.Infinity, attachableLayer);
-        if (hit.collider != null)
-        {
-            AttachHook(hit.point);
-        }
-
-        lineRenderer.enabled = true;
+    { 
     }
 
-    //훅이 붙었을 때 기능
-    private void AttachHook(Vector2 attachPoint)
-    {
-        isHookAttached = true;
-
-        // 훅 고정
-        hookRb.linearVelocity = Vector2.zero;
-        hookRb.position = attachPoint;
-
-        // DistanceJoint2D 연결
-        joint.enabled = true;
-        joint.connectedAnchor = attachPoint;
-        joint.distance = Vector2.Distance(transform.position, attachPoint);
-    }
-
-    //훅이 떨어질 때 기능
-    private void DetachHook()
-    {
-        isHookAttached = false;
-
-        // 훅 및 로프 해제
-        if (hookInstance != null)
-        {
-            Destroy(hookInstance);
-        }
-        joint.enabled = false;
-
-        lineRenderer.enabled = false;
-    }
-
-    private void UpdateJoint()
-    {
-        // 캐릭터와 훅 간 거리 갱신
-        joint.distance = Vector2.Distance(transform.position, joint.connectedAnchor);
-    }
-
-    private void UpdateLineRenderer()
-    {
-        if (lineRenderer.enabled && hookInstance != null)
-        {
-            // LineRenderer의 시작점과 끝점 설정
-            lineRenderer.SetPosition(0, firePoint.position); // 시작점: 캐릭터의 총구
-            lineRenderer.SetPosition(1, hookInstance.transform.position); // 끝점: 훅 위치
-        }
-    }
-
-    private void RockPlatform()
-    {
-
-    }
     private void HealPotion()
     {
 
