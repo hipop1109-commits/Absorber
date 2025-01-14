@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("방출");
         Combination();
+        WeaponController.Instance.WeaponSelect();
     }
 
 
