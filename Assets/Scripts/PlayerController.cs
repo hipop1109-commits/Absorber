@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
 
     private float dashCooldownTimer; // 대쉬 쿨타임을 계산하기 위한 타이머
 
-    [SerializeField] private int select1 = 1;
-    [SerializeField] private int select2 = 1;
+    public int select1 = 1;
+    public int select2 = 1;
 
     [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
     [SerializeField] private float jumpSpeed = 10f; // 캐릭터 점프 속도
@@ -83,7 +83,15 @@ public class PlayerController : MonoBehaviour
             dashCooldownTimer -= Time.deltaTime;
         }
     }
+    public int GetSelect1()
+    {
+        return select1;
+    }
 
+    public int GetSelect2()
+    {
+        return select2;
+    }
 
     //Q(물(1), 풀(2), 바위(3))
     public void OnSelect1(InputValue value)
