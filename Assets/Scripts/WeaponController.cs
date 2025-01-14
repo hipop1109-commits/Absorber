@@ -241,22 +241,23 @@ public class WeaponController : MonoBehaviour
         switch (WeaponMode)
         {
             case 1:
-                StartCoroutine(WaterSpray());
+                StartCoroutine(WaterSpray()); //파도타기
                 break;
             case 2:
-                StartCoroutine(HealPotion());
+                StartCoroutine(HealPotion()); //회복포션
                 break;
             case 3:
-                StartCoroutine(RockBullet());
+                StartCoroutine(RockBullet()); //돌총알
                 break;
             case 4:
-                StartCoroutine(RockBomb());
+                StartCoroutine(RockBomb()); //돌폭탄
                 break;
             case 5:
-                RopeActive();
+                RopeActive(); //나무덩쿨
                 break;
             case 6:
-                RockPlatform();
+                Debug.Log("발사4");
+                StartCoroutine(RockPlatform()); //발판
                 break;
         }
     }
@@ -293,7 +294,7 @@ public class WeaponController : MonoBehaviour
 
     private IEnumerator RockBomb()
     {
-        Debug.Log("발사");
+        Debug.Log("발사3");
         if (canShoot && RockGauge > 0)
         {
             Debug.Log("발사2");
@@ -315,6 +316,7 @@ public class WeaponController : MonoBehaviour
     
     IEnumerator RockPlatform()
     {
+        Debug.Log("발사3");
         if (canShoot && RockGauge > 0 && GrassGauge > 0)
         {
             RockGauge -= 5f;
