@@ -38,7 +38,7 @@ public class WeaponController : MonoBehaviour
     public Transform Gun;
 
     //ÃÑÀÇ ¸ðµå
-    public int WeaponMode;
+    public string WeaponMode;
 
     //ÃÑ °ü·Ã ¼³Á¤
     public GameObject bulletPrefab;
@@ -240,22 +240,22 @@ public class WeaponController : MonoBehaviour
     {
         switch (WeaponMode)
         {
-            case 1:
+            case "ÆÄµµÅ¸±â":
                 StartCoroutine(WaterSpray()); //ÆÄµµÅ¸±â
                 break;
-            case 2:
+            case "Èú¸µ Æ÷¼Ç":
                 StartCoroutine(HealPotion()); //È¸º¹Æ÷¼Ç
                 break;
-            case 3:
+            case "¹ÙÀ§ ÃÑ¾Ë":
                 StartCoroutine(RockBullet()); //µ¹ÃÑ¾Ë
                 break;
-            case 4:
+            case "¹ÙÀ§ ÆøÅº":
                 StartCoroutine(RockBomb()); //µ¹ÆøÅº
                 break;
-            case 5:
+            case "³ª¹«µ¢Äð":
                 RopeActive(); //³ª¹«µ¢Äð
                 break;
-            case 6:
+            case "¹ßÆÇ »ý¼º":
                 Debug.Log("¹ß»ç4");
                 StartCoroutine(RockPlatform()); //¹ßÆÇ
                 break;

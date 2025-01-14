@@ -165,6 +165,7 @@ public class PlayerController : MonoBehaviour
         if (combinations.TryGetValue(selectedCombination, out string result))
         {
             Debug.Log($"방출: {result}");
+            WeaponController.Instance.WeaponMode = result;
         }
         else
         {
