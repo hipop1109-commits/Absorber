@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
     public void OnEmit(InputValue value)
     {
         Debug.Log("방출");
+        WeaponController.Instance.WeaponSelect();
     }
 
     // 이동 입력 처리
