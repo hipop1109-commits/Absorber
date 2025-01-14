@@ -46965,14 +46965,14 @@ MonoBehaviour:
   RockEffect: {fileID: 1107158861}
   WaterEffect: {fileID: 1272061520}
   GrassEffect: {fileID: 2844509}
-  RockGauge: 0
+  RockGauge: 40
   GrassGauge: 50
-  WaterGauge: 0
+  WaterGauge: 50
   MaxGauge: 100
   FillSpeed: 5
   GunPivot: {fileID: 2130183424}
   Gun: {fileID: 1701570905}
-  WeaponMode: 6
+  WeaponMode: 1
   bulletPrefab: {fileID: 3421690336342018467, guid: 8585b0d72ef6c8f449e5593017703bb6, type: 3}
   bombPrefab: {fileID: 3785595691207982745, guid: 2bf48233c5032364fbfbf4c749fbe320, type: 3}
   firePoint: {fileID: 912892566}
@@ -46981,9 +46981,11 @@ MonoBehaviour:
   BombFireCooldown: 2
   mouseWorldPosition: {x: 0, y: 0, z: 0}
   platformPrefab: {fileID: 4127994144953814145, guid: 533d45c122c2f7e44ad4472c0bfc2c55, type: 3}
-  platformSpeed: 25
-  maxPlatformDistance: 2
+  platformSpeed: 20
+  maxPlatformDistance: 3
   maxPlatforms: 2
+  HealPrefab: {fileID: 7762289673465362634, guid: 9fc39fa5a59b07344b6cb184efd06b28, type: 3}
+  WaterPrefab: {fileID: 7013776971245333020, guid: dbba8a0c48af65942b89ab8c738b9cf9, type: 3}
 --- !u!212 &1701570907
 SpriteRenderer:
   m_ObjectHideFlags: 0

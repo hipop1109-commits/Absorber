@@ -57,6 +57,18 @@ public class WeaponController : MonoBehaviour
     public int maxPlatforms = 2;
     private List<GameObject> activePlatforms = new List<GameObject>();
 
+    //힐링 포션 변수
+    public GameObject HealPrefab;
+
+    //물총 변수
+    public GameObject WaterPrefab;
+
+    //로프 변수
+    public LineRenderer line;
+    public Transform hook;
+    public bool isHookActive = false;
+    public bool isLineMax;
+
     public static WeaponController Instance { get; private set; }
 
     private void Awake()
@@ -80,7 +92,11 @@ public class WeaponController : MonoBehaviour
         WaterEffect.SetActive(false);
         GrassEffect.SetActive(false);
 
-        
+        line.positionCount = 2;
+        line.endWidth = line.startWidth = 0.05f;
+        line.SetPosition(0, Gun.position);
+        line.SetPosition(1, hook.position);
+        line.useWorldSpace = true;
     }
 
     private void Update()
@@ -111,6 +127,9 @@ public class WeaponController : MonoBehaviour
         {
             Gun.rotation = Quaternion.Euler(0, 0, angle); // 총을 정상적으로 회전
         }
+
+        line.SetPosition(0, Gun.position);
+        line.SetPosition(1, hook.position);
     }
 
     //오른마우스 눌렀을때
@@ -222,8 +241,10 @@ public class WeaponController : MonoBehaviour
         switch (WeaponMode)
         {
             case 1:
+                StartCoroutine(WaterSpray());
                 break;
             case 2:
+                StartCoroutine(HealPotion());
                 break;
             case 3:
                 StartCoroutine(RockBullet());
@@ -257,16 +278,16 @@ public class WeaponController : MonoBehaviour
                 rb.gravityScale = 0; // 중력 영향 제거
                 rb.linearVelocity = firePoint.right * bulletSpeed; // 발사 방향과 속도 설정
             }
-            StartCoroutine(ShootCooldown());
+            StartCoroutine(Cooldown(0.2f));
             yield return new WaitForSeconds(2f);
             Destroy(bullet);
         }
     }
 
-    IEnumerator ShootCooldown()
+    IEnumerator Cooldown(float CoolDown)
     {
         canShoot = false; // 발사 불가능 상태로 전환
-        yield return new WaitForSeconds(fireCooldown); // 쿨다운 시간 기다림
+        yield return new WaitForSeconds(CoolDown); // 쿨다운 시간 기다림
         canShoot = true; // 발사 가능 상태로 전환
     }
 
@@ -285,35 +306,38 @@ public class WeaponController : MonoBehaviour
             {
                 rb.linearVelocity = firePoint.right * bulletSpeed; // 발사 방향과 속도 설정
             }
-            StartCoroutine(BombCooldown());
+            StartCoroutine(Cooldown(3f));
             yield return new WaitForSeconds(2f);
             Destroy(Bomb);
         }
     }
 
-    IEnumerator BombCooldown()
+    
+    IEnumerator RockPlatform()
     {
-        canShoot = false; // 발사 불가능 상태로 전환
-        yield return new WaitForSeconds(BombFireCooldown); // 쿨다운 시간 기다림
-        canShoot = true; // 발사 가능 상태로 전환
-    }
-
-    private void RockPlatform()
-    {
-        if (activePlatforms.Count >= maxPlatforms)
+        if (canShoot && RockGauge > 0 && GrassGauge > 0)
         {
-            // 활성화된 발판이 최대 갯수일 경우 첫 번째 발판 제거
-            Destroy(activePlatforms[0]);
-            activePlatforms.RemoveAt(0);
+            RockGauge -= 5f;
+            GrassGauge -= 5f;
+
+            if (activePlatforms.Count >= maxPlatforms)
+            {
+                // 활성화된 발판이 최대 갯수일 경우 첫 번째 발판 제거
+                Destroy(activePlatforms[0]);
+                activePlatforms.RemoveAt(0);
+            }
+            GameObject platform = Instantiate(platformPrefab, firePoint.position, firePoint.rotation);
+            activePlatforms.Add(platform);
+            Rigidbody2D rb = platform.GetComponent<Rigidbody2D>();
+
+            rb.linearVelocity = firePoint.right * platformSpeed;
+            platform.transform.rotation = Quaternion.identity;
+            yield return new WaitForSeconds(2f);
+
+            StartCoroutine(PlatformBehavior(platform, rb));
         }
-        GameObject platform = Instantiate(platformPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = platform.GetComponent<Rigidbody2D>();
-
-        rb.linearVelocity = firePoint.right * platformSpeed;
-        platform.transform.rotation = Quaternion.identity;
-
-        StartCoroutine(PlatformBehavior(platform, rb));
     }
+
 
     IEnumerator PlatformBehavior(GameObject platform, Rigidbody2D rb)
     {
@@ -338,18 +362,69 @@ public class WeaponController : MonoBehaviour
         rb.linearVelocity = Vector2.zero; // 속도 제거
         rb.GetComponent<Collider2D>().enabled = true; // 충돌 가능 활성화
     }
-    private void WaterSpray()
-    {
 
+    IEnumerator HealPotion()
+    {
+        if (canShoot && RockGauge > 0 && GrassGauge > 0)
+        {
+            //클릭쿨다운 문제를 해결해야할듯?
+            WaterGauge -= 20f;
+            GrassGauge -= 20f;
+
+            yield return new WaitForSeconds(2f);
+            GameObject Bomb = Instantiate(HealPrefab, firePoint.position, firePoint.rotation);
+
+            // 총알의 Rigidbody2D에 속도 추가
+            Rigidbody2D rb = Bomb.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = firePoint.right * 5f; // 발사 방향과 속도 설정
+            }
+            StartCoroutine(Cooldown(5f));
+        }
+    }
+    
+    //물 무기 코드
+    IEnumerator WaterSpray()
+    {
+        Debug.Log("발사");
+        if (canShoot && WaterGauge > 0)
+        {
+            Debug.Log("발사2");
+            WaterGauge -= 5f;
+            
+            GameObject WaterGun = Instantiate(WaterPrefab, firePoint.position, firePoint.rotation);
+
+            // 총알의 Rigidbody2D에 속도 추가
+            Rigidbody2D rb = WaterGun.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.gravityScale = 0; // 중력 영향 제거
+                rb.linearVelocity = firePoint.right * 15f; // 발사 방향과 속도 설정
+            }
+            StartCoroutine(Cooldown(1f));
+            yield return new WaitForSeconds(3f);
+            Destroy(WaterGun);
+        }
     }
 
     //훅을 쏘는 모션
     private void RopeActive()
-    { 
-    }
-
-    private void HealPotion()
     {
+        if (!isHookActive)
+        {
+            hook.position = firePoint.position;
+            isHookActive = true;
+        }
 
+        if (isHookActive && !isLineMax)
+        {
+            hook.Translate(mouseWorldPosition.normalized * Time.deltaTime * 15);
+
+            if(Vector2.Distance(transform.position, hook.position) > 5)
+            {
+                isLineMax = true;
+            }
+        }
     }
 }
