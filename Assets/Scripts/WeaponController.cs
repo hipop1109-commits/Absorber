@@ -63,11 +63,8 @@ public class WeaponController : MonoBehaviour
     //¹°ÃÑ º¯¼ö
     public GameObject WaterPrefab;
 
-    //·ÎÇÁ º¯¼ö
-    public LineRenderer line;
-    public Transform hook;
-    public bool isHookActive = false;
-    public bool isLineMax;
+    public RopeActive rope;
+
 
     public static WeaponController Instance { get; private set; }
 
@@ -91,12 +88,6 @@ public class WeaponController : MonoBehaviour
         RockEffect.SetActive(false);
         WaterEffect.SetActive(false);
         GrassEffect.SetActive(false);
-
-        line.positionCount = 2;
-        line.endWidth = line.startWidth = 0.05f;
-        line.SetPosition(0, Gun.position);
-        line.SetPosition(1, hook.position);
-        line.useWorldSpace = true;
     }
 
     private void Update()
@@ -128,8 +119,6 @@ public class WeaponController : MonoBehaviour
             Gun.rotation = Quaternion.Euler(0, 0, angle); // ÃÑÀ» Á¤»óÀûÀ¸·Î È¸Àü
         }
 
-        line.SetPosition(0, Gun.position);
-        line.SetPosition(1, hook.position);
     }
 
     //¿À¸¥¸¶¿ì½º ´­·¶À»¶§
@@ -253,11 +242,11 @@ public class WeaponController : MonoBehaviour
                 StartCoroutine(RockBomb()); //µ¹ÆøÅº
                 break;
             case 5:
-                RopeActive(); //³ª¹«µ¢Äð
+                rope.RopeAction(); //³ª¹«µ¢Äð
                 break;
             case 6:
                 Debug.Log("¹ß»ç4");
-                StartCoroutine(RockPlatform()); //¹ßÆÇ
+                RockPlatform(); //¹ßÆÇ
                 break;
         }
     }
@@ -314,7 +303,7 @@ public class WeaponController : MonoBehaviour
     }
 
     
-    IEnumerator RockPlatform()
+    public void RockPlatform()
     {
         Debug.Log("¹ß»ç3");
         if (canShoot && RockGauge > 0 && GrassGauge > 0)
@@ -334,7 +323,6 @@ public class WeaponController : MonoBehaviour
 
             rb.linearVelocity = firePoint.right * platformSpeed;
             platform.transform.rotation = Quaternion.identity;
-            yield return new WaitForSeconds(2f);
 
             StartCoroutine(PlatformBehavior(platform, rb));
         }
@@ -410,23 +398,4 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    //ÈÅÀ» ½î´Â ¸ð¼Ç
-    private void RopeActive()
-    {
-        if (!isHookActive)
-        {
-            hook.position = firePoint.position;
-            isHookActive = true;
-        }
-
-        if (isHookActive && !isLineMax)
-        {
-            hook.Translate(mouseWorldPosition.normalized * Time.deltaTime * 15);
-
-            if(Vector2.Distance(transform.position, hook.position) > 5)
-            {
-                isLineMax = true;
-            }
-        }
-    }
 }

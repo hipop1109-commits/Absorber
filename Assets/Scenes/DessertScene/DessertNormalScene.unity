@@ -6729,7 +6729,7 @@ DistanceJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
-  m_Distance: 3
+  m_Distance: 10
   m_MaxDistanceOnly: 0
 --- !u!50 &239854822
 Rigidbody2D:
@@ -11807,6 +11807,7 @@ GameObject:
   - component: {fileID: 376019117}
   - component: {fileID: 376019116}
   - component: {fileID: 376019122}
+  - component: {fileID: 376019123}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -11923,8 +11924,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   select1: 1
   select2: 1
-  moveSpeed: 30
-  jumpSpeed: 30
+  moveSpeed: 20
+  jumpSpeed: 20
 --- !u!212 &376019120
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12028,6 +12029,23 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &376019123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376019115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e35969d9bc7f3842b4c1c958972706e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  line: {fileID: 238299060}
+  hook: {fileID: 239854825}
+  isHookActive: 0
+  isLineMax: 0
+  weapon: {fileID: 1701570906}
 --- !u!1 &378131547
 GameObject:
   m_ObjectHideFlags: 0
@@ -46972,7 +46990,7 @@ MonoBehaviour:
   FillSpeed: 5
   GunPivot: {fileID: 2130183424}
   Gun: {fileID: 1701570905}
-  WeaponMode: 6
+  WeaponMode: 5
   bulletPrefab: {fileID: 3421690336342018467, guid: 8585b0d72ef6c8f449e5593017703bb6, type: 3}
   bombPrefab: {fileID: 3785595691207982745, guid: 2bf48233c5032364fbfbf4c749fbe320, type: 3}
   firePoint: {fileID: 912892566}
@@ -46981,15 +46999,12 @@ MonoBehaviour:
   BombFireCooldown: 2
   mouseWorldPosition: {x: 0, y: 0, z: 0}
   platformPrefab: {fileID: 4127994144953814145, guid: 533d45c122c2f7e44ad4472c0bfc2c55, type: 3}
-  platformSpeed: 20
-  maxPlatformDistance: 0.3
+  platformSpeed: 15
+  maxPlatformDistance: 3
   maxPlatforms: 2
   HealPrefab: {fileID: 7762289673465362634, guid: 9fc39fa5a59b07344b6cb184efd06b28, type: 3}
   WaterPrefab: {fileID: 7013776971245333020, guid: dbba8a0c48af65942b89ab8c738b9cf9, type: 3}
-  line: {fileID: 238299060}
-  hook: {fileID: 239854825}
-  isHookActive: 0
-  isLineMax: 0
+  rope: {fileID: 376019123}
 --- !u!212 &1701570907
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -61909,3 +61924,4 @@ SceneRoots:
   - {fileID: 1284036004}
   - {fileID: 1016198744}
   - {fileID: 567628096}
+  - {fileID: 239854825}
