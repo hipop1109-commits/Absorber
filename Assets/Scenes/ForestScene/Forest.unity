@@ -5008,9 +5008,9 @@ MonoBehaviour:
   RockEffect: {fileID: 688455532}
   WaterEffect: {fileID: 1693363242}
   GrassEffect: {fileID: 842838039}
-  RockGauge: 0
+  RockGauge: 50
   GrassGauge: 50
-  WaterGauge: 0
+  WaterGauge: 50
   MaxGauge: 100
   FillSpeed: 5
   GunPivot: {fileID: 1722832278}
@@ -5023,16 +5023,13 @@ MonoBehaviour:
   fireCooldown: 0.5
   BombFireCooldown: 2
   mouseWorldPosition: {x: 0, y: 0, z: 0}
-  platformPrefab: {fileID: 0}
+  platformPrefab: {fileID: 4127994144953814145, guid: 533d45c122c2f7e44ad4472c0bfc2c55, type: 3}
   platformSpeed: 5
   maxPlatformDistance: 1
   maxPlatforms: 2
-  HealPrefab: {fileID: 0}
-  WaterPrefab: {fileID: 0}
-  line: {fileID: 0}
-  hook: {fileID: 0}
-  isHookActive: 0
-  isLineMax: 0
+  HealPrefab: {fileID: 7762289673465362634, guid: 9fc39fa5a59b07344b6cb184efd06b28, type: 3}
+  WaterPrefab: {fileID: 7013776971245333020, guid: dbba8a0c48af65942b89ab8c738b9cf9, type: 3}
+  rope: {fileID: 0}
 --- !u!212 &145565814
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -26026,7 +26023,7 @@ MonoBehaviour:
   m_Creator: {fileID: 0}
   m_Modifiers: []
   m_ColliderSegment:
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.974224, y: -11.763506}
   - {x: -18.983559, y: -9.493164}
   - {x: -19.001541, y: -0.6697909}
   - {x: -17.913036, y: -0.5324202}
@@ -26046,11 +26043,11 @@ MonoBehaviour:
   - {x: -4.555987, y: -0.95172805}
   - {x: -3.0250213, y: -0.8906908}
   - {x: -3.0373394, y: -1.0234119}
-  - {x: -3.0611546, y: -11.523481}
-  - {x: -3.0510702, y: -11.946981}
+  - {x: -3.0611546, y: -11.523483}
+  - {x: -3.0510702, y: -11.946983}
   - {x: -3.6668618, y: -11.928233}
-  - {x: -18.582382, y: -11.741608}
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.582378, y: -11.741608}
+  - {x: -18.974224, y: -11.763506}
   m_ShadowSegment: []
 --- !u!1971053207 &636967294
 SpriteShapeRenderer:
@@ -26162,7 +26159,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.974224, y: -11.763506}
   - {x: -18.983559, y: -9.493164}
   - {x: -19.001541, y: -0.6697909}
   - {x: -17.913036, y: -0.5324202}
@@ -26182,11 +26179,11 @@ EdgeCollider2D:
   - {x: -4.555987, y: -0.95172805}
   - {x: -3.0250213, y: -0.8906908}
   - {x: -3.0373394, y: -1.0234119}
-  - {x: -3.0611546, y: -11.523481}
-  - {x: -3.0510702, y: -11.946981}
+  - {x: -3.0611546, y: -11.523483}
+  - {x: -3.0510702, y: -11.946983}
   - {x: -3.6668618, y: -11.928233}
-  - {x: -18.582382, y: -11.741608}
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.582378, y: -11.741608}
+  - {x: -18.974224, y: -11.763506}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -71692,7 +71689,7 @@ MonoBehaviour:
   m_Creator: {fileID: 0}
   m_Modifiers: []
   m_ColliderSegment:
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.89597, y: -12.419533}
   - {x: -23.945917, y: -10.754546}
   - {x: -24.245749, y: 0.27713066}
   - {x: -23.46612, y: 0.18246126}
@@ -71722,10 +71719,10 @@ MonoBehaviour:
   - {x: -0.697494, y: -5.363968}
   - {x: -0.70084846, y: -5.692913}
   - {x: -0.5347854, y: -12.18148}
-  - {x: -0.51264185, y: -12.614985}
+  - {x: -0.5126419, y: -12.6149845}
   - {x: -1.2339597, y: -12.597428}
-  - {x: -23.512447, y: -12.396186}
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.512445, y: -12.396186}
+  - {x: -23.89597, y: -12.419533}
   m_ShadowSegment: []
 --- !u!1971053207 &1811669674
 SpriteShapeRenderer:
@@ -71837,7 +71834,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.89597, y: -12.419533}
   - {x: -23.945917, y: -10.754546}
   - {x: -24.245749, y: 0.27713066}
   - {x: -23.46612, y: 0.18246126}
@@ -71867,10 +71864,10 @@ EdgeCollider2D:
   - {x: -0.697494, y: -5.363968}
   - {x: -0.70084846, y: -5.692913}
   - {x: -0.5347854, y: -12.18148}
-  - {x: -0.51264185, y: -12.614985}
+  - {x: -0.5126419, y: -12.6149845}
   - {x: -1.2339597, y: -12.597428}
-  - {x: -23.512447, y: -12.396186}
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.512445, y: -12.396186}
+  - {x: -23.89597, y: -12.419533}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0

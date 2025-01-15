@@ -12046,6 +12046,8 @@ MonoBehaviour:
   isHookActive: 0
   isLineMax: 0
   weapon: {fileID: 1701570906}
+  elapsedTime: 0
+  ropeCoolTime: 5
 --- !u!1 &378131547
 GameObject:
   m_ObjectHideFlags: 0
