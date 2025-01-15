@@ -51,6 +51,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "EmitCancle",
+                    "type": "Button",
+                    "id": "3cbf219c-dbef-415b-a59f-f8f5a5d5f6d1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Select1",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
@@ -310,6 +319,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Emit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d31b651b-8071-4aa4-b491-c214b3fd8056",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "EmitCancle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

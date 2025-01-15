@@ -138,25 +138,32 @@ public class PlayerController : MonoBehaviour
 
 
     //우클릭 흡수
-    public void OnAbsorb(InputValue value)
+    public void OnAbsorb()
     {
         Debug.Log("흡수");
         WeaponController.Instance.AbsorbClick();
     }
 
     //우클릭 흡수 취소
-    public void OnAbsorbCancle(InputValue value)
+    public void OnAbsorbCancle()
     {
         Debug.Log("흡수 취소");
         WeaponController.Instance.AbsorbClickUp();
     }
 
     //좌클릭 방출
-    public void OnEmit(InputValue value)
+    public void OnEmit()
     {
         Debug.Log("방출");
         Combination();
         WeaponController.Instance.WeaponSelect();
+    }
+
+
+    //좌클릭 방출 취소
+    public void OnEmitCancle()
+    {
+        Debug.Log("방출취소");
     }
 
 
