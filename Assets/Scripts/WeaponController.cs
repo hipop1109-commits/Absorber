@@ -98,6 +98,7 @@ public class WeaponController : MonoBehaviour
         mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint
         (new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, transform.position.z - GunPivot.position.z));
 
+        
 
         // 총구의 회전방향 설정
         Vector2 direction = new Vector2(
