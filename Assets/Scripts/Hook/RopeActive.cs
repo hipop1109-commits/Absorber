@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,9 +37,7 @@ public class RopeActive : MonoBehaviour
 
     public IEnumerator RopeAction()
     {
-        characterRigidbody.bodyType = RigidbodyType2D.Kinematic;
-
-        if (!isHookActive && !isLineMax)
+        while (!isHookActive)
         {
             hook.position = weapon.firePoint.position;
             Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
@@ -53,21 +52,16 @@ public class RopeActive : MonoBehaviour
 
         while (!isLineMax && isHookActive && !isAttach) 
         {
-            hook.Translate(mouseDir.normalized * Time.deltaTime * 50);
-            if (Vector2.Distance(transform.position, hook.position) > 10)
+            hook.Translate(mouseDir.normalized * Time.deltaTime * 80);
+            if (Vector2.Distance(transform.position, hook.position) > 15)
             {
                 isLineMax = true;
             }
-            
             yield return null; // 다음 프레임까지 대기
-
-            
         }
-        
-
-        while (isLineMax && isHookActive && !isAttach)
+         while (isLineMax && isHookActive && !isAttach)
         {
-            hook.position = Vector2.MoveTowards(hook.position, transform.position, Time.deltaTime * 50);
+            hook.position = Vector2.MoveTowards(hook.position, transform.position, Time.deltaTime * 80);
             if (Vector2.Distance(transform.position, hook.position) < 0.01f)
             {
                 isHookActive = false;
@@ -76,23 +70,16 @@ public class RopeActive : MonoBehaviour
             }
             yield return null; // 다음 프레임까지 대기
         }
-
-        while (isAttach)
-        {
-
-        }
-        characterRigidbody.bodyType = RigidbodyType2D.Dynamic;
+       // while (isAttach)
+       // {
+       //    isAttach = false;
+       //     isHookActive = false;
+       //     isLineMax = false;
+        //    hook.GetComponent<Hookg>().joint2D.enabled = false;
+        //    hook.gameObject.SetActive(false);
+        //}
+        yield return null; // 다음 프레임까지 대기
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-      
-        if (collision.gameObject.CompareTag("ground"))
-        {
-            characterRigidbody.bodyType = RigidbodyType2D.Dynamic;
-
-            // 속도를 초기화해서 이상한 움직임 방지
-            characterRigidbody.linearVelocity = Vector2.zero;
-        }
-    }
+   
 }
