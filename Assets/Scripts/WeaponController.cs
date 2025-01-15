@@ -229,22 +229,22 @@ public class WeaponController : MonoBehaviour
     {
         switch (WeaponMode)
         {
-            case "파도타기":
+            case "water":
                 StartCoroutine(WaterSpray()); //파도타기
                 break;
-            case "힐링 포션":
+            case "potion":
                 StartCoroutine(HealPotion()); //회복포션
                 break;
-            case "바위 총알":
+            case "bullet":
                 StartCoroutine(RockBullet()); //돌총알
                 break;
-            case "바위 폭탄":
+            case "rockBomb":
                 StartCoroutine(RockBomb()); //돌폭탄
                 break;
-            case "나무덩쿨":
+            case "treeVine":
                 StartCoroutine(rope.RopeAction()); //나무덩쿨
                 break;
-            case "발판 생성":
+            case "platform":
                 RockPlatform(); //발판
                 break;
         }
