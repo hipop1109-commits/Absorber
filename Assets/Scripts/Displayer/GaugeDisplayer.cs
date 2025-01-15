@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GaugeController : MonoBehaviour
+public class GaugeDisplayer : MonoBehaviour
 {
     // 게이지 이미지
     public Image rockGaugeImage; 
