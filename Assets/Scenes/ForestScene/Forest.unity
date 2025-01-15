@@ -5029,7 +5029,7 @@ MonoBehaviour:
   maxPlatforms: 2
   HealPrefab: {fileID: 7762289673465362634, guid: 9fc39fa5a59b07344b6cb184efd06b28, type: 3}
   WaterPrefab: {fileID: 7013776971245333020, guid: dbba8a0c48af65942b89ab8c738b9cf9, type: 3}
-  rope: {fileID: 0}
+  rope: {fileID: 528240013}
 --- !u!212 &145565814
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21712,6 +21712,7 @@ GameObject:
   - component: {fileID: 528240011}
   - component: {fileID: 528240007}
   - component: {fileID: 528240006}
+  - component: {fileID: 528240013}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -21864,6 +21865,7 @@ Transform:
   - {fileID: 145565812}
   - {fileID: 2081711140}
   - {fileID: 1069574576}
+  - {fileID: 1028525236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &528240010
@@ -22034,6 +22036,27 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &528240013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528240005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e35969d9bc7f3842b4c1c958972706e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  line: {fileID: 726011185}
+  hook: {fileID: 1028525236}
+  isHookActive: 0
+  isLineMax: 0
+  isAttach: 0
+  weapon: {fileID: 145565813}
+  elapsedTime: 0
+  ropeCoolTime: 5
+  characterRigidbody: {fileID: 528240006}
 --- !u!1 &530426126
 GameObject:
   m_ObjectHideFlags: 0
@@ -37293,6 +37316,7 @@ GameObject:
   - component: {fileID: 1028525234}
   - component: {fileID: 1028525233}
   - component: {fileID: 1028525232}
+  - component: {fileID: 1028525237}
   m_Layer: 0
   m_Name: Hook
   m_TagString: Untagged
@@ -37307,7 +37331,7 @@ DistanceJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028525231}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 0}
@@ -37447,13 +37471,26 @@ Transform:
   m_GameObject: {fileID: 1028525231}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 430, y: -10, z: 0}
+  m_LocalPosition: {x: 556.6, y: -17.2, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 726011184}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 528240009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1028525237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028525231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74b9ccf4c0d60f41af8086559b55370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joint2D: {fileID: 1028525232}
 --- !u!1 &1033538999
 GameObject:
   m_ObjectHideFlags: 0
@@ -71172,7 +71209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowFactor: 0.5
-  slowLength: 0.1
+  slowLength: 1
 --- !u!4 &1793704971
 Transform:
   m_ObjectHideFlags: 0
@@ -89121,6 +89158,5 @@ SceneRoots:
   - {fileID: 1473281419}
   - {fileID: 293924929}
   - {fileID: 528240009}
-  - {fileID: 1028525236}
   - {fileID: 1331828580}
   - {fileID: 1793704971}

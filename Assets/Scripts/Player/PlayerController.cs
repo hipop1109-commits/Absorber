@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isDashing; // 대쉬 중인지 여부를 나타내는 플래그
 
     public StateMachine stateMachine; // 캐릭터의 상태를 관리할 상태 머신
+    RopeActive grappling;
 
     private void Awake()
     {
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         // 상태 머신의 초기 상태를 Idle로 설정
         stateMachine.Initalize(stateMachine.idleState);
+        grappling = GetComponent<RopeActive>();
     }
 
     private void FixedUpdate()
@@ -241,6 +244,9 @@ public class PlayerController : MonoBehaviour
     // 이동 로직 처리
     private void ApplyMovement()
     {
+        if (grappling.isAttach)
+            rb.AddForce(new Vector2(moveDirection.x * moveSpeed, 0));
+        else
         rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y); // 이동 속도 적용
     }
 
