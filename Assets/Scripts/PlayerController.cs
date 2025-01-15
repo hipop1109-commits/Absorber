@@ -83,11 +83,14 @@ public class PlayerController : MonoBehaviour
             dashCooldownTimer -= Time.deltaTime;
         }
     }
+
+    //select1값을 가져오는 메소드
     public int GetSelect1()
     {
         return select1;
     }
 
+    //select2값을 가져오는 메소드
     public int GetSelect2()
     {
         return select2;
@@ -104,6 +107,10 @@ public class PlayerController : MonoBehaviour
         {
             select1 += 1;
         }
+        // SlowTime 작동 및 시간 복원 코루틴 시작
+        SlowTime.Instance.Slow();
+        StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
+        StartCoroutine(ResetTimeScale());
     }
 
     //E
@@ -117,7 +124,18 @@ public class PlayerController : MonoBehaviour
         {
             select2 += 1;
         }
+        // SlowTime 작동 및 시간 복원 코루틴 시작
+        SlowTime.Instance.Slow();
+        StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
+        StartCoroutine(ResetTimeScale());
     }
+
+    private System.Collections.IEnumerator ResetTimeScale()
+    {
+        yield return new WaitForSecondsRealtime(SlowTime.Instance.slowLength);
+        SlowTime.Instance.Back();
+    }
+
 
     //우클릭 흡수
     public void OnAbsorb(InputValue value)
@@ -147,15 +165,15 @@ public class PlayerController : MonoBehaviour
     {
         Dictionary<(int, int), string> combinations = new Dictionary<(int, int), string>
         {
-            { (1, 1), "파도타기"}, //물+물
-            { (2, 2), "나무덩쿨" }, // 풀+풀
-            { (3, 3), "바위 폭탄" }, // 바위+바위
-            { (1, 2), "힐링 포션" }, // 물+풀
-            { (2, 1), "힐링 포션" }, // 풀+물
-            { (2, 3), "발판 생성" }, // 풀+바위
-            { (3, 2), "발판 생성" }, // 바위+풀
-            { (1, 3), "바위 총알" }, // 물+바위
-            { (3, 1), "바위 총알" }  // 바위+물
+            { (1, 1), "water"}, //물+물
+            { (2, 2), "treeVine" }, // 풀+풀
+            { (3, 3), "rockBomb" }, // 바위+바위
+            { (1, 2), "potion" }, // 물+풀
+            { (2, 1), "potion" }, // 풀+물
+            { (2, 3), "platform" }, // 풀+바위
+            { (3, 2), "platform" }, // 바위+풀
+            { (1, 3), "bullet" }, // 물+바위
+            { (3, 1), "bullet" }  // 바위+물
         };
 
         //선택된 조합

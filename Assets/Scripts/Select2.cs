@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Select2 : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class Select2 : MonoBehaviour
     {
         if (playerController != null)
         {
-            //select°ª¿¡ µû¶ó ´Ù¸¥ ¾Ö´Ï¸ŞÀÌ¼Ç Æ®¸®°Å
+            //selectê°’ì— ë”°ë¼ ë‹¤ë¥¸ ì• ë‹ˆë©”ì´ì…˜ íŠ¸ë¦¬ê±°
             switch (playerController.GetSelect2())
             {
                 case 1:
