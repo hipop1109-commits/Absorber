@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6897420413108769360}
   - component: {fileID: 2886001689011476240}
+  - component: {fileID: 5408855186030438264}
   - component: {fileID: 5579133705156864420}
   - component: {fileID: 3409525054072430011}
   - component: {fileID: 5145026240430403246}
   m_Layer: 0
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,6 +91,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5408855186030438264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3785595691207982745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9318c79e653958142a3e2ba587a0950a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
 --- !u!50 &5579133705156864420
 Rigidbody2D:
   serializedVersion: 5

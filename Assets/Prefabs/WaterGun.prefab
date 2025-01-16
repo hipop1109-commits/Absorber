@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6245917433455588748}
   - component: {fileID: 8329091691116953831}
+  - component: {fileID: -2809759154479567776}
   - component: {fileID: -4092501705996676606}
   - component: {fileID: 6052416339778530113}
   m_Layer: 0
   m_Name: WaterGun
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,6 +90,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-2809759154479567776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7013776971245333020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9318c79e653958142a3e2ba587a0950a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
 --- !u!50 &-4092501705996676606
 Rigidbody2D:
   serializedVersion: 5

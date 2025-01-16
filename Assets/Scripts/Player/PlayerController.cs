@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer; // 캐릭터의 스프라이트 렌더러
-    private Player player;
+    public Player player;
 
     private float dashCooldownTimer; // 대쉬 쿨타임을 계산하기 위한 타이머
 
@@ -245,9 +245,14 @@ public class PlayerController : MonoBehaviour
     private void ApplyMovement()
     {
         if (grappling.isAttach)
+        {
             rb.AddForce(new Vector2(moveDirection.x * moveSpeed, 0));
+        }
         else
-        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y); // 이동 속도 적용
+        {
+            Vector2 targetVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 0.1f); // 부드러운 변화        }
+        }
     }
 
     // 대쉬 로직 처리

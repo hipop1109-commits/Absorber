@@ -30,6 +30,7 @@ public class Player
         if(PlayerHp < 0)
         {
             PlayerHp = PlayerHp - damage;
+            Debug.Log($"Player Hp : {PlayerHp}");
         }
     }
 
@@ -43,5 +44,10 @@ public class Player
     public void Heal(int amount)
     {
         PlayerHp = Mathf.Min(PlayerHp + amount, PlayerMaxHp); // HP가 최대 HP를 초과하지 않도록 설정
+    }
+
+    public bool IsAlive()
+    {
+        return PlayerHp > 0;
     }
 }
