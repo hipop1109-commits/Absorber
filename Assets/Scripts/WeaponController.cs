@@ -53,7 +53,7 @@ public class WeaponController : MonoBehaviour
     //발판 관련 설정
     public GameObject platformPrefab; // 발판 프리팹
     public float platformSpeed = 5f; // 발판 이동 속도
-    public float maxPlatformDistance = 1f; // 발판이 이동할 최대 거리
+    public float maxPlatformDistance = 2f; // 발판이 이동할 최대 거리
     public int maxPlatforms = 2;
     private List<GameObject> activePlatforms = new List<GameObject>();
 
@@ -243,12 +243,21 @@ public class WeaponController : MonoBehaviour
                 StartCoroutine(RockBomb()); //돌폭탄
                 break;
             case "treeVine":
-                StartCoroutine(rope.RopeAction()); //나무덩쿨
+                if (canShoot && GrassGauge > 0)
+                {
+                    GrassGauge -= 5f;
+                    StartCoroutine(rope.RopeAction()); //나무덩쿨
+                }
                 break;
             case "platform":
                 RockPlatform(); //발판
                 break;
         }
+    }
+
+    public void WeaponLeft()
+    {
+        StartCoroutine(rope.RopeDetatch());
     }
 
     private IEnumerator RockBullet()
@@ -334,7 +343,7 @@ public class WeaponController : MonoBehaviour
         float traveledDistance = 0f;
         Vector2 lastPosition = platform.transform.position;
         Vector3 initialScale = platform.transform.localScale;
-        Vector3 targetScale = new Vector3(4f, 1f, 1f); // 최종 발판 크기
+        Vector3 targetScale = new Vector3(1f, 1f, 1f); // 최종 발판 크기
 
         while (traveledDistance < maxPlatformDistance)
         {
@@ -383,7 +392,8 @@ public class WeaponController : MonoBehaviour
             Debug.Log("발사2");
             WaterGauge -= 5f;
 
-            GameObject WaterGun = Instantiate(WaterPrefab, firePoint.position, firePoint.rotation);
+            Vector3 spawnPosition = firePoint.position + firePoint.right * 4f;
+            GameObject WaterGun = Instantiate(WaterPrefab, spawnPosition, firePoint.rotation);
 
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = WaterGun.GetComponent<Rigidbody2D>();

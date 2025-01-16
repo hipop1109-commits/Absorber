@@ -167,6 +167,7 @@ public class PlayerController : MonoBehaviour
     public void OnEmitCancle()
     {
         Debug.Log("방출취소");
+        WeaponController.Instance.WeaponLeft();
     }
 
 
