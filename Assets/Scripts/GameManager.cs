@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     public bool IsCleared { get { return isCleared; } }
    
     [SerializeField]private LifeDisplayer lifeDisplayer;
-    [SerializeField]private int life = 10;
+    // 생명 수 
+    [SerializeField]private int life = 10; 
 
     private Player player;
 
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // 테스트용
         if (Input.GetKeyDown(KeyCode.G))
         {
             player.TakeDamage(1);
@@ -60,21 +62,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    // 데미지 받으면 생명 감소 후 UI반영
-    public void Damage()
-    {
-        if (life > 0) 
-        {
-            life--;
-            lifeDisplayer.SetLives(life);
-        }
-        else
-        {
-            GameOver();
-        }
-    }
-
     // 재시작
     void Restart()
     {
