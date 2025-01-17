@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2615103524821186601}
   - component: {fileID: 4991965403730015708}
-  - component: {fileID: 9065990472988964398}
   - component: {fileID: 5953743849775898342}
+  - component: {fileID: 1641790279180179838}
   m_Layer: 0
   m_Name: Heal
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 416.5, y: -11, z: 0}
-  m_LocalScale: {x: 2, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 0.9245283, b: 0.017085562, a: 1}
+  m_Sprite: {fileID: -5903024442444494851, guid: 3794f35152d682e4cb80e4618aad8171, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -89,8 +89,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &9065990472988964398
-BoxCollider2D:
+--- !u!50 &5953743849775898342
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7762289673465362634}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &1641790279180179838
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,38 +154,46 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 2.28, y: 1.86}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
---- !u!50 &5953743849775898342
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7762289673465362634}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.05, y: -0.06}
+      - {x: 1.1, y: 0.06}
+      - {x: 1.14, y: 0.17}
+      - {x: 1.14, y: 0.45999998}
+      - {x: 1.11, y: 0.55}
+      - {x: 1.06, y: 0.65999997}
+      - {x: 0.90999997, y: 0.83}
+      - {x: 0.79999995, y: 0.88}
+      - {x: 0.66999996, y: 0.93}
+      - {x: 0.39, y: 0.93}
+      - {x: 0.29999998, y: 0.9}
+      - {x: 0.17999999, y: 0.82}
+      - {x: 0.06, y: 0.7}
+      - {x: 0, y: 0.62}
+      - {x: -0.07, y: 0.72999996}
+      - {x: -0.16, y: 0.79999995}
+      - {x: -0.22999999, y: 0.85999995}
+      - {x: -0.35999998, y: 0.93}
+      - {x: -0.71, y: 0.93}
+      - {x: -0.77, y: 0.90999997}
+      - {x: -0.91999996, y: 0.81}
+      - {x: -1.02, y: 0.71}
+      - {x: -1.11, y: 0.58}
+      - {x: -1.14, y: 0.45999998}
+      - {x: -1.14, y: 0.19}
+      - {x: -1.12, y: 0.08}
+      - {x: -1.01, y: -0.11}
+      - {x: -0.68, y: -0.42}
+      - {x: -0.12, y: -0.91999996}
+      - {x: -0.089999996, y: -0.93}
+      - {x: 0.08, y: -0.93}
+      - {x: 0.12, y: -0.9}
+      - {x: 0.68, y: -0.42}
+      - {x: 0.9, y: -0.22}
+  m_UseDelaunayMesh: 0

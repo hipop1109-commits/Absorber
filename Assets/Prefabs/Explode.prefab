@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2413064156131048008}
   - component: {fileID: 4418163144677029514}
   - component: {fileID: 4822745922111445601}
+  - component: {fileID: 4118909552525337586}
   m_Layer: 0
   m_Name: Explode
   m_TagString: Attack
@@ -183,3 +184,15 @@ PolygonCollider2D:
       - {x: 0.5, y: 0}
       - {x: 0.25, y: 0.43359375}
   m_UseDelaunayMesh: 0
+--- !u!114 &4118909552525337586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021623924099056739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a5defa13fad3aa4e850dfc36ab585d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

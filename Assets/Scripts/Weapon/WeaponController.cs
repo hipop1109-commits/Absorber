@@ -59,6 +59,7 @@ public class WeaponController : MonoBehaviour
 
     //힐링 포션 변수
     public GameObject HealPrefab;
+    private bool isGeneratingHealPotion;
 
     //물총 변수
     public GameObject WaterPrefab;
@@ -306,8 +307,7 @@ public class WeaponController : MonoBehaviour
                 rb.linearVelocity = firePoint.right * bulletSpeed; // 발사 방향과 속도 설정
             }
             StartCoroutine(Cooldown(3f));
-            yield return new WaitForSeconds(2f);
-            Destroy(Bomb);
+            yield return null;
         }
     }
 
@@ -364,22 +364,25 @@ public class WeaponController : MonoBehaviour
 
     IEnumerator HealPotion()
     {
-        if (canShoot && RockGauge > 0 && GrassGauge > 0)
+       
+        if (canShoot && !isGeneratingHealPotion && RockGauge > 0 && GrassGauge > 0)
         {
+            isGeneratingHealPotion = true;
             //클릭쿨다운 문제를 해결해야할듯?
             WaterGauge -= 20f;
             GrassGauge -= 20f;
 
             yield return new WaitForSeconds(2f);
-            GameObject Bomb = Instantiate(HealPrefab, firePoint.position, firePoint.rotation);
+            GameObject Heal = Instantiate(HealPrefab, firePoint.position, firePoint.rotation);
 
             // 총알의 Rigidbody2D에 속도 추가
-            Rigidbody2D rb = Bomb.GetComponent<Rigidbody2D>();
+            Rigidbody2D rb = Heal.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 rb.linearVelocity = firePoint.right * 5f; // 발사 방향과 속도 설정
             }
             StartCoroutine(Cooldown(5f));
+            isGeneratingHealPotion = false;
         }
     }
 
