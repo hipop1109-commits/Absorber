@@ -16,6 +16,8 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private PlayerController playerController;
 
+    [SerializeField] private GameObject itemPrefab;
+
     Vector2 vx;
 
     private void Start()
@@ -44,6 +46,7 @@ public class EnemyController : MonoBehaviour
        // transform.Translate(vx * Time.fixedDeltaTime);
     }
 
+    //플레이어가 공격을 받는 메서드
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -54,6 +57,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    //적이 공격을 받는 메서드
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Attack"))
@@ -66,13 +70,39 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    //적이 피해를 입는 메서드
+
     public void TakeDamage(int damage)
     {
         hp -= damage;
         Debug.Log($"적{gameObject} 체력 : {hp}"); 
         if(hp <= 0)
         {
+            //적 죽는 애니메이션
+
+
+            //적 사라짐
             Destroy(gameObject);
+
+            //아이템 드랍
+            SpawnItem();
+        }
+    }
+
+    //아이템 드랍 메서드
+    public void SpawnItem()
+    {
+        if(itemPrefab != null)
+        {
+            //적 위치에 아이템 생성
+            GameObject item = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+
+            Rigidbody2D rb = item.GetComponent<Rigidbody2D>();  
+            if(rb != null)
+            {
+                //위로 올라가는 힘을 줌
+                rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+            }
         }
     }
 }
