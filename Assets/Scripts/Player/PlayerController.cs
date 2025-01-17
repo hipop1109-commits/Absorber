@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public StateMachine stateMachine; // 캐릭터의 상태를 관리할 상태 머신
     RopeActive grappling;
 
+    private LifeDisplayer lifeDisplayer;
+
     private void Awake()
     {
         // 컴포넌트 초기화
@@ -39,7 +41,8 @@ public class PlayerController : MonoBehaviour
                 jumpSpeed: 10f, // 점프 속도*/
                 dashSpeed: 20f, // 대쉬 속도
                 dashCooldown: 1f, // 대쉬 쿨타임
-                dashDuration: 0.2f // 대쉬 지속 시간
+                dashDuration: 0.2f,// 대쉬 지속 시간
+                lifeDisplayer: lifeDisplayer
             );
 
         // 상태 머신 초기화
