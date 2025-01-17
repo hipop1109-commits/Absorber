@@ -27,17 +27,6 @@ public class Player
         this.lifeDisplayer = lifeDisplayer;
     }
 
-    // 플레이어가 데미지를 받을 때
-    public void TakeDamage(int damage)
-    {
-        if(PlayerHp > 0)
-        {
-            PlayerHp = PlayerHp - damage;
-            Debug.Log($"Player Hp : {PlayerHp}");
-            lifeDisplayer.SetLives(PlayerHp);
-        }
-    }
-
     public void Die()
     {
         Debug.Log("Player Die");
@@ -50,7 +39,10 @@ public class Player
         PlayerHp = Mathf.Min(PlayerHp + amount, PlayerMaxHp); // HP가 최대 HP를 초과하지 않도록 설정
         lifeDisplayer.SetLives(PlayerHp);
     }
-
+    public void Damage(int damage)
+    {
+        PlayerHp -= damage;
+    }
     public bool IsAlive()
     {
         return PlayerHp > 0;

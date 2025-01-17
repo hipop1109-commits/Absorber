@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     public int select1 = 1;
     public int select2 = 1;
 
+    [SerializeField] private bool isHit = false;
+
+    [SerializeField] private float invincibilityTime = 1f; // 캐릭터 무적 시간
     [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
     [SerializeField] private float jumpSpeed = 10f; // 캐릭터 점프 속도
 
@@ -89,6 +92,32 @@ public class PlayerController : MonoBehaviour
             dashCooldownTimer -= Time.deltaTime;
         }
     }
+
+    // 플레이어가 데미지를 받을 때
+    public void TakeDamage(int damage)
+    {
+        if(player.PlayerHp > 0 && !isHit) 
+        {
+            isHit = true; 
+            player.Damage(damage);
+            //hp UI 닳게 하기
+            
+            //player 색 바뀌게(다치는 모션 or 무적 모션)
+            stateMachine.TransitionTo(stateMachine.hurtState);
+
+            //Player 무적 시간
+            Invoke("Invincibility",invincibilityTime);
+
+            Debug.Log($"Player Hp : {player.PlayerHp}");
+        }
+    }
+
+    //무적시간
+    private void Invincibility()
+    {
+        isHit = false;  
+    }
+
 
     //select1값을 가져오는 메소드
     public int GetSelect1()
