@@ -15426,9 +15426,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca678355025548429f9794bce344a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  select1: 1
+  select2: 1
+  moveSpeed: 10
   jumpSpeed: 20
-  bottomCollider: {fileID: 1416843466}
 --- !u!212 &1556794549
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22199,6 +22200,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 472162685}
+  - {fileID: 1556794550}
   - {fileID: 233563656}
   - {fileID: 893536240}
   - {fileID: 793378459}
@@ -22206,4 +22208,3 @@ SceneRoots:
   - {fileID: 1981621255}
   - {fileID: 1226566310}
   - {fileID: 993953331}
-  - {fileID: 1556794550}
