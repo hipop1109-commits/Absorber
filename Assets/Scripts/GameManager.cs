@@ -12,12 +12,11 @@ public class GameManager : MonoBehaviour
     // 게임 클리어 여부
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
+   
+    [SerializeField]private LifeDisplayer lifeDisplayer;
+    [SerializeField]private int life = 10;
 
-
-    private PlayerController playerController;
     private Player player;
-    private LifeDisplayer LifeDisplayer;
-    private int life = 5;
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -37,11 +36,28 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {   // 생명 이미지 활성화
-        LifeDisplayer.SetLives(life);
+        if (lifeDisplayer != null)
+        {
+            player = new Player(life, 0f,0f,0f, lifeDisplayer);
+            lifeDisplayer.SetLives(player.PlayerHp);
+            
+        }
+        else 
+        { 
+            Debug.Log("라이프 디스플레이 활성화 안됐어요"); 
+        }
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            player.TakeDamage(1);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            player.Heal(1);
+        }
 
     }
 
@@ -51,7 +67,7 @@ public class GameManager : MonoBehaviour
         if (life > 0) 
         {
             life--;
-            LifeDisplayer.SetLives(life);
+            lifeDisplayer.SetLives(life);
         }
         else
         {

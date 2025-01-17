@@ -12,24 +12,28 @@ public class Player
     public float DashCooldown { get; private set; } // 대쉬 쿨타임
     public float DashDuration { get; private set; } // 대쉬 지속 시간
 
+    private LifeDisplayer lifeDisplayer;
+
     // Player 클래스 초기화
-    public Player(int maxHp,/* float moveSpeed, float jumpSpeed,*/ float dashSpeed, float dashCooldown, float dashDuration)
+    public Player(int maxHp,/* float moveSpeed, float jumpSpeed,*/ float dashSpeed, float dashCooldown, float dashDuration, LifeDisplayer lifeDisplayer)
     {
         PlayerMaxHp = maxHp; // 최대 HP 설정
         PlayerHp = maxHp; // 현재 HP 초기화
-/*        MoveSpeed = moveSpeed;
-        JumpSpeed = jumpSpeed;*/
+        /*        MoveSpeed = moveSpeed;
+                JumpSpeed = jumpSpeed;*/
         DashSpeed = dashSpeed;
         DashCooldown = dashCooldown;
         DashDuration = dashDuration;
+        this.lifeDisplayer = lifeDisplayer;
     }
 
     // 플레이어가 데미지를 받을 때
     public void TakeDamage(int damage)
     {
-        if(PlayerHp < 0)
+        if(PlayerHp > 0)
         {
             PlayerHp = PlayerHp - damage;
+            lifeDisplayer.SetLives(PlayerHp);
         }
     }
 
@@ -43,5 +47,6 @@ public class Player
     public void Heal(int amount)
     {
         PlayerHp = Mathf.Min(PlayerHp + amount, PlayerMaxHp); // HP가 최대 HP를 초과하지 않도록 설정
+        lifeDisplayer.SetLives(PlayerHp);
     }
 }

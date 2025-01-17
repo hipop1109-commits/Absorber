@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class MenuDisplayer : MonoBehaviour
 {
@@ -37,10 +38,20 @@ public class MenuDisplayer : MonoBehaviour
         }
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OpenMenu();
+        }
+    }
+
     // 메뉴버튼 
-    public void ToggleMenu()
+    public void OpenMenu()
     {
         menuPanel.SetActive(!menuPanel.activeSelf);
+        Time.timeScale = menuPanel.activeSelf ? 0 : 1;
     }
     // 메뉴 닫음 
     public void CloseMenu()
