@@ -13,12 +13,9 @@ public class Bomb : MonoBehaviour
     private IEnumerator BombExplode()
     {
         yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
 
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-
-        yield return new WaitForSeconds(1f);
-        // ÆøÅº ¿ÀºêÁ§Æ® Á¦°Å
-        Destroy(explosion);
     }
 
 }
