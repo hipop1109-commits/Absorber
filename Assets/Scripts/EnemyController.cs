@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 10f; //Àû ÀÌµ¿ ¼Óµµ
+    [SerializeField] private float moveSpeed = 10f; //ì  ì´ë™ ì†ë„
     [SerializeField] private int hp = 20;
     [SerializeField] private int damage = 10;
 
-    [SerializeField] private float groundCheckRadius = 0.1f; //¹Ù´Ú °¨Áö ¹İ°æ
+    [SerializeField] private float groundCheckRadius = 0.1f; //ë°”ë‹¥ ê°ì§€ ë°˜ê²½
 
-    [SerializeField] private LayerMask groundLayer; //groundÅÂ±×°¡ ÀÖ´Â ·¹ÀÌ¾î ¼³Á¤
+    [SerializeField] private LayerMask groundLayer; //groundíƒœê·¸ê°€ ìˆëŠ” ë ˆì´ì–´ ì„¤ì •
 
 
     [SerializeField] private Collider2D frontCollider;
@@ -21,15 +21,15 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         vx = Vector2.left * moveSpeed;
-        Debug.Log("Àû Ã¼·Â : "+hp);
+        Debug.Log("ì  ì²´ë ¥ : "+hp);
     }
 
     private void Update()
     {
-/*        //º®°¨Áö
+/*        //ë²½ê°ì§€
         bool isTouchingWall = Physics2D.OverlapCircle(frontCollider.transform.position, groundCheckRadius, groundLayer);
 
-        //¹Ù´Ú°¨Áö
+        //ë°”ë‹¥ê°ì§€
         bool isGrounded = Physics2D.OverlapCircle(frontBottomCollider.transform.position, groundCheckRadius, groundLayer);
 
         if(isTouchingWall || !isGrounded) 
@@ -48,7 +48,9 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-           playerController.player.TakeDamage(damage);
+            //í”Œë ˆì´ì–´ì—ê²Œ ë°ë¯¸ì§€ ì…íˆê¸°
+            playerController.TakeDamage(10);
+            Debug.Log("Hurt");
         }
     }
 
@@ -67,7 +69,7 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hp -= damage;
-        Debug.Log($"Àû{gameObject} Ã¼·Â : {hp}"); 
+        Debug.Log($"ì {gameObject} ì²´ë ¥ : {hp}"); 
         if(hp <= 0)
         {
             Destroy(gameObject);

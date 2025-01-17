@@ -4103,8 +4103,8 @@ MonoBehaviour:
   - {x: 21.230793, y: -50.058}
   - {x: 21.243603, y: -50.47922}
   - {x: 20.822338, y: -50.467823}
-  - {x: -12.25216, y: -50.439938}
-  - {x: -12.674901, y: -50.4664}
+  - {x: -12.252145, y: -50.439938}
+  - {x: -12.674884, y: -50.4664}
   - {x: -12.416488, y: -46.606407}
   - {x: -6.9309406, y: -46.55243}
   - {x: -6.770788, y: -43.939297}
@@ -4344,8 +4344,8 @@ EdgeCollider2D:
   - {x: 21.230793, y: -50.058}
   - {x: 21.243603, y: -50.47922}
   - {x: 20.822338, y: -50.467823}
-  - {x: -12.25216, y: -50.439938}
-  - {x: -12.674901, y: -50.4664}
+  - {x: -12.252145, y: -50.439938}
+  - {x: -12.674884, y: -50.4664}
   - {x: -12.416488, y: -46.606407}
   - {x: -6.9309406, y: -46.55243}
   - {x: -6.770788, y: -43.939297}
@@ -15979,8 +15979,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2226403573211185605, guid: 7e55c0ee794b2f245b09b0cba159f928, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: b43ed6356111a714c90536a0f92594ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -15999,15 +15999,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319247312}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -102.78, y: 6.72, z: -0.13512826}
+  m_LocalRotation: {x: -0, y: -0, z: -0.13253485, w: 0.9911784}
+  m_LocalPosition: {x: -102.78, y: 2.94, z: -0.13512826}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 842921611}
   - {fileID: 1681681787}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15.232}
 --- !u!50 &319247315
 Rigidbody2D:
   serializedVersion: 5
@@ -16034,7 +16034,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &319247317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16091,17 +16091,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.019732952, y: 0.01854968}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.83, y: 2.83}
+    oldSize: {x: 1.95, y: 2.03}
     newSize: {x: 2.83, y: 2.83}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.83, y: 2.83}
+  m_Size: {x: 1.9348533, y: 2.0744195}
   m_EdgeRadius: 0
 --- !u!1 &322729558
 GameObject:
@@ -22337,7 +22337,7 @@ GameObject:
   - component: {fileID: 528240013}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22479,7 +22479,7 @@ Transform:
   m_GameObject: {fileID: 528240005}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -126.6, y: 7.2, z: 0}
+  m_LocalPosition: {x: -114.13, y: 4.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22504,6 +22504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   select1: 1
   select2: 1
+  isHit: 0
+  invincibilityTime: 1
   moveSpeed: 20
   jumpSpeed: 20
 --- !u!95 &528240011
@@ -22676,9 +22678,6 @@ MonoBehaviour:
   isLineMax: 0
   isAttach: 0
   weapon: {fileID: 145565813}
-  elapsedTime: 0
-  ropeCoolTime: 5
-  characterRigidbody: {fileID: 528240006}
 --- !u!1 &530426126
 GameObject:
   m_ObjectHideFlags: 0
@@ -26668,7 +26667,7 @@ MonoBehaviour:
   m_Creator: {fileID: 0}
   m_Modifiers: []
   m_ColliderSegment:
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.974224, y: -11.763506}
   - {x: -18.983559, y: -9.493164}
   - {x: -19.001541, y: -0.6697909}
   - {x: -17.913036, y: -0.5324202}
@@ -26688,11 +26687,11 @@ MonoBehaviour:
   - {x: -4.555987, y: -0.95172805}
   - {x: -3.0250213, y: -0.8906908}
   - {x: -3.0373394, y: -1.0234119}
-  - {x: -3.0611546, y: -11.523481}
-  - {x: -3.0510702, y: -11.946981}
+  - {x: -3.0611546, y: -11.523483}
+  - {x: -3.0510702, y: -11.946983}
   - {x: -3.6668618, y: -11.928233}
-  - {x: -18.582382, y: -11.741608}
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.582378, y: -11.741608}
+  - {x: -18.974224, y: -11.763506}
   m_ShadowSegment: []
 --- !u!1971053207 &636967294
 SpriteShapeRenderer:
@@ -26804,7 +26803,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.974224, y: -11.763506}
   - {x: -18.983559, y: -9.493164}
   - {x: -19.001541, y: -0.6697909}
   - {x: -17.913036, y: -0.5324202}
@@ -26824,11 +26823,11 @@ EdgeCollider2D:
   - {x: -4.555987, y: -0.95172805}
   - {x: -3.0250213, y: -0.8906908}
   - {x: -3.0373394, y: -1.0234119}
-  - {x: -3.0611546, y: -11.523481}
-  - {x: -3.0510702, y: -11.946981}
+  - {x: -3.0611546, y: -11.523483}
+  - {x: -3.0510702, y: -11.946983}
   - {x: -3.6668618, y: -11.928233}
-  - {x: -18.582382, y: -11.741608}
-  - {x: -18.974228, y: -11.763506}
+  - {x: -18.582378, y: -11.741608}
+  - {x: -18.974224, y: -11.763506}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -40892,8 +40891,8 @@ MonoBehaviour:
   - {x: -15.403914, y: 3.0239909}
   - {x: -8.587832, y: 3.014246}
   - {x: -8.608416, y: 2.8893728}
-  - {x: -9.284813, y: -7.0631614}
-  - {x: -9.300833, y: -7.461761}
+  - {x: -9.284812, y: -7.0631604}
+  - {x: -9.300832, y: -7.4617615}
   - {x: -10.176172, y: -7.434947}
   - {x: -19.505995, y: -7.266839}
   m_ShadowSegment: []
@@ -41061,8 +41060,8 @@ EdgeCollider2D:
   - {x: -15.403914, y: 3.0239909}
   - {x: -8.587832, y: 3.014246}
   - {x: -8.608416, y: 2.8893728}
-  - {x: -9.284813, y: -7.0631614}
-  - {x: -9.300833, y: -7.461761}
+  - {x: -9.284812, y: -7.0631604}
+  - {x: -9.300832, y: -7.4617615}
   - {x: -10.176172, y: -7.434947}
   - {x: -19.505995, y: -7.266839}
   m_AdjacentStartPoint: {x: 0, y: 0}
@@ -73650,7 +73649,7 @@ MonoBehaviour:
   m_Creator: {fileID: 0}
   m_Modifiers: []
   m_ColliderSegment:
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.89597, y: -12.419533}
   - {x: -23.945917, y: -10.754546}
   - {x: -24.245749, y: 0.27713066}
   - {x: -23.46612, y: 0.18246126}
@@ -73680,10 +73679,10 @@ MonoBehaviour:
   - {x: -0.697494, y: -5.363968}
   - {x: -0.70084846, y: -5.692913}
   - {x: -0.5347854, y: -12.18148}
-  - {x: -0.51264185, y: -12.614985}
+  - {x: -0.5126419, y: -12.6149845}
   - {x: -1.2339597, y: -12.597428}
-  - {x: -23.512447, y: -12.396186}
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.512445, y: -12.396186}
+  - {x: -23.89597, y: -12.419533}
   m_ShadowSegment: []
 --- !u!1971053207 &1811669674
 SpriteShapeRenderer:
@@ -73795,7 +73794,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.89597, y: -12.419533}
   - {x: -23.945917, y: -10.754546}
   - {x: -24.245749, y: 0.27713066}
   - {x: -23.46612, y: 0.18246126}
@@ -73825,10 +73824,10 @@ EdgeCollider2D:
   - {x: -0.697494, y: -5.363968}
   - {x: -0.70084846, y: -5.692913}
   - {x: -0.5347854, y: -12.18148}
-  - {x: -0.51264185, y: -12.614985}
+  - {x: -0.5126419, y: -12.6149845}
   - {x: -1.2339597, y: -12.597428}
-  - {x: -23.512447, y: -12.396186}
-  - {x: -23.895964, y: -12.419533}
+  - {x: -23.512445, y: -12.396186}
+  - {x: -23.89597, y: -12.419533}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0

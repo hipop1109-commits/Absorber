@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class StateMachine
 {
@@ -9,6 +9,7 @@ public class StateMachine
     public JumpState jumpState;
     public DashState dashState; 
     public WalkState walkState;
+    public HurtState hurtState;
 
     public StateMachine(PlayerController player)
     {
@@ -17,6 +18,7 @@ public class StateMachine
         walkState = new WalkState(player);
         dashState = new DashState(player);
         jumpState = new JumpState(player);
+        hurtState = new HurtState(player);
     }
 
     //최초 state를 받아 이를 CurrentState에 넣고 Enter
