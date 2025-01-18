@@ -11,7 +11,7 @@ public class BombExplode : MonoBehaviour
 
     private IEnumerator BombDestroy()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 

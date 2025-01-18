@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         // 테스트용
         if (Input.GetKeyDown(KeyCode.G))
         {
-            player.TakeDamage(1);
+            //player.TakeDamage(1);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {

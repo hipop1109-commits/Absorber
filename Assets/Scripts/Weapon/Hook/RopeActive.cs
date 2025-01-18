@@ -19,7 +19,7 @@ public class RopeActive : MonoBehaviour
     private void Start()
     {
         line.positionCount = 2;
-        line.endWidth = line.startWidth = 0.05f;
+        line.endWidth = line.startWidth = 1f;
         line.SetPosition(0, weapon.Gun.position);
         line.SetPosition(1, hook.position);
         line.useWorldSpace = true;

@@ -15,7 +15,8 @@ public class Bomb : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
 
-        GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Vector3 explosionPosition = transform.position + new Vector3(0, 3 , 0);
+        GameObject explosion = Instantiate(explosionPrefab, explosionPosition, Quaternion.identity);
     }
 
 }
