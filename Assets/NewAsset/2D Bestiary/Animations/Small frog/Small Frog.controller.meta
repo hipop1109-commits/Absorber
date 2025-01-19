@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e32ee98e1f20ec948b64daa366bd9837
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 228951
+  packageName: 2D Bestiary (Set 01)
+  packageVersion: 1.0
+  assetPath: Assets/2D Bestiary/Animations/Small frog/Small Frog.controller
+  uploadId: 519452

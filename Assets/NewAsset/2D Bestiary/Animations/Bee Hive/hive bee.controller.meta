@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d53c82da4f0865c43b0f70a5514ebf2b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 228951
+  packageName: 2D Bestiary (Set 01)
+  packageVersion: 1.0
+  assetPath: Assets/2D Bestiary/Animations/Bee Hive/hive bee.controller
+  uploadId: 519452

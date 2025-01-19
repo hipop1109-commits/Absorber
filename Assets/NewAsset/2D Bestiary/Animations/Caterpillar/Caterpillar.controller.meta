@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cc8167f231a83d148bf6380908b43ff6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 228951
+  packageName: 2D Bestiary (Set 01)
+  packageVersion: 1.0
+  assetPath: Assets/2D Bestiary/Animations/Caterpillar/Caterpillar.controller
+  uploadId: 519452

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ccded08eefccf8940b7a4a7f806d3ea0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 228951
+  packageName: 2D Bestiary (Set 01)
+  packageVersion: 1.0
+  assetPath: Assets/2D Bestiary/Animations/BubbleBee/BubleBee.controller
+  uploadId: 519452
