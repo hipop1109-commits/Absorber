@@ -24,11 +24,6 @@ public class Player
         DashDuration = dashDuration;
     }
 
-    public void Die()
-    {
-        Debug.Log("Player Die");
-    }
-
 
     // 플레이어가 회복할 때 호출되는 메서드
     public void Heal(int amount)

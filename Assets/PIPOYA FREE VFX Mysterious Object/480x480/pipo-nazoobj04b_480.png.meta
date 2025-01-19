@@ -111,6 +111,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -259,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pipo-nazoobj04b_480_0: 3889280578210309065
+      pipo-nazoobj04b_480_1: -138051056044795962
+      pipo-nazoobj04b_480_2: -3975422124968706080
+      pipo-nazoobj04b_480_3: -3676533055566610750
+      pipo-nazoobj04b_480_4: 737730791966430935
+      pipo-nazoobj04b_480_5: 3521448731198857331
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public int select2 = 1;
 
     [SerializeField] private bool isHit = false;
+    [SerializeField] private bool isDie = false;
 
     [SerializeField] private float invincibilityTime = 1f; // 캐릭터 무적 시간
     [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
@@ -88,12 +89,15 @@ public class PlayerController : MonoBehaviour
         {
             dashCooldownTimer -= Time.deltaTime;
         }
+
+        Debug.Log("isDie: " + isDie);
+        Debug.Log("player.IsAlive(): " + player.IsAlive());
     }
 
     // 플레이어가 데미지를 받을 때
     public void TakeDamage(int damage)
     {
-        if(player.PlayerHp > 0 && !isHit) 
+        if(player.IsAlive() && !isHit && !isDie) 
         {
             isHit = true; 
             player.Damage(damage);
@@ -107,12 +111,24 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log($"Player Hp : {player.PlayerHp}");
         }
+        if(!player.IsAlive() && !isDie)
+        {
+            isDie = true;
+            Die();
+        }
     }
 
     //무적시간
     private void Invincibility()
     {
         isHit = false;  
+    }
+
+
+    public void Die()
+    {
+        stateMachine.TransitionTo(stateMachine.dieState);
+        Debug.Log("Player Die");
     }
 
 
