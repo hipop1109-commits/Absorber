@@ -129,10 +129,11 @@ public class PlayerController : MonoBehaviour
     {
         stateMachine.TransitionTo(stateMachine.dieState);
         Debug.Log("Player Die");
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
 
-    //select1값을 가져오는 메소드
+    //select1값을 가져오는 메소드 
     public int GetSelect1()
     {
         return select1;

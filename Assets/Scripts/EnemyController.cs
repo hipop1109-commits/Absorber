@@ -44,12 +44,12 @@ public class EnemyController : MonoBehaviour
        // transform.Translate(vx * Time.fixedDeltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             //플레이어에게 데미지 입히기
-            playerController.TakeDamage(10);
+            playerController.TakeDamage(damage);
             Debug.Log("Hurt");
         }
     }
