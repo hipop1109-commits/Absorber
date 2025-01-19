@@ -27,11 +27,6 @@ public class Player
         this.lifeDisplayer = lifeDisplayer;
     }
 
-    public void Die()
-    {
-        Debug.Log("Player Die");
-    }
-
 
     // 플레이어가 회복할 때 호출되는 메서드
     public void Heal(int amount)
@@ -42,6 +37,10 @@ public class Player
     public void Damage(int damage)
     {
         PlayerHp -= damage;
+        if (PlayerHp < 0)
+        {
+            PlayerHp = 0; // 최소값을 0으로 고정
+        }
     }
     public bool IsAlive()
     {

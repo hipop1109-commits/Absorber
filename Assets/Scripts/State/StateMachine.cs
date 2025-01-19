@@ -10,6 +10,7 @@ public class StateMachine
     public DashState dashState; 
     public WalkState walkState;
     public HurtState hurtState;
+    public DieState dieState;
 
     public StateMachine(PlayerController player)
     {
@@ -19,6 +20,7 @@ public class StateMachine
         dashState = new DashState(player);
         jumpState = new JumpState(player);
         hurtState = new HurtState(player);
+        dieState = new DieState(player);
     }
 
     //최초 state를 받아 이를 CurrentState에 넣고 Enter
