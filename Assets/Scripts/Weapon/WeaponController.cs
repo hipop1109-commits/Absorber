@@ -49,6 +49,7 @@ public class WeaponController : MonoBehaviour
     public float BombFireCooldown = 2f;
     private bool canShoot = true;
     public Vector3 mouseWorldPosition;
+    public ObjectPool bulletPool;
 
     //발판 관련 설정
     public GameObject platformPrefab; // 발판 프리팹
@@ -269,7 +270,7 @@ public class WeaponController : MonoBehaviour
             Debug.Log("발사2");
             WaterGauge -= 1f;
             RockGauge -= 1f;
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = bulletPool.GetObject(firePoint.position, firePoint.rotation);
 
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -280,7 +281,7 @@ public class WeaponController : MonoBehaviour
             }
             StartCoroutine(Cooldown(0.2f));
             yield return new WaitForSeconds(2f);
-            Destroy(bullet);
+            bulletPool.ReturnObject(bullet);
         }
     }
 
