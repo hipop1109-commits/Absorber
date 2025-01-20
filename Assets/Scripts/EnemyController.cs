@@ -11,8 +11,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer; //ground태그가 있는 레이어 설정
 
 
-    [SerializeField] private Collider2D frontCollider;
-    [SerializeField] private Collider2D frontBottomCollider;
+/*    [SerializeField] private Collider2D frontCollider;
+    [SerializeField] private Collider2D frontBottomCollider;*/
 
     [SerializeField] private PlayerController playerController;
 

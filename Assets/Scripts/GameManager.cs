@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     {   // 생명 이미지 활성화
         if (lifeDisplayer != null)
         {
-            player = new Player(life, 0f,0f,0f, lifeDisplayer);
+            player = new Player(life, 0f,0f,0f);
             lifeDisplayer.SetLives(player.PlayerHp);
             
         }
