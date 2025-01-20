@@ -55,9 +55,9 @@ public class EnemyMove : MonoBehaviour
 
         // 방향 전환
         if (nextMove == 1)
-            transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
-        else
             transform.rotation = Quaternion.Euler(0, 180, 0); // 왼쪽
+        else
+            transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
 
         // 다음 Think 호출 예약
         float nextThinkTime = Random.Range(2f, 5f);
@@ -70,8 +70,8 @@ public class EnemyMove : MonoBehaviour
         nextMove *= -1;
 
         if (nextMove == 1)
-            transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
-        else
             transform.rotation = Quaternion.Euler(0, 180, 0); // 왼쪽
+        else
+            transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
     }
 }
