@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
                 maxHp: 100, // 최대 HP
 /*                moveSpeed: 10f, // 이동 속도
                 jumpSpeed: 10f, // 점프 속도*/
-                dashSpeed: 20f, // 대쉬 속도
+                dashSpeed: 30f, // 대쉬 속도
                 dashCooldown: 1f, // 대쉬 쿨타임
                 dashDuration: 0.2f// 대쉬 지속 시간
             );
@@ -90,9 +90,6 @@ public class PlayerController : MonoBehaviour
         {
             dashCooldownTimer -= Time.deltaTime;
         }
-
-        Debug.Log("isDie: " + isDie);
-        Debug.Log("player.IsAlive(): " + player.IsAlive());
     }
 
     // 플레이어가 데미지를 받을 때
@@ -283,7 +280,10 @@ public class PlayerController : MonoBehaviour
     {
         if (value.isPressed && !isDashing && dashCooldownTimer <= 0)
         {
-            StartCoroutine(Dash()); // 대쉬 코루틴 실행
+            // 가만히 있을 때도 대쉬 방향을 지정하기 위해 flipX 또는 마우스 위치를 기준으로 방향 설정
+            float dashDirection = moveDirection.x != 0 ? moveDirection.x : (spriteRenderer.flipX ? -1 : 1);
+
+            StartCoroutine(Dash(dashDirection)); // 대쉬 방향을 매개변수로 전달
             stateMachine.TransitionTo(stateMachine.dashState); // 대쉬 상태로 전환
         }
     }
@@ -303,11 +303,15 @@ public class PlayerController : MonoBehaviour
     }
 
     // 대쉬 로직 처리
-    private System.Collections.IEnumerator Dash()
+    private System.Collections.IEnumerator Dash(float dashDirection)
     {
         isDashing = true; // 대쉬 플래그 설정
-        Vector2 dashForce = new Vector2(moveDirection.x * player.DashSpeed, 0); // 대쉬 방향 설정
-        rb.AddForce(dashForce, ForceMode2D.Impulse); // 대쉬 힘 적용
+        Vector2 dashVelocity = new Vector2(dashDirection * player.DashSpeed, rb.linearVelocity.y); // 대쉬 방향 설정
+        // rb.AddForce(dashForce, ForceMode2D.Impulse); // 대쉬 힘 적용
+
+        Debug.Log($"Dash Velocity: {dashVelocity}");
+        rb.linearVelocity = dashVelocity;
+
         yield return new WaitForSeconds(player.DashDuration); // 대쉬 지속 시간 대기
         isDashing = false; // 대쉬 플래그 해제
         dashCooldownTimer = player.DashCooldown; // 대쉬 쿨타임 설정

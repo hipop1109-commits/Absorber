@@ -8,12 +8,6 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private float groundCheckRadius = 0.1f; //바닥 감지 반경
 
-    [SerializeField] private LayerMask groundLayer; //ground태그가 있는 레이어 설정
-
-
-/*    [SerializeField] private Collider2D frontCollider;
-    [SerializeField] private Collider2D frontBottomCollider;*/
-
     [SerializeField] private PlayerController playerController;
 
     [SerializeField] private GameObject itemPrefab;
@@ -28,22 +22,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-/*        //벽감지
-        bool isTouchingWall = Physics2D.OverlapCircle(frontCollider.transform.position, groundCheckRadius, groundLayer);
 
-        //바닥감지
-        bool isGrounded = Physics2D.OverlapCircle(frontBottomCollider.transform.position, groundCheckRadius, groundLayer);
-
-        if(isTouchingWall || !isGrounded) 
-        {
-            vx = -vx;
-            transform.localScale = new Vector2(-transform.localScale.x, 1);
-        }*/
-    }
-
-    private void FixedUpdate()
-    {
-       // transform.Translate(vx * Time.fixedDeltaTime);
     }
 
     private void OnCollisionStay2D(Collision2D collision)
