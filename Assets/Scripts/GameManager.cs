@@ -54,13 +54,27 @@ public class GameManager : MonoBehaviour
         // 테스트용
         if (Input.GetKeyDown(KeyCode.G))
         {
+<<<<<<< Updated upstream
             player.TakeDamage(1);
+=======
+            //player.TakeDamage(1);
+            TestDamage();
+>>>>>>> Stashed changes
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
             player.Heal(1);
         }
 
+    }
+
+    void TestDamage()
+    {
+        if(life > 0)
+        {
+            life--;
+            lifeDisplayer.SetLives(life);
+        }
     }
     // 재시작
     void Restart()
