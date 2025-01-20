@@ -9,6 +9,7 @@ public class SkillDisplayer : MonoBehaviour
     public void OpenSkillMenu()
     {
         skillPanel.SetActive(true);
+        Time.timeScale = skillPanel.activeSelf ? 0 : 1;
     }
     // ½ºÅ³Ã¢ ´ÝÀ½
     public void CloseSkillMenu()

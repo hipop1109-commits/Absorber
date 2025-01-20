@@ -6,20 +6,23 @@ using UnityEngine.EventSystems;
 public class MenuDisplayer : MonoBehaviour
 {
     // 메뉴 창
-    public GameObject menuPanel;
+    [SerializeField] private GameObject menuPanel;
 
     // 탭
-    public GameObject resolutionTab;
-    public GameObject soundTab;
+    [SerializeField]private GameObject resolutionTab;
+    [SerializeField]private GameObject soundTab;
 
     // 볼륨 슬라이더
-    public Slider volumeSlider;
+    [SerializeField]private Slider volumeSlider;
 
     //  해상도 드롭다운
-    public TMP_Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
 
     // 해상도 목록
     private Resolution[] resolutions;
+
+    // 버튼 텍스트
+    [SerializeField] private TextMeshProUGUI ButtonText;
 
     void Start()
     {
@@ -31,16 +34,20 @@ public class MenuDisplayer : MonoBehaviour
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
+
         // 해상도 옵션 추가
         foreach (Resolution res in resolutions)
         {
             resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
         }
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
+
+        // 버튼 텍스트 초기화
+        UpdateButtonText();
     }
 
     private void Update()
-    {
+    {   // Esc 버튼 시 메뉴 오픈
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OpenMenu();
@@ -70,6 +77,26 @@ public class MenuDisplayer : MonoBehaviour
     {
         Resolution selectedResolution = resolutions[index];
         Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen );
+    }
+
+    // 풀스크린 온오프
+    public void ToggleFullScreen()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+        UpdateButtonText();
+        
+    }
+    // 풀스크린 온오프 텍스트 업데이트
+    private void UpdateButtonText()
+    {
+        if(Screen.fullScreen)
+        {
+            ButtonText.text = "On";
+        }
+        else
+        {
+            ButtonText.text = "Off";
+        }
     }
     // 사운드 탭 열기
     public void OpenSoundTab()
