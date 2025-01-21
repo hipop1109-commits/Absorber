@@ -16,11 +16,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private bool isHit = false;
     [SerializeField] private bool isDie = false;
-
+    
     [SerializeField] private float invincibilityTime = 1f; // 캐릭터 무적 시간
     [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
     [SerializeField] private float jumpSpeed = 10f; // 캐릭터 점프 속도
-
+    
     private Rigidbody2D rb; // 캐릭터의 Rigidbody2D
 
     private Vector2 moveDirection; // 입력된 이동 방향

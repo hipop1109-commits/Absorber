@@ -3,6 +3,7 @@
 public class Select1 : MonoBehaviour
 {
     Animator select1;
+    
 
     [SerializeField] private PlayerController playerController;
     void Start()

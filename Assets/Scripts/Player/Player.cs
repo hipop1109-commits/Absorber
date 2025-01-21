@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player
 {
     public int PlayerHp { get; private set; } // 플레이어의 현재 HP
-    public int PlayerMaxHp { get; private set; } // 플레이어의 최대 HP
+    public int PlayerMaxHp { get; private set; } // 플레이어의 최대 Hp
 
     // 캐릭터 속성
     public float MoveSpeed { get; private set; } // 캐릭터 이동 속도
