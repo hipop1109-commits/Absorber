@@ -11,12 +11,12 @@ public class PlayerController : MonoBehaviour
 
     private float dashCooldownTimer; // 대쉬 쿨타임을 계산하기 위한 타이머
 
-    public int select1 = 1;
-    public int select2 = 1;
+    private int select1 = 1;
+    private int select2 = 1;
 
-    [SerializeField] private bool isHit = false;
-    [SerializeField] private bool isDie = false;
-    
+    private bool isHit = false;
+    private bool isDie = false;
+
     [SerializeField] private float invincibilityTime = 1f; // 캐릭터 무적 시간
     [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
     [SerializeField] private float jumpSpeed = 10f; // 캐릭터 점프 속도
@@ -186,21 +186,18 @@ public class PlayerController : MonoBehaviour
     //우클릭 흡수
     public void OnAbsorb()
     {
-        Debug.Log("흡수");
         WeaponController.Instance.AbsorbClick();
     }
 
     //우클릭 흡수 취소
     public void OnAbsorbCancle()
     {
-        Debug.Log("흡수 취소");
         WeaponController.Instance.AbsorbClickUp();
     }
 
     //좌클릭 방출
     public void OnEmit()
     {
-        Debug.Log("방출");
         Combination();
         WeaponController.Instance.WeaponSelect();
     }
@@ -209,7 +206,6 @@ public class PlayerController : MonoBehaviour
     //좌클릭 방출 취소
     public void OnEmitCancle()
     {
-        Debug.Log("방출취소");
         WeaponController.Instance.WeaponLeft();
     }
 

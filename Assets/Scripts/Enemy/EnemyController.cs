@@ -5,6 +5,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float moveSpeed = 10f; //적 이동 속도
     [SerializeField] private int hp = 20;
     [SerializeField] private int damage = 10;
+    Animator animator;
 
     [SerializeField] private float groundCheckRadius = 0.1f; //바닥 감지 반경
 
@@ -14,8 +15,19 @@ public class EnemyController : MonoBehaviour
 
     Vector2 vx;
 
+    public EnemyStateMachine stateMachine; // 적의 상태를 관리할 상태 머신
+
+    private void Awake()
+    {
+        // 상태 머신 초기화
+        stateMachine = new EnemyStateMachine(this);
+
+    }
+    
     private void Start()
     {
+        // 상태 머신의 초기 상태를 Idle로 설정
+        stateMachine.Initalize(stateMachine.idleState);
         vx = Vector2.left * moveSpeed;
         Debug.Log("적 체력 : "+hp);
     }
@@ -31,7 +43,6 @@ public class EnemyController : MonoBehaviour
         {
             //플레이어에게 데미지 입히기
             playerController.TakeDamage(damage);
-            Debug.Log("Hurt");
         }
     }
 
@@ -44,6 +55,9 @@ public class EnemyController : MonoBehaviour
             if(attack != null)
             {
                 TakeDamage(attack.damage);
+                //적이 피해를 입는 애니메이션
+                stateMachine.Initalize(stateMachine.hitState);
+                Debug.Log("Attack");
             }
         }
     }
@@ -57,7 +71,8 @@ public class EnemyController : MonoBehaviour
         if(hp <= 0)
         {
             //적 죽는 애니메이션
-
+            stateMachine.TransitionTo(stateMachine.dieState);
+            Debug.Log("dIE");
 
             //적 사라짐
             Destroy(gameObject);

@@ -144,7 +144,7 @@ public class WeaponController : MonoBehaviour
 
     public void OnAbsorbEffectTriggerStay(Collider2D other)
     {
-        Debug.Log($"OnTriggerStay2D 호출됨: {other.name}");
+        //Debug.Log($"OnTriggerStay2D 호출됨: {other.name}");
 
         if (!isAbsorbing)
         {

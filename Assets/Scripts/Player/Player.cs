@@ -29,7 +29,7 @@ public class Player
     public void Heal(int amount)
     {
         PlayerHp = Mathf.Min(PlayerHp + amount, PlayerMaxHp); // HP가 최대 HP를 초과하지 않도록 설정
-        LifeDisplayer.Instance.SetLives(PlayerHp);
+        LifeDisplayer.Instance.SetLives(PlayerHp, PlayerMaxHp);
     }
 
     //플레이어 데미지
@@ -37,7 +37,7 @@ public class Player
     {
         PlayerHp -= damage;
         PlayerHp = Mathf.Max(PlayerHp, 0); // 최소값을 0으로 고정
-        LifeDisplayer.Instance.SetLives(PlayerHp);
+        LifeDisplayer.Instance.SetLives(PlayerHp, PlayerMaxHp);
     }
 
     public bool IsAlive()
