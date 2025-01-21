@@ -257,5 +257,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560cd9011f0e31b45ae074e185c4e005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealAmount: 0
+  HealAmount: 1
   playerController: {fileID: 8936840402439526155, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
