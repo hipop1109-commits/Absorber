@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         if (lifeDisplayer != null)
         {
             player = new Player(life, 0f,0f,0f);
-            lifeDisplayer.SetLives(player.PlayerHp);
+            lifeDisplayer.SetLives(player.PlayerHp, player.PlayerMaxHp);
             
         }
         else 

@@ -24,14 +24,29 @@ public class LifeDisplayer : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Start()
+    {
+        var playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null && playerController.player != null)
+        {
+            Debug.Log($"PlayerMaxHp: {playerController.player.PlayerMaxHp}");
+        }
+        else
+        {
+            Debug.LogError("PlayerController or Player is not initialized.");
+        }
+    }
+
 
     // 생명 이미지 활성화, 비활성화
-    public void SetLives(int life)
+    public void SetLives(int life, int maxHp)
     {
         if (lifeImages == null || lifeImages.Count == 0) return;
 
+
         // 현재 체력과 최대 체력을 기반으로 활성화할 이미지 수 계산
-        int activeImages = Mathf.CeilToInt((float)life / playerController.player.PlayerMaxHp * lifeImages.Count);
+        int activeImages = Mathf.CeilToInt((float)life / maxHp * lifeImages.Count);
+
 
         for (int i = 0; i < lifeImages.Count; i++)
         {
