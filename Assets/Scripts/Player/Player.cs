@@ -12,6 +12,9 @@ public class Player
     public float DashCooldown { get; private set; } // 대쉬 쿨타임
     public float DashDuration { get; private set; } // 대쉬 지속 시간
 
+    //에너지 코어
+    public int EnergyCore {  get; private set; }
+
     // Player 클래스 초기화
     public Player(int maxHp,/* float moveSpeed, float jumpSpeed,*/ float dashSpeed, float dashCooldown, float dashDuration)
     {
@@ -43,5 +46,26 @@ public class Player
     public bool IsAlive()
     {
         return PlayerHp > 0;
+    }
+
+    //에너지코어 얻기
+    public void GetEnergyCore(int amount)
+    {
+        EnergyCore += amount;
+        EnergyCoreTextUpdate();
+    }
+
+    //에너지코어 사용
+    public void SetEnergyCore(int amount)
+    {
+        EnergyCore -= amount;
+        EnergyCoreTextUpdate();
+    }
+
+    //에너지코어 텍스트 업데이트
+    public void EnergyCoreTextUpdate()
+    {
+        // SkillDisplayer의 에너지 코어 텍스트 업데이트
+        SkillDisplayer.Instance.energyCoreText.text = EnergyCore.ToString("D3");
     }
 }

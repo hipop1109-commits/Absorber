@@ -72,29 +72,35 @@ public class EnemyController : MonoBehaviour
         {
             //적 죽는 애니메이션
             stateMachine.TransitionTo(stateMachine.dieState);
-            Debug.Log("dIE");
+            Debug.Log(stateMachine.CurrentState);
 
-            //적 사라짐
-            Destroy(gameObject);
-
-            //아이템 드랍
-            SpawnItem();
+            Invoke("DestroyEnemy", 1);
         }
+    }
+    void DestroyEnemy()
+    {
+        //적 사라짐
+        Destroy(gameObject);
+        //아이템 드랍
+        SpawnItem();
     }
 
     //아이템 드랍 메서드
     public void SpawnItem()
     {
-        if(itemPrefab != null)
+        if (itemPrefab != null)
         {
-            //적 위치에 아이템 생성
-            GameObject item = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            // 적 위치보다 약간 위에 아이템 생성
+            GameObject item = Instantiate(itemPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
-            Rigidbody2D rb = item.GetComponent<Rigidbody2D>();  
-            if(rb != null)
+            Rigidbody2D rb = item.GetComponent<Rigidbody2D>();
+            if (rb != null)
             {
-                //위로 올라가는 힘을 줌
-                rb.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
+                // 위로 올라가는 힘을 줌
+                rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+
+                // 중력을 해제하여 바닥으로 빠지는 문제 방지
+                rb.gravityScale = 1f; // 중력을 줄여 자연스러운 움직임 유지
             }
         }
     }

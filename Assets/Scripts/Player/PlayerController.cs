@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer; // 캐릭터의 스프라이트 렌더러
     public Player player;
 
+    public GameObject[] enableObjects; // 죽었을때 비활성화될 오브젝트 리스트
+
     private float dashCooldownTimer; // 대쉬 쿨타임을 계산하기 위한 타이머
 
     private int select1 = 1;
@@ -20,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float invincibilityTime = 1f; // 캐릭터 무적 시간
     [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
     [SerializeField] private float jumpSpeed = 10f; // 캐릭터 점프 속도
-    
+
     private Rigidbody2D rb; // 캐릭터의 Rigidbody2D
 
     private Vector2 moveDirection; // 입력된 이동 방향
@@ -40,8 +42,8 @@ public class PlayerController : MonoBehaviour
 
         player = new Player(
                 maxHp: 100, // 최대 HP
-/*                moveSpeed: 10f, // 이동 속도
-                jumpSpeed: 10f, // 점프 속도*/
+                /*                moveSpeed: 10f, // 이동 속도
+                                jumpSpeed: 10f, // 점프 속도*/
                 dashSpeed: 30f, // 대쉬 속도
                 dashCooldown: 1f, // 대쉬 쿨타임
                 dashDuration: 0.2f// 대쉬 지속 시간
@@ -95,22 +97,21 @@ public class PlayerController : MonoBehaviour
     // 플레이어가 데미지를 받을 때
     public void TakeDamage(int damage)
     {
-        if(player.IsAlive() && !isHit && !isDie) 
+        if (player.IsAlive() && !isHit && !isDie)
         {
-            isHit = true; 
+            isHit = true;
             player.Damage(damage);
 
             //player 색 바뀌게(다치는 모션 or 무적 모션)
             stateMachine.TransitionTo(stateMachine.hurtState);
 
             //Player 무적 시간
-            Invoke("Invincibility",invincibilityTime);
+            Invoke("Invincibility", invincibilityTime);
 
             Debug.Log($"Player Hp : {player.PlayerHp}");
         }
-        if(!player.IsAlive() && !isDie)
+        if (!player.IsAlive() && !isDie)
         {
-            isDie = true;
             Die();
         }
     }
@@ -118,15 +119,22 @@ public class PlayerController : MonoBehaviour
     //무적시간
     private void Invincibility()
     {
-        isHit = false;  
+        isHit = false;
     }
 
 
     public void Die()
     {
+        foreach (var enableObject in enableObjects)
+        {
+            enableObject.SetActive(false);
+        }
         stateMachine.TransitionTo(stateMachine.dieState);
         Debug.Log("Player Die");
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        isDie = true;
+
     }
 
 
@@ -245,24 +253,30 @@ public class PlayerController : MonoBehaviour
     // 이동 입력 처리
     public void OnMove(InputValue value)
     {
-        moveDirection = value.Get<Vector2>(); // 이동 방향 설정
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
 
-        if (moveDirection.x != 0)
-        {
-            // 이동 입력이 있는 경우 Walk 상태로 전환
-            stateMachine.TransitionTo(stateMachine.walkState);
-        }
-        else
-        {
-            // 이동 입력이 없는 경우 Idle 상태로 전환
-            stateMachine.TransitionTo(stateMachine.idleState);
-        }
+        moveDirection = value.Get<Vector2>(); // 이동 방향 설정
+        
+            if (moveDirection.x != 0)
+            {
+                // 이동 입력이 있는 경우 Walk 상태로 전환
+                stateMachine.TransitionTo(stateMachine.walkState);
+            }
+            else
+            {
+                // 이동 입력이 없는 경우 Idle 상태로 전환
+                stateMachine.TransitionTo(stateMachine.idleState);
+            }
+        
+
     }
 
 
     // 점프 입력 처리
     public void OnJump(InputValue value)
     {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
         if (value.isPressed && !isJump)
         {
             isJump = true; // 점프 플래그 설정
@@ -317,6 +331,7 @@ public class PlayerController : MonoBehaviour
     // 바닥 충돌 감지
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
         if (collision.gameObject.CompareTag("ground"))
         {
             isJump = false; // 점프 플래그 해제
@@ -330,6 +345,12 @@ public class PlayerController : MonoBehaviour
                 // 이동 입력이 없는 경우 Idle 상태로 전환
                 stateMachine.TransitionTo(stateMachine.idleState);
             }
+        }
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            Debug.Log("Items");
+            player.GetEnergyCore(1);
+            Destroy(collision.gameObject);
         }
     }
 
