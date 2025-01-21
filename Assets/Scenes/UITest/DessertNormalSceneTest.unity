@@ -16399,7 +16399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 390.99997}
+  m_AnchoredPosition: {x: 2, y: 390.99997}
   m_SizeDelta: {x: 230, y: 56.713}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &481930679
@@ -18018,6 +18018,7 @@ MonoBehaviour:
   soundTab: {fileID: 1842834493}
   volumeSlider: {fileID: 302783459}
   resolutionDropdown: {fileID: 834937441}
+  ButtonText: {fileID: 2141672017}
 --- !u!114 &567628099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20954,7 +20955,7 @@ RectTransform:
   m_Father: {fileID: 2123017102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -23333,6 +23334,7 @@ MonoBehaviour:
   - {fileID: 1948045434}
   - {fileID: 258906307}
   - {fileID: 674211038}
+  playerController: {fileID: 0}
 --- !u!1 &812393326
 GameObject:
   m_ObjectHideFlags: 0
@@ -30594,7 +30596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1006369665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30645,6 +30647,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1032108159}
   - {fileID: 606062581}
   - {fileID: 635171272}
   - {fileID: 1089142588}
@@ -30977,7 +30980,6 @@ RectTransform:
   - {fileID: 88270429}
   - {fileID: 214305544}
   - {fileID: 811199627}
-  - {fileID: 1032108159}
   - {fileID: 1006369667}
   - {fileID: 7931020}
   - {fileID: 1611798008}
@@ -32073,11 +32075,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1016198744}
+  m_Father: {fileID: 1006369667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31.747149, y: 0.99915373}
+  m_AnchoredPosition: {x: 0.008317947, y: -0.00084626675}
   m_SizeDelta: {x: 1275.8, y: 1002.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1032108160
@@ -37237,7 +37239,7 @@ GameObject:
   - component: {fileID: 1182507911}
   - component: {fileID: 1182507910}
   m_Layer: 5
-  m_Name: Button
+  m_Name: OnOffButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37692,7 +37694,7 @@ RectTransform:
   m_Father: {fileID: 1480342309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -42389,7 +42391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1338230471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -52709,6 +52711,7 @@ MonoBehaviour:
   fireCooldown: 0.5
   BombFireCooldown: 2
   mouseWorldPosition: {x: 0, y: 0, z: 0}
+  bulletPool: {fileID: 0}
   platformPrefab: {fileID: 4127994144953814145, guid: 533d45c122c2f7e44ad4472c0bfc2c55, type: 3}
   platformSpeed: 15
   maxPlatformDistance: 3
