@@ -154,9 +154,9 @@ public class PlayerController : MonoBehaviour
             select1 += 1;
         }
         // SlowTime 작동 및 시간 복원 코루틴 시작
-        SlowTime.Instance.Slow();
+        //SlowTime.Instance.Slow();
         StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
-        StartCoroutine(ResetTimeScale());
+        //StartCoroutine(ResetTimeScale());
     }
 
     //E
@@ -171,9 +171,9 @@ public class PlayerController : MonoBehaviour
             select2 += 1;
         }
         // SlowTime 작동 및 시간 복원 코루틴 시작
-        SlowTime.Instance.Slow();
+        //SlowTime.Instance.Slow();
         StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
-        StartCoroutine(ResetTimeScale());
+        //StartCoroutine(ResetTimeScale());
     }
 
     private System.Collections.IEnumerator ResetTimeScale()
