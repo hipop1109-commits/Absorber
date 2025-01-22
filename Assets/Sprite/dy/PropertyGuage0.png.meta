@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e6f54c5fb8db4e4449ffe536606b1da7
+guid: 0e95c97c628f9b0419d3597156870d85
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5234498158485951982
-    second: WaterCircle_0
+      213: 6227734990807956238
+    second: PropertyGuage0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WaterCircle_0
+      name: PropertyGuage0_0
       rect:
         serializedVersion: 2
-        x: 115
-        y: 116
-        width: 283
-        height: 283
+        x: 0
+        y: 0
+        width: 674
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21a220e88a35b57b0800000000000000
-      internalID: -5234498158485951982
+      spriteID: e0bf06a6afb5d6650800000000000000
+      internalID: 6227734990807956238
       vertices: []
       indices: 
       edges: []
@@ -164,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      WaterCircle_0: -5234498158485951982
+      PropertyGuage0_0: 6227734990807956238
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
