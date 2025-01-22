@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 2597b529478bffd44890b661aa3f4c42
+guid: ea4f626e9f3b4b444a6980c234449b46
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1461976984975598546
-    second: PropertyGuage3_4_0
-  - first:
-      213: -907855099533557407
-    second: PropertyGuage3_4_1
-  - first:
-      213: -4078008903346690610
-    second: PropertyGuage3_4_2
+      213: -6296405149468949379
+    second: RockCircle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -145,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PropertyGuage3_4_0
+      name: RockCircle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 30
+        x: 115
+        y: 116
+        width: 283
+        height: 283
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,52 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d3644b625cf94410800000000000000
-      internalID: 1461976984975598546
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PropertyGuage3_4_1
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 2
-        width: 672
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 16186c4d896a663f0800000000000000
-      internalID: -907855099533557407
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PropertyGuage3_4_2
-      rect:
-        serializedVersion: 2
-        x: 658
-        y: 0
-        width: 16
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ec5e32532800867c0800000000000000
-      internalID: -4078008903346690610
+      spriteID: d7486f750ecae98a0800000000000000
+      internalID: -6296405149468949379
       vertices: []
       indices: 
       edges: []
@@ -214,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -224,9 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PropertyGuage3_4_0: 1461976984975598546
-      PropertyGuage3_4_1: -907855099533557407
-      PropertyGuage3_4_2: -4078008903346690610
+      RockCircle_0: -6296405149468949379
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
