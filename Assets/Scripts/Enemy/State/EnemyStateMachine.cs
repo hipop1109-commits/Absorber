@@ -10,7 +10,9 @@ public class EnemyStateMachine
     public E_AttackState attackState;
     public E_HitState hitState;
     public E_DieState dieState;
-
+    public A_AngryState a_AngryState;
+    public A_StompState a_StompState;
+    public A_SpineState a_SpineState;
     public EnemyStateMachine(EnemyController enemy)
     {
         this.enemy = enemy;
@@ -19,6 +21,9 @@ public class EnemyStateMachine
         attackState = new E_AttackState(enemy);
         hitState = new E_HitState(enemy);
         dieState = new E_DieState(enemy);
+        a_AngryState = new A_AngryState(enemy);
+        a_StompState = new A_StompState(enemy);
+        a_SpineState = new A_SpineState(enemy);
     }
 
     //최초 state를 받아 이를 CurrentState에 넣고 Enter

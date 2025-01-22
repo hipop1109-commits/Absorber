@@ -24,6 +24,10 @@ public class MenuDisplayer : MonoBehaviour
     // ë²„íŠ¼ í…ìŠ¤íŠ¸
     [SerializeField] private TextMeshProUGUI ButtonText;
 
+    public TextMeshProUGUI[] slotTexts; // ¼¼ÀÌºê ½½·Ô »óÅÂ¸¦ Ç¥½ÃÇÒ TextMeshPro ¹è¿­ (3°³)
+    public GameObject saveMenuPanel;   // ¼¼ÀÌºê ¸Ş´º UI ÆĞ³Î
+
+
     void Start()
     {
         // ë³¼ë¥¨ ìŠ¬ë¼ì´ë” ì´ˆê¸°í™”
@@ -44,6 +48,8 @@ public class MenuDisplayer : MonoBehaviour
 
         // ë²„íŠ¼ í…ìŠ¤íŠ¸ ì´ˆê¸°í™”
         UpdateButtonText();
+
+        UpdateSaveSlots();
     }
 
     private void Update()
@@ -98,16 +104,62 @@ public class MenuDisplayer : MonoBehaviour
             ButtonText.text = "Off";
         }
     }
-    // ì‚¬ìš´ë“œ íƒ­ ì—´ê¸°
+    // ½½·Ô »óÅÂ °»½Å
+    public void UpdateSaveSlots()
+    {
+        for (int i = 0; i < slotTexts.Length; i++)
+        {
+            int slot = i + 1;
+            if (GameManager.IsSlotEmpty(slot))
+            {
+                slotTexts[i].text = "Slot " + slot + ": Empty";
+            }
+            else
+            {
+                var data = GameManager.LoadGame(slot);
+                slotTexts[i].text = "Slot " + slot + ": " + data.playerPosition;
+            }
+        }
+    }
+
+    // ½½·Ô Å¬¸¯
+    public void OnSlotClicked(int slot)
+    {
+        if (GameManager.IsSlotEmpty(slot))
+        {
+            GameManager.SaveGame(slot); // »õ µ¥ÀÌÅÍ¸¦ ÀúÀå
+            Debug.Log("Game Saved in Slot " + slot);
+        }
+        else
+        {
+            var data = GameManager.LoadGame(slot); // µ¥ÀÌÅÍ¸¦ ºÒ·¯¿È
+            Debug.Log("Game Loaded from Slot " + slot + ": Level " + data.playerLife);
+            // ¿©±â¼­ µ¥ÀÌÅÍ¸¦ ±â¹İÀ¸·Î °ÔÀÓ »óÅÂ¸¦ ¾÷µ¥ÀÌÆ®
+        }
+
+        UpdateSaveSlots(); // UI °»½Å
+    }
+
+    // ¼¼ÀÌºê ¸Ş´º ¿­±â
+    public void OpenSaveMenu()
+    {
+        soundTab.SetActive(false);
+        resolutionTab.SetActive(false);
+        saveMenuPanel.SetActive(true);
+        UpdateSaveSlots();
+    }
+    // »ç¿îµå ÅÇ ¿­±â
     public void OpenSoundTab()
     {
         soundTab.SetActive(true);
         resolutionTab.SetActive(false);
+        saveMenuPanel.SetActive(false);
     }
     // í•´ìƒë„ íƒ­ ì—´ê¸°
     public void OpenResolutionTab()
     {
-        soundTab.SetActive(false );
+        soundTab.SetActive(false);
         resolutionTab.SetActive(true);
+        saveMenuPanel.SetActive(false);
     }
 }
