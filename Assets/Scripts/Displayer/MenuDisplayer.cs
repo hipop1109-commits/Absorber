@@ -24,6 +24,10 @@ public class MenuDisplayer : MonoBehaviour
     // 버튼 텍스트
     [SerializeField] private TextMeshProUGUI ButtonText;
 
+    public TextMeshProUGUI[] slotTexts; // 세이브 슬롯 상태를 표시할 TextMeshPro 배열 (3개)
+    public GameObject saveMenuPanel;   // 세이브 메뉴 UI 패널
+
+
     void Start()
     {
         // 볼륨 슬라이더 초기화
@@ -44,6 +48,8 @@ public class MenuDisplayer : MonoBehaviour
 
         // 버튼 텍스트 초기화
         UpdateButtonText();
+
+        UpdateSaveSlots();
     }
 
     private void Update()
@@ -98,16 +104,62 @@ public class MenuDisplayer : MonoBehaviour
             ButtonText.text = "Off";
         }
     }
+    // 슬롯 상태 갱신
+    public void UpdateSaveSlots()
+    {
+        for (int i = 0; i < slotTexts.Length; i++)
+        {
+            int slot = i + 1;
+            if (GameManager.IsSlotEmpty(slot))
+            {
+                slotTexts[i].text = "Slot " + slot + ": Empty";
+            }
+            else
+            {
+                var data = GameManager.LoadGame(slot);
+                slotTexts[i].text = "Slot " + slot + ": " + data.playerPosition;
+            }
+        }
+    }
+
+    // 슬롯 클릭
+    public void OnSlotClicked(int slot)
+    {
+        if (GameManager.IsSlotEmpty(slot))
+        {
+            GameManager.SaveGame(slot); // 새 데이터를 저장
+            Debug.Log("Game Saved in Slot " + slot);
+        }
+        else
+        {
+            var data = GameManager.LoadGame(slot); // 데이터를 불러옴
+            Debug.Log("Game Loaded from Slot " + slot + ": Level " + data.playerLife);
+            // 여기서 데이터를 기반으로 게임 상태를 업데이트
+        }
+
+        UpdateSaveSlots(); // UI 갱신
+    }
+
+    // 세이브 메뉴 열기
+    public void OpenSaveMenu()
+    {
+        soundTab.SetActive(false);
+        resolutionTab.SetActive(false);
+        saveMenuPanel.SetActive(true);
+        UpdateSaveSlots();
+    }
     // 사운드 탭 열기
     public void OpenSoundTab()
     {
         soundTab.SetActive(true);
         resolutionTab.SetActive(false);
+        saveMenuPanel.SetActive(false);
     }
     // 해상도 탭 열기
     public void OpenResolutionTab()
     {
-        soundTab.SetActive(false );
+        soundTab.SetActive(false);
         resolutionTab.SetActive(true);
+        saveMenuPanel.SetActive(false);
     }
 }

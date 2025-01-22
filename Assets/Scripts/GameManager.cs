@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,6 +19,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]private int life = 10; 
 
     private Player player;
+
+    // 저장된 데이터 구조
+    [Serializable]
+    public class SaveData
+    {
+        public int playerLife;
+        public Vector3 playerPosition;
+    }
+
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -61,6 +71,40 @@ public class GameManager : MonoBehaviour
             player.Heal(1);
         }
 
+    }
+    // 저장 데이터 저장
+    public static void SaveGame(int slot)
+    {
+        SaveData data = new SaveData
+        {
+             // 예시 데이터
+            playerLife = 10,
+            playerPosition = new Vector3(0, 0, 0)
+            
+        };
+
+        string json = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString("SaveSlot" + slot, json);
+        PlayerPrefs.Save();
+        Debug.Log("Game Saved in Slot " + slot);
+    }
+    // 저장 데이터 불러오기
+    public static SaveData LoadGame(int slot)
+    {
+        string key = "SaveSlot" + slot;
+        if (PlayerPrefs.HasKey(key))
+        {
+            string json = PlayerPrefs.GetString(key);
+            return JsonUtility.FromJson<SaveData>(json);
+        }
+        Debug.LogWarning("No Save Data in Slot " + slot);
+        return null;
+    }
+
+    // 슬롯 상태 확인
+    public static bool IsSlotEmpty(int slot)
+    {
+        return !PlayerPrefs.HasKey("SaveSlot" + slot);
     }
     // 재시작
     void Restart()
