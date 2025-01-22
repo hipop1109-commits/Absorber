@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1bc736dd67069044c9ded69299a3ff5d
+guid: 9780f89a6ac52094d8d8f2fd71e6b064
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8751792450817095930
-    second: "\uB77C\uC774\uD504\uAC8C\uC774\uC9C07_0"
+      213: -3721299227096781075
+    second: LifeRound_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uB77C\uC774\uD504\uAC8C\uC774\uC9C07_0"
+      name: LifeRound_0
       rect:
         serializedVersion: 2
         x: 103
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af8f5e27ddc947970800000000000000
-      internalID: 8751792450817095930
+      spriteID: deee5f9b11a4b5cc0800000000000000
+      internalID: -3721299227096781075
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uB77C\uC774\uD504\uAC8C\uC774\uC9C07_0": 8751792450817095930
+      LifeRound_0: -3721299227096781075
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

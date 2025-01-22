@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,26 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    
     // 클리어 or 게임오버 팝업창
     [SerializeField] private GameObject popupCanvas;
     // 게임 클리어 여부
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
-
-    [SerializeField] private LifeDisplayer lifeDisplayer;
+   
+    [SerializeField]private LifeDisplayer lifeDisplayer;
     // 생명 수 
-    [SerializeField] private int life = 10;
+    [SerializeField]private int life = 10; 
 
     private Player player;
-
-    // 저장 데이터 구조
-    [Serializable]
-    public class SaveData
-    {
-        public int playerLife;
-        public Vector3 playerPosition;
-    }
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -88,36 +79,6 @@ public class GameManager : MonoBehaviour
         isCleared = true;
         popupCanvas.SetActive(true);
     }
-    // 저장 데이터 저장
-    public static void SaveGame(int slot)
-    {
-        SaveData data = new SaveData
-        {
-            playerLife = 5,
-            playerPosition = new Vector3(0, 0, 0)
-        };
 
-        string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString("SaveSlot" + slot, json);
-        PlayerPrefs.Save();
-        Debug.Log("세이브 슬롯" + slot);
-    }
-    // 저장 데이터 불러오기
-    public static SaveData LoadGame(int slot)
-    {
-        string key = "SaveSlot" + slot;
-        if (PlayerPrefs.HasKey(key))
-        {
-            string json = PlayerPrefs.GetString(key);
-            return JsonUtility.FromJson<SaveData>(json);
-        }
-        Debug.LogWarning("데이터없는 슬롯" + slot);
-        return null;  
-    }
-    // 슬롯 상태 확인
-    public static bool IsSlotEmpty(int slot)
-    {
-        return !PlayerPrefs.HasKey("SaveSlot" +  slot);   
-    }
 
 }
