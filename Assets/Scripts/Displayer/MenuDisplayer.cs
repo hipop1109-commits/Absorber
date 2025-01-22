@@ -5,88 +5,88 @@ using UnityEngine.EventSystems;
 
 public class MenuDisplayer : MonoBehaviour
 {
-    // ¸Ş´º Ã¢
+    // ë©”ë‰´ ì°½
     [SerializeField] private GameObject menuPanel;
 
-    // ÅÇ
+    // íƒ­
     [SerializeField]private GameObject resolutionTab;
     [SerializeField]private GameObject soundTab;
 
-    // º¼·ı ½½¶óÀÌ´õ
+    // ë³¼ë¥¨ ìŠ¬ë¼ì´ë”
     [SerializeField]private Slider volumeSlider;
 
-    //  ÇØ»óµµ µå·Ó´Ù¿î
+    //  í•´ìƒë„ ë“œë¡­ë‹¤ìš´
     [SerializeField] private TMP_Dropdown resolutionDropdown;
 
-    // ÇØ»óµµ ¸ñ·Ï
+    // í•´ìƒë„ ëª©ë¡
     private Resolution[] resolutions;
 
-    // ¹öÆ° ÅØ½ºÆ®
+    // ë²„íŠ¼ í…ìŠ¤íŠ¸
     [SerializeField] private TextMeshProUGUI ButtonText;
 
     void Start()
     {
-        // º¼·ı ½½¶óÀÌ´õ ÃÊ±âÈ­
+        // ë³¼ë¥¨ ìŠ¬ë¼ì´ë” ì´ˆê¸°í™”
         volumeSlider.value = AudioListener.volume;
         volumeSlider.onValueChanged.AddListener(SetVolume);
 
-        // ÇØ»óµµ ¼³Á¤ ÃÊ±âÈ­
+        // í•´ìƒë„ ì„¤ì • ì´ˆê¸°í™”
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
 
-        // ÇØ»óµµ ¿É¼Ç Ãß°¡
+        // í•´ìƒë„ ì˜µì…˜ ì¶”ê°€
         foreach (Resolution res in resolutions)
         {
             resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
         }
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
 
-        // ¹öÆ° ÅØ½ºÆ® ÃÊ±âÈ­
+        // ë²„íŠ¼ í…ìŠ¤íŠ¸ ì´ˆê¸°í™”
         UpdateButtonText();
     }
 
     private void Update()
-    {   // Esc ¹öÆ° ½Ã ¸Ş´º ¿ÀÇÂ
+    {   // Esc ë²„íŠ¼ ì‹œ ë©”ë‰´ ì˜¤í”ˆ
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OpenMenu();
         }
     }
 
-    // ¸Ş´º¹öÆ° 
+    // ë©”ë‰´ë²„íŠ¼ 
     public void OpenMenu()
     {
         menuPanel.SetActive(!menuPanel.activeSelf);
         Time.timeScale = menuPanel.activeSelf ? 0 : 1;
     }
-    // ¸Ş´º ´İÀ½ 
+    // ë©”ë‰´ ë‹«ìŒ 
     public void CloseMenu()
     {
         menuPanel.SetActive(false);
     }
     
-    // ÀüÃ¼ º¼·ı Á¶Àı
+    // ì „ì²´ ë³¼ë¥¨ ì¡°ì ˆ
     public void SetVolume(float volume)
     {
         AudioListener.volume = volume; 
     }
 
-    // ÇØ»óµµ ¼³Á¤
+    // í•´ìƒë„ ì„¤ì •
     public void SetResolution(int index)
     {
         Resolution selectedResolution = resolutions[index];
         Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen );
     }
 
-    // Ç®½ºÅ©¸° ¿Â¿ÀÇÁ
+    // í’€ìŠ¤í¬ë¦° ì˜¨ì˜¤í”„
     public void ToggleFullScreen()
     {
         Screen.fullScreen = !Screen.fullScreen;
         UpdateButtonText();
         
     }
-    // Ç®½ºÅ©¸° ¿Â¿ÀÇÁ ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+    // í’€ìŠ¤í¬ë¦° ì˜¨ì˜¤í”„ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
     private void UpdateButtonText()
     {
         if(Screen.fullScreen)
@@ -98,13 +98,13 @@ public class MenuDisplayer : MonoBehaviour
             ButtonText.text = "Off";
         }
     }
-    // »ç¿îµå ÅÇ ¿­±â
+    // ì‚¬ìš´ë“œ íƒ­ ì—´ê¸°
     public void OpenSoundTab()
     {
         soundTab.SetActive(true);
         resolutionTab.SetActive(false);
     }
-    // ÇØ»óµµ ÅÇ ¿­±â
+    // í•´ìƒë„ íƒ­ ì—´ê¸°
     public void OpenResolutionTab()
     {
         soundTab.SetActive(false );

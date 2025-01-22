@@ -4,7 +4,7 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f; //적 이동 속도
     [SerializeField] private int hp = 20;
-    [SerializeField] private int damage = 10;
+    public int damage = 10;
     Animator animator;
 
     [SerializeField] private float groundCheckRadius = 0.1f; //바닥 감지 반경
@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //적이 공격을 받는 메서드
+    //적이 공격을 받으면
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Attack"))
@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
             Attack attack = collision.GetComponent<Attack>();
             if(attack != null)
             {
-                TakeDamage(attack.damage);
+                EnemyTakeDamage(attack.damage);
                 //적이 피해를 입는 애니메이션
                 stateMachine.Initalize(stateMachine.hitState);
                 Debug.Log("Attack");
@@ -63,8 +63,7 @@ public class EnemyController : MonoBehaviour
     }
 
     //적이 피해를 입는 메서드
-
-    public void TakeDamage(int damage)
+    public void EnemyTakeDamage(int damage)
     {
         hp -= damage;
         Debug.Log($"적{gameObject} 체력 : {hp}"); 
@@ -77,6 +76,15 @@ public class EnemyController : MonoBehaviour
             Invoke("DestroyEnemy", 1);
         }
     }
+
+    //적이 공격하는 메서드
+    public void Attack(int damage)
+    {
+        //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
+        playerController.TakeDamage(damage+10);
+    }
+
+
     void DestroyEnemy()
     {
         //적 사라짐
