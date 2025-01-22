@@ -3623,7 +3623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   line: {fileID: 0}
-  hook: {fileID: 0}
+  hook: {fileID: 7520013227448446466, guid: 43cc90975bb738444ac1199088c07911, type: 3}
   isHookActive: 0
   isLineMax: 0
   isAttach: 0
