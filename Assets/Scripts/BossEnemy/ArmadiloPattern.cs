@@ -17,10 +17,17 @@ public class ArmadiloPattern : MonoBehaviour
     private Rigidbody2D rb;
     private bool isTackling = false; // 돌진 상태 관리
     private Vector2 tackleDirection; // 돌진 방향
-    private float tackleSpeed = 30f; // 돌진 속도
-    private float tackleDuration = 1.5f; // 돌진 지속 시간
-    private float tackleTimer = 0f; // 돌진 타이
+    private float tackleSpeed = 40f; // 돌진 속도
+    private float tackleDuration = 0.6f; // 돌진 지속 시간
+    private float tackleTimer = 0f; // 돌진 타이머
 
+    public PlayerController player;
+    public EnemyStateMachine a_stateMachine;
+
+    private void Awake()
+    {
+        a_stateMachine = GetComponent<EnemyController>().stateMachine;
+    }
     private void Start()
     {
         ani = GetComponent<Animator>();
@@ -116,61 +123,60 @@ public class ArmadiloPattern : MonoBehaviour
 
     private IEnumerator CloseAttack()
     {
-       
+        if (isTransitioning == false)
+        {
             isTransitioning = true;
             Stomp();
             yield return new WaitForSeconds(5);
             isInCloseRange = false;
             isTransitioning = false;
-        ani.SetTrigger("Idle");
-
+            
+        }
     }
 
     private IEnumerator FarAttack()
     {
-        isTransitioning = true;
-            Tackle();
+        if (isTransitioning == false)
+        {
+            isTransitioning = true;
+            StartCoroutine(TackleRoutine());
             yield return new WaitForSeconds(5);
             isInFarRange = false;
-        isTransitioning = false;
-        ani.SetTrigger("Idle");
-
+            isTransitioning = false;
+           
+        }
     }
 
     private IEnumerator AirAttack()
     {
-        isTransitioning = true;
-        SpineAttack();
-        yield return new WaitForSeconds(5);
-        isInFarRange = false;
-        isTransitioning = false;
-        ani.SetTrigger("Idle");
-
+        if (isTransitioning == false)
+        {
+            isTransitioning = true;
+            SpineAttack();
+            yield return new WaitForSeconds(5);
+            isInFarRange = false;
+            isTransitioning = false;
+           
+        }
     }
 
     private void Stomp()
     {
-        ani.SetTrigger("Stomp");
+        a_stateMachine.TransitionTo(a_stateMachine.a_StompState);
     }
 
-    private void Tackle()
-    {
-        StartCoroutine(TackleRoutine());
-        ani.SetTrigger("Idle");
-
-    }
-
+    
     private IEnumerator TackleRoutine()
     {
-        ani.SetTrigger("Angry");
+        a_stateMachine.TransitionTo(a_stateMachine.a_AngryState);
         yield return new WaitForSeconds(1f); // 애니메이션 시작 후 0.4초 대기
 
         // 돌진 설정
         isTackling = true;
-        tackleDirection = Vector2.left; // 돌진 방향 설정 (예: 오른쪽으로 돌진)
+        tackleDirection = (player.transform.position - transform.position).normalized;
         tackleTimer = tackleDuration; // 돌진 지속 시간 설정
 
-        yield return new WaitForSeconds(tackleDuration + 0.4f); // 돌진 종료 후 대기
+        yield return new WaitForSeconds(tackleDuration + 1f); // 돌진 종료 후 대기
         isTackling = false;
         
     }
@@ -178,7 +184,7 @@ public class ArmadiloPattern : MonoBehaviour
 
     private void SpineAttack()
     {
-        ani.SetTrigger("Spine");
+        a_stateMachine.TransitionTo(a_stateMachine.a_SpineState);
     }
 
 
