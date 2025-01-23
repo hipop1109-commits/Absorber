@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
         foreach (var enableObject in enableObjects)
         {
             enableObject.SetActive(false);
+            Debug.Log("비활성화");
         }
         stateMachine.TransitionTo(stateMachine.dieState);
         Debug.Log("Player Die");
@@ -241,7 +242,6 @@ public class PlayerController : MonoBehaviour
         // 조합에 해당하는 결과 출력
         if (combinations.TryGetValue(selectedCombination, out string result))
         {
-            Debug.Log($"방출: {result}");
             WeaponController.Instance.WeaponMode = result;
         }
         else

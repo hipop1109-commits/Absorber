@@ -1,90 +1,118 @@
 ﻿using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class EnemyMove : MonoBehaviour
 {
-    Rigidbody2D rb;
-    Animator animator;
-    [SerializeField] private int nextMove;
-    [SerializeField] private float raycastLength = 2f;
-    [SerializeField] private float raycastHorizontalLength = 0.5f;
+    [Header("일반 이동 설정")]
+    [SerializeField] private float moveSpeed = 2f; // 일반 이동 속도
+    [SerializeField] private Transform groundCheck; // 낭떠러지를 감지하는 위치
+    [SerializeField] private Transform wallCheck;   // 벽을 감지하는 위치
+    [SerializeField] private float checkRadius = 0.2f; // 감지 반경
+    [SerializeField] private LayerMask groundLayer; // Ground 레이어
+    [SerializeField] private bool movingRight = true; // 현재 이동 방향 (true: 오른쪽, false: 왼쪽)
 
-    public LayerMask groundLayer; // 발판을 감지할 레이어
+    [Header("플레이어 추적 설정")]
+    [SerializeField] private Transform player; // 플레이어 Transform
+    [SerializeField] private float traceSpeed = 2.5f; // 추적 속도
+    [SerializeField] private Collider2D traceCollider; // 추적 감지 범위
 
+    private Rigidbody2D rb;
+    private bool isFollowing = false; // 추적 여부
     public EnemyStateMachine e_stateMachine; // 적의 상태를 관리할 스테이트 머신
+    private EnemyController enemyController;
 
-
-    void Awake()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-
-        // 스테이트 머신 초기화
-        e_stateMachine = GetComponent<EnemyController>().stateMachine;
-
-        Think();
-
-        //딜레이 주기
-        Invoke("Think", 5);
+        rb = GetComponent<Rigidbody2D>(); // Rigidbody2D 컴포넌트 초기화
+        enemyController = GetComponent<EnemyController>();
+        e_stateMachine = enemyController.stateMachine;
     }
 
-    // 물리 기반이기 때문에 FixedUpdate 사용
-    void FixedUpdate()
+    void Update()
     {
-        // 옆으로 움직이게
-        rb.linearVelocity = new Vector2(nextMove, rb.linearVelocity.y);
-
-        // 발 아래 발판 감지
-        if (!IsGroundAhead())
+        if (isFollowing)
         {
-            Turn(); // 낭떠러지 감지 시 방향 전환
+            FollowPlayer(); // 플레이어 추적
+            e_stateMachine.TransitionTo(e_stateMachine.walkState);
+        }
+        else
+        {
+            Patrol(); // 일반 이동
+            e_stateMachine.TransitionTo(e_stateMachine.walkState);
         }
     }
 
-    // 발 아래 발판 감지
-    bool IsGroundAhead()
+    void Patrol()
     {
-        // 발 앞부분에 레이캐스트 발사
-        Vector2 origin = new Vector2(rb.position.x + nextMove * raycastHorizontalLength, rb.position.y);
+        // 낭떠러지 감지: groundCheck 위치에서 낭떠러지가 있는지 확인
+        bool isGroundAhead = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
 
-        //raycastLength 조정하면 보스나 일반몹이 인지하는 ray 달라짐
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, raycastLength, groundLayer);
+        // 높은 땅 감지: wallCheck 위치에서 높은 땅을 감지
+        bool isWallAhead = Physics2D.OverlapCircle(wallCheck.position, checkRadius, groundLayer);
 
-        // 디버그용 레이 시각화
-        Debug.DrawRay(origin, Vector2.down * raycastLength, Color.green);
+        // 낭떠러지거나 높은 땅(벽)이 감지되면 방향 전환
+        if (!isGroundAhead || isWallAhead)
+        {
+            movingRight = !movingRight; // 방향 전환
+        }
 
-        // 발판이 감지되면 true 반환
-        return hit.collider != null;
+        // 이동 처리
+        float moveDirection = movingRight ? 1 : -1; // 오른쪽이면 1, 왼쪽이면 -1
+        rb.linearVelocity = new Vector2(moveDirection * moveSpeed, rb.linearVelocity.y);
+
+
+        // 적의 스프라이트 방향 조정
+        transform.localScale = new Vector3(movingRight ? -3 : 3, 3, 1);
     }
 
-    //왼쪽인지 오른쪽인지 판단
-    void Think()
+    void FollowPlayer()
     {
-        // -1 또는 1만 랜덤으로 설정
-        nextMove = Random.Range(0, 2) == 0 ? -1 : 1;
+        // 플레이어 위치로 이동
+        if (player == null) return;
 
-        // 애니메이션 설정
-        e_stateMachine.TransitionTo(e_stateMachine.walkState);
+        float direction = player.position.x - transform.position.x;
+        float moveDirection = direction > 0 ? -1 : 1;
 
-        // 방향 전환
-        if (nextMove == 1)
-            transform.rotation = Quaternion.Euler(0, 180, 0); // 왼쪽
-        else
-            transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
+        rb.linearVelocity = new Vector2(moveDirection * traceSpeed, rb.linearVelocity.y);
 
-        // 다음 Think 호출 예약
-        float nextThinkTime = Random.Range(2f, 5f);
-        Invoke("Think", nextThinkTime);
+        // 적의 스프라이트 방향 조정
+        transform.localScale = new Vector3(moveDirection > 0 ? -3 : 3, 3, 1);
     }
 
-    void Turn()
+    void OnTriggerStay2D(Collider2D collision)
     {
-        // 방향 전환만 수행
-        nextMove *= -1;
+        if (collision.CompareTag("Player")) // "Player" 태그로 플레이어를 감지
+        {
+            isFollowing = true; // 추적 시작
+        }
+    }
 
-        if (nextMove == 1)
-            transform.rotation = Quaternion.Euler(0, 180, 0); // 왼쪽
-        else
-            transform.rotation = Quaternion.Euler(0, 0, 0); // 오른쪽
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isFollowing = false; // 추적 중지
+        }
+    }
+
+    // Gizmos를 사용하여 groundCheck와 wallCheck의 감지 반경을 시각적으로 확인
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+        }
+
+        if (wallCheck != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
+        }
+
+        if (traceCollider != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(traceCollider.bounds.center, traceCollider.bounds.size);
+        }
     }
 }

@@ -390,10 +390,8 @@ public class WeaponController : MonoBehaviour
     //물 무기 코드
     IEnumerator WaterSpray()
     {
-        Debug.Log("발사");
         if (canShoot && WaterGauge > 0)
         {
-            Debug.Log("발사2");
             WaterGauge -= 5f;
 
             Vector3 spawnPosition = firePoint.position + firePoint.right * 4f;
