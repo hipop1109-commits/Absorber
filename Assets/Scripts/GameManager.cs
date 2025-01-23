@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,19 +8,19 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     
-    // Å¬ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½Ã¢
+    // Å¬¸®¾î or °ÔÀÓ¿À¹ö ÆË¾÷Ã¢
     [SerializeField] private GameObject popupCanvas;
-    // ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // °ÔÀÓ Å¬¸®¾î ¿©ºÎ
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
    
     [SerializeField]private LifeDisplayer lifeDisplayer;
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
+    // »ý¸í ¼ö 
     [SerializeField]private int life = 10; 
 
     private Player player;
 
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ÀúÀåµÈ µ¥ÀÌÅÍ ±¸Á¶
     [Serializable]
     public class SaveData
     {
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {   // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+    {   // »ý¸í ÀÌ¹ÌÁö È°¼ºÈ­
         if (lifeDisplayer != null)
         {
             player = new Player(life, 0f,0f,0f);
@@ -54,13 +55,13 @@ public class GameManager : MonoBehaviour
         }
         else 
         { 
-            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ÈµÆ¾ï¿½ï¿½"); 
+            Debug.Log("¶óÀÌÇÁ µð½ºÇÃ·¹ÀÌ È°¼ºÈ­ ¾ÈµÆ¾î¿ä"); 
         }
     }
 
     void Update()
     {
-        // ï¿½×½ï¿½Æ®ï¿½ï¿½
+        // Å×½ºÆ®¿ë
         if (Input.GetKeyDown(KeyCode.G))
         {
             //player.TakeDamage(1);
@@ -71,12 +72,12 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ÀúÀå µ¥ÀÌÅÍ ÀúÀå
     public static void SaveGame(int slot)
     {
         SaveData data = new SaveData
         {
-             // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+             // ¿¹½Ã µ¥ÀÌÅÍ
             playerLife = 10,
             playerPosition = new Vector3(0, 0, 0)
             
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("Game Saved in Slot " + slot);
     }
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ÀúÀå µ¥ÀÌÅÍ ºÒ·¯¿À±â
     public static SaveData LoadGame(int slot)
     {
         string key = "SaveSlot" + slot;
@@ -100,23 +101,23 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    // ½½·Ô »óÅÂ È®ÀÎ
     public static bool IsSlotEmpty(int slot)
     {
         return !PlayerPrefs.HasKey("SaveSlot" + slot);
     }
-    // ï¿½ï¿½ï¿½ï¿½ï¿½
+    // Àç½ÃÀÛ
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    // ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
+    // °ÔÀÓ¿À¹ö
     void GameOver()
     {
         isCleared = false;
         popupCanvas.SetActive(true);
     }
-    // ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+    // °ÔÀÓ Å¬¸®¾î
     public void GameClear()
     {
         isCleared = true;

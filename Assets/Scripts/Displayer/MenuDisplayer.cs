@@ -24,8 +24,8 @@ public class MenuDisplayer : MonoBehaviour
     // К╡└М┼╪ М┘█Л┼╓М┼╦
     [SerializeField] private TextMeshProUGUI ButtonText;
 
-    public TextMeshProUGUI[] slotTexts; // О©╫О©╫О©╫л╨О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫б╦О©╫ г╔О©╫О©╫О©╫О©╫ TextMeshPro О©╫Х©╜ (3О©╫О©╫)
-    public GameObject saveMenuPanel;   // О©╫О©╫О©╫л╨О©╫ О©╫ч╢О©╫ UI О©╫пЁО©╫
+    public TextMeshProUGUI[] slotTexts; // ╪╪юл╨Й ╫╫╥т ╩Себ╦╕ г╔╫цгр TextMeshPro ╧Х©╜ (3╟Ё)
+    public GameObject saveMenuPanel;   // ╪╪юл╨Й ╦ч╢╨ UI фпЁн
 
 
     void Start()
@@ -104,7 +104,7 @@ public class MenuDisplayer : MonoBehaviour
             ButtonText.text = "Off";
         }
     }
-    // О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
+    // ╫╫╥т ╩Себ ╟╩╫е
     public void UpdateSaveSlots()
     {
         for (int i = 0; i < slotTexts.Length; i++)
@@ -122,25 +122,25 @@ public class MenuDisplayer : MonoBehaviour
         }
     }
 
-    // О©╫О©╫О©╫О©╫ е╛О©╫О©╫
+    // ╫╫╥т е╛╦╞
     public void OnSlotClicked(int slot)
     {
         if (GameManager.IsSlotEmpty(slot))
         {
-            GameManager.SaveGame(slot); // О©╫О©╫ О©╫О©╫О©╫О©╫О©╫м╦О©╫ О©╫О©╫О©╫О©╫
+            GameManager.SaveGame(slot); // ╩У ╣╔юлем╦╕ юЗюЕ
             Debug.Log("Game Saved in Slot " + slot);
         }
         else
         {
-            var data = GameManager.LoadGame(slot); // О©╫О©╫О©╫О©╫О©╫м╦О©╫ О©╫р╥О©╫О©╫О©╫
+            var data = GameManager.LoadGame(slot); // ╣╔юлем╦╕ ╨р╥╞©х
             Debug.Log("Game Loaded from Slot " + slot + ": Level " + data.playerLife);
-            // О©╫О©╫О©╫Б╪╜ О©╫О©╫О©╫О©╫О©╫м╦О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫б╦О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ф╝
+            // ©╘╠Б╪╜ ╣╔юлем╦╕ ╠Б╧щю╦╥н ╟тюс ╩Себ╦╕ ╬В╣╔юлф╝
         }
 
-        UpdateSaveSlots(); // UI О©╫О©╫О©╫О©╫
+        UpdateSaveSlots(); // UI ╟╩╫е
     }
 
-    // О©╫О©╫О©╫л╨О©╫ О©╫ч╢О©╫ О©╫О©╫О©╫О©╫
+    // ╪╪юл╨Й ╦ч╢╨ ©╜╠Б
     public void OpenSaveMenu()
     {
         soundTab.SetActive(false);
@@ -148,7 +148,7 @@ public class MenuDisplayer : MonoBehaviour
         saveMenuPanel.SetActive(true);
         UpdateSaveSlots();
     }
-    // О©╫О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫
+    // ╩Г©Н╣Е ег ©╜╠Б
     public void OpenSoundTab()
     {
         soundTab.SetActive(true);

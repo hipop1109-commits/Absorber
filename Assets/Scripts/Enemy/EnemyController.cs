@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    private bool isDie = false;
     [SerializeField] private float moveSpeed = 10f; //적 이동 속도
     [SerializeField] private int hp = 20;
     public int damage = 10;
-    Animator animator;
-
-    [SerializeField] private float groundCheckRadius = 0.1f; //바닥 감지 반경
 
     [SerializeField] private PlayerController playerController;
-
     [SerializeField] private GameObject itemPrefab;
 
     Vector2 vx;
@@ -21,15 +18,15 @@ public class EnemyController : MonoBehaviour
     {
         // 상태 머신 초기화
         stateMachine = new EnemyStateMachine(this);
-
-    }
-    
-    private void Start()
-    {
         // 상태 머신의 초기 상태를 Idle로 설정
         stateMachine.Initalize(stateMachine.idleState);
+
+    }
+
+    private void Start()
+    {
         vx = Vector2.left * moveSpeed;
-        Debug.Log("적 체력 : "+hp);
+        Debug.Log("적 체력 : " + hp);
     }
 
     private void Update()
@@ -49,10 +46,11 @@ public class EnemyController : MonoBehaviour
     //적이 공격을 받으면
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDie) return; // 이미 죽은 적은 충돌 무시
         if (collision.gameObject.CompareTag("Attack"))
         {
             Attack attack = collision.GetComponent<Attack>();
-            if(attack != null)
+            if (attack != null)
             {
                 EnemyTakeDamage(attack.damage);
                 //적이 피해를 입는 애니메이션
@@ -65,10 +63,12 @@ public class EnemyController : MonoBehaviour
     //적이 피해를 입는 메서드
     public void EnemyTakeDamage(int damage)
     {
+        if (isDie) return; // 이미 죽은 상태라면 무시
         hp -= damage;
-        Debug.Log($"적{gameObject} 체력 : {hp}"); 
-        if(hp <= 0)
+        Debug.Log($"적{gameObject} 체력 : {hp}");
+        if (hp <= 0)
         {
+            isDie = true;
             //적 죽는 애니메이션
             stateMachine.TransitionTo(stateMachine.dieState);
             Debug.Log(stateMachine.CurrentState);
@@ -81,7 +81,7 @@ public class EnemyController : MonoBehaviour
     public void Attack(int damage)
     {
         //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
-        playerController.TakeDamage(damage+10);
+        playerController.TakeDamage(damage + 10);
     }
 
 

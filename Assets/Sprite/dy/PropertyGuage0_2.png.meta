@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Sprite/dy/WaterCircle.png.meta
-guid: e6f54c5fb8db4e4449ffe536606b1da7
-TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -5234498158485951982
-    second: WaterCircle_0
-========
 guid: 4c0e03ee952afb44bb418222d1bcc284
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: -1494152775078699861
     second: PropertyGuage0_2_0
->>>>>>>> 9fb575d1a4b76a5d2a3b16d5a50549524459d695:Assets/Sprite/dy/PropertyGuage0_2.png.meta
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -148,17 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-<<<<<<<< HEAD:Assets/Sprite/dy/WaterCircle.png.meta
-      name: WaterCircle_0
-========
       name: PropertyGuage0_2_0
->>>>>>>> 9fb575d1a4b76a5d2a3b16d5a50549524459d695:Assets/Sprite/dy/PropertyGuage0_2.png.meta
       rect:
         serializedVersion: 2
-        x: 115
-        y: 116
-        width: 283
-        height: 283
+        x: 4
+        y: 3
+        width: 680
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,13 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-<<<<<<<< HEAD:Assets/Sprite/dy/WaterCircle.png.meta
-      spriteID: 21a220e88a35b57b0800000000000000
-      internalID: -5234498158485951982
-========
       spriteID: bac1549a7f3b34be0800000000000000
       internalID: -1494152775078699861
->>>>>>>> 9fb575d1a4b76a5d2a3b16d5a50549524459d695:Assets/Sprite/dy/PropertyGuage0_2.png.meta
       vertices: []
       indices: 
       edges: []
@@ -192,11 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-<<<<<<<< HEAD:Assets/Sprite/dy/WaterCircle.png.meta
-      WaterCircle_0: -5234498158485951982
-========
       PropertyGuage0_2_0: -1494152775078699861
->>>>>>>> 9fb575d1a4b76a5d2a3b16d5a50549524459d695:Assets/Sprite/dy/PropertyGuage0_2.png.meta
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
