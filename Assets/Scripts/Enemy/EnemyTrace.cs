@@ -1,14 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyTrace : MonoBehaviour
 {
-    [SerializeField] private Transform player; // ÇÃ·¹ÀÌ¾î Transform
-    private Transform enemyTransform; // ºÎ¸ğ Enemy Transform ÂüÁ¶
+    [SerializeField] private Transform player; // í”Œë ˆì´ì–´ Transform
+    private Transform enemyTransform; // ë¶€ëª¨ Enemy Transform ì°¸ì¡°
 
-    [SerializeField] private float moveSpeed = 2.5f; // ÃßÀû ÀÌµ¿ ¼Óµµ
+    [SerializeField] private float moveSpeed = 2.5f; // ì¶”ì  ì´ë™ ì†ë„
 
-    private EnemyMove enemyMove; // EnemyMove ½ºÅ©¸³Æ® ÂüÁ¶
-    private bool isFollowing = false; // ÃßÀû ¿©ºÎ
+    private EnemyMove enemyMove; // EnemyMove ìŠ¤í¬ë¦½íŠ¸ ì°¸ì¡°
+    public bool isFollowing = false; // ì¶”ì  ì—¬ë¶€
 
     void Awake()
     {
@@ -20,32 +20,32 @@ public class EnemyTrace : MonoBehaviour
     {
         if (isFollowing && player != null)
         {
-            FollowPlayer(); // ÇÃ·¹ÀÌ¾î ÃßÀû
+            FollowPlayer(); // í”Œë ˆì´ì–´ ì¶”ì 
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î¸¦ ÃßÀûÇÏ´Â ·ÎÁ÷
+    // í”Œë ˆì´ì–´ë¥¼ ì¶”ì í•˜ëŠ” ë¡œì§
     void FollowPlayer()
     {
         float direction = player.position.x - enemyTransform.position.x;
-        int nextMove = direction > 0 ? -1 : 1; // ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊ¿¡ ÀÖÀ¸¸é -1, ¿ŞÂÊ¿¡ ÀÖÀ¸¸é 1
+        int nextMove = direction > 0 ? -1 : 1; // í”Œë ˆì´ì–´ê°€ ì˜¤ë¥¸ìª½ì— ìˆìœ¼ë©´ -1, ì™¼ìª½ì— ìˆìœ¼ë©´ 1
 
         enemyTransform.Translate(Vector2.right * nextMove * moveSpeed * Time.deltaTime);
 
-        // ¹æÇâ ÀüÈ¯
+        // ë°©í–¥ ì „í™˜
         if (nextMove == 1)
-            enemyTransform.rotation = Quaternion.Euler(0, 180, 0); // ¿ŞÂÊ
+            enemyTransform.rotation = Quaternion.Euler(0, 180, 0); // ì™¼ìª½
         else
-            enemyTransform.rotation = Quaternion.Euler(0, 0, 0); // ¿À¸¥ÂÊ
+            enemyTransform.rotation = Quaternion.Euler(0, 0, 0); // ì˜¤ë¥¸ìª½
     }
-    // ÇÃ·¹ÀÌ¾î°¡ °¨Áö ¹üÀ§¿¡ µé¾î¿Ô´ÂÁö È®ÀÎ
+    // í”Œë ˆì´ì–´ê°€ ê°ì§€ ë²”ìœ„ì— ë“¤ì–´ì™”ëŠ”ì§€ í™•ì¸
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) // "Player" ÅÂ±×·Î ÇÃ·¹ÀÌ¾î¸¦ °¨Áö
+        if (collision.CompareTag("Player")) // "Player" íƒœê·¸ë¡œ í”Œë ˆì´ì–´ë¥¼ ê°ì§€
         {
-            isFollowing = true; // ÃßÀû ½ÃÀÛ
-            Debug.Log("ÃßÀûÁß");
-            enemyMove.enabled = false; // EnemyMove ºñÈ°¼ºÈ­
+            isFollowing = true; // ì¶”ì  ì‹œì‘
+            Debug.Log("ì¶”ì ì¤‘");
+            enemyMove.enabled = false; // EnemyMove ë¹„í™œì„±í™”
         }
     }
 
@@ -53,9 +53,9 @@ public class EnemyTrace : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            isFollowing = false; // ÃßÀû ÁßÁö
-            Debug.Log("ÃßÀûÁßÁö");
-            enemyMove.enabled = true; // EnemyMove È°¼ºÈ­
+            isFollowing = false; // ì¶”ì  ì¤‘ì§€
+            Debug.Log("ì¶”ì ì¤‘ì§€");
+            enemyMove.enabled = true; // EnemyMove í™œì„±í™”
         }
     }
 }

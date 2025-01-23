@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -184,7 +185,7 @@ public class PlayerController : MonoBehaviour
         //StartCoroutine(ResetTimeScale());
     }
 
-    private System.Collections.IEnumerator ResetTimeScale()
+    private IEnumerator ResetTimeScale()
     {
         yield return new WaitForSecondsRealtime(SlowTime.Instance.slowLength);
         SlowTime.Instance.Back();

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Sprite/dy/LifeRound.png.meta
 guid: 9780f89a6ac52094d8d8f2fd71e6b064
+========
+guid: b84521736a4dddb468848851a155b9b1
+>>>>>>>> 9fb575d1a4b76a5d2a3b16d5a50549524459d695:Assets/Sprite/dy/LifeRound3.png.meta
 TextureImporter:
   internalIDToNameTable:
   - first:

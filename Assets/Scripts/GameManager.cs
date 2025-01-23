@@ -7,17 +7,26 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     
-    // Å¬¸®¾î or °ÔÀÓ¿À¹ö ÆË¾÷Ã¢
+    // Å¬ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½Ã¢
     [SerializeField] private GameObject popupCanvas;
-    // °ÔÀÓ Å¬¸®¾î ¿©ºÎ
+    // ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
    
     [SerializeField]private LifeDisplayer lifeDisplayer;
-    // »ý¸í ¼ö 
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
     [SerializeField]private int life = 10; 
 
     private Player player;
+
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [Serializable]
+    public class SaveData
+    {
+        public int playerLife;
+        public Vector3 playerPosition;
+    }
+
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -36,7 +45,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {   // »ý¸í ÀÌ¹ÌÁö È°¼ºÈ­
+    {   // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         if (lifeDisplayer != null)
         {
             player = new Player(life, 0f,0f,0f);
@@ -45,13 +54,13 @@ public class GameManager : MonoBehaviour
         }
         else 
         { 
-            Debug.Log("¶óÀÌÇÁ µð½ºÇÃ·¹ÀÌ È°¼ºÈ­ ¾ÈµÆ¾î¿ä"); 
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ÈµÆ¾ï¿½ï¿½"); 
         }
     }
 
     void Update()
     {
-        // Å×½ºÆ®¿ë
+        // ï¿½×½ï¿½Æ®ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.G))
         {
             //player.TakeDamage(1);
@@ -62,18 +71,52 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    // Àç½ÃÀÛ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public static void SaveGame(int slot)
+    {
+        SaveData data = new SaveData
+        {
+             // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            playerLife = 10,
+            playerPosition = new Vector3(0, 0, 0)
+            
+        };
+
+        string json = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString("SaveSlot" + slot, json);
+        PlayerPrefs.Save();
+        Debug.Log("Game Saved in Slot " + slot);
+    }
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
+    public static SaveData LoadGame(int slot)
+    {
+        string key = "SaveSlot" + slot;
+        if (PlayerPrefs.HasKey(key))
+        {
+            string json = PlayerPrefs.GetString(key);
+            return JsonUtility.FromJson<SaveData>(json);
+        }
+        Debug.LogWarning("No Save Data in Slot " + slot);
+        return null;
+    }
+
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    public static bool IsSlotEmpty(int slot)
+    {
+        return !PlayerPrefs.HasKey("SaveSlot" + slot);
+    }
+    // ï¿½ï¿½ï¿½ï¿½ï¿½
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    // °ÔÀÓ¿À¹ö
+    // ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
     void GameOver()
     {
         isCleared = false;
         popupCanvas.SetActive(true);
     }
-    // °ÔÀÓ Å¬¸®¾î
+    // ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
     public void GameClear()
     {
         isCleared = true;

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class EnemyMove : MonoBehaviour
@@ -9,9 +9,9 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private float raycastLength = 2f;
     [SerializeField] private float raycastHorizontalLength = 0.5f;
 
-    public LayerMask groundLayer; // ¹ßÆÇÀ» °¨ÁöÇÒ ·¹ÀÌ¾î
+    public LayerMask groundLayer; // ë°œíŒì„ ê°ì§€í•  ë ˆì´ì–´
 
-    public EnemyStateMachine e_stateMachine; // ÀûÀÇ »óÅÂ¸¦ °ü¸®ÇÒ »óÅÂ ¸Ó½Å
+    public EnemyStateMachine e_stateMachine; // ì ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•  ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹ 
 
 
     void Awake()
@@ -19,72 +19,72 @@ public class EnemyMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        // »óÅÂ ±â°è ÃÊ±âÈ­
+        // ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹  ì´ˆê¸°í™”
         e_stateMachine = GetComponent<EnemyController>().stateMachine;
 
         Think();
 
-        //µô·¹ÀÌ ÁÖ±â
+        //ë”œë ˆì´ ì£¼ê¸°
         Invoke("Think", 5);
     }
 
-    // ¹°¸® ±â¹İÀÌ±â ¶§¹®¿¡ FixedUpdate »ç¿ë
+    // ë¬¼ë¦¬ ê¸°ë°˜ì´ê¸° ë•Œë¬¸ì— FixedUpdate ì‚¬ìš©
     void FixedUpdate()
     {
-        // ¿·À¸·Î ¿òÁ÷ÀÌ°Ô
+        // ì˜†ìœ¼ë¡œ ì›€ì§ì´ê²Œ
         rb.linearVelocity = new Vector2(nextMove, rb.linearVelocity.y);
 
-        // ¹ß ¾Æ·¡ ¹ßÆÇ °¨Áö
+        // ë°œ ì•„ë˜ ë°œíŒ ê°ì§€
         if (!IsGroundAhead())
         {
-            Turn(); // ³¶¶°·¯Áö °¨Áö ½Ã ¹æÇâ ÀüÈ¯
+            Turn(); // ë‚­ë– ëŸ¬ì§€ ê°ì§€ ì‹œ ë°©í–¥ ì „í™˜
         }
     }
 
-    // ¹ß ¾Æ·¡ ¹ßÆÇ °¨Áö
+    // ë°œ ì•„ë˜ ë°œíŒ ê°ì§€
     bool IsGroundAhead()
     {
-        // ¹ß ¾ÕºÎºĞ¿¡ ·¹ÀÌÄ³½ºÆ® ¹ß»ç
+        // ë°œ ì•ë¶€ë¶„ì— ë ˆì´ìºìŠ¤íŠ¸ ë°œì‚¬
         Vector2 origin = new Vector2(rb.position.x + nextMove * raycastHorizontalLength, rb.position.y);
 
-        //raycastLength Á¶Á¤ÇÏ¸é º¸½º³ª ÀÏ¹İ¸÷ÀÌ ÀÎÁöÇÏ´Â ray ´Ş¶óÁü
+        //raycastLength ì¡°ì •í•˜ë©´ ë³´ìŠ¤ë‚˜ ì¼ë°˜ëª¹ì´ ì¸ì§€í•˜ëŠ” ray ë‹¬ë¼ì§
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, raycastLength, groundLayer);
 
-        // µğ¹ö±×¿ë ·¹ÀÌ ½Ã°¢È­
+        // ë””ë²„ê·¸ìš© ë ˆì´ ì‹œê°í™”
         Debug.DrawRay(origin, Vector2.down * raycastLength, Color.green);
 
-        // ¹ßÆÇÀÌ °¨ÁöµÇ¸é true ¹İÈ¯
+        // ë°œíŒì´ ê°ì§€ë˜ë©´ true ë°˜í™˜
         return hit.collider != null;
     }
 
-    //¿ŞÂÊÀÎÁö ¿À¸¥ÂÊÀÎÁö ÆÇ´Ü
+    //ì™¼ìª½ì¸ì§€ ì˜¤ë¥¸ìª½ì¸ì§€ íŒë‹¨
     void Think()
     {
-        // -1 ¶Ç´Â 1¸¸ ·£´ıÀ¸·Î ¼³Á¤
+        // -1 ë˜ëŠ” 1ë§Œ ëœë¤ìœ¼ë¡œ ì„¤ì •
         nextMove = Random.Range(0, 2) == 0 ? -1 : 1;
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ¼³Á¤
+        // ì• ë‹ˆë©”ì´ì…˜ ì„¤ì •
         e_stateMachine.TransitionTo(e_stateMachine.walkState);
 
-        // ¹æÇâ ÀüÈ¯
+        // ë°©í–¥ ì „í™˜
         if (nextMove == 1)
-            transform.rotation = Quaternion.Euler(0, 180, 0); // ¿ŞÂÊ
+            transform.rotation = Quaternion.Euler(0, 180, 0); // ì™¼ìª½
         else
-            transform.rotation = Quaternion.Euler(0, 0, 0); // ¿À¸¥ÂÊ
+            transform.rotation = Quaternion.Euler(0, 0, 0); // ì˜¤ë¥¸ìª½
 
-        // ´ÙÀ½ Think È£Ãâ ¿¹¾à
+        // ë‹¤ìŒ Think í˜¸ì¶œ ì˜ˆì•½
         float nextThinkTime = Random.Range(2f, 5f);
         Invoke("Think", nextThinkTime);
     }
 
     void Turn()
     {
-        // ¹æÇâ ÀüÈ¯¸¸ ¼öÇà
+        // ë°©í–¥ ì „í™˜ë§Œ ìˆ˜í–‰
         nextMove *= -1;
 
         if (nextMove == 1)
-            transform.rotation = Quaternion.Euler(0, 180, 0); // ¿ŞÂÊ
+            transform.rotation = Quaternion.Euler(0, 180, 0); // ì™¼ìª½
         else
-            transform.rotation = Quaternion.Euler(0, 0, 0); // ¿À¸¥ÂÊ
+            transform.rotation = Quaternion.Euler(0, 0, 0); // ì˜¤ë¥¸ìª½
     }
 }
