@@ -39,10 +39,10 @@ public class ArmadiloPattern : MonoBehaviour
 
     private void Awake()
     {
-        a_stateMachine = GetComponent<EnemyController>().stateMachine;
     }
     private void Start()
     {
+        a_stateMachine = GetComponent<EnemyController>().stateMachine;
         playerTransform = player.transform;
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
@@ -124,7 +124,7 @@ public class ArmadiloPattern : MonoBehaviour
             if (actionQueue.Count > 0 && !isExecutingAction && !isCooldown)
             {
                 var action = actionQueue.Dequeue();
-                yield return StartCoroutine(action); // 패턴 실행
+                yield return StartCoroutine(action);
             }
             yield return null;
         }
