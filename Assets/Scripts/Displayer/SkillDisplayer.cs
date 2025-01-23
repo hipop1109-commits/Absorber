@@ -1,12 +1,12 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
 public class SkillDisplayer : MonoBehaviour
 {
-    // ¿¡³ÊÁö ÄÚ¾î txt
+    // ì—ë„ˆì§€ ì½”ì–´ txt
     public TextMeshProUGUI energyCoreText;
 
-    // ½ºÅ³ ¼³Á¤Ã¢
+    // ìŠ¤í‚¬ ì„¤ì •ì°½
     public GameObject skillPanel;
 
     private static SkillDisplayer instance;
@@ -26,13 +26,13 @@ public class SkillDisplayer : MonoBehaviour
     }
 
 
-    // ½ºÅ³Ã¢ ¿­¸²
+    // ìŠ¤í‚¬ì°½ ì—´ë¦¼
     public void OpenSkillMenu()
     {
         skillPanel.SetActive(true);
         Time.timeScale = skillPanel.activeSelf ? 0 : 1;
     }
-    // ½ºÅ³Ã¢ ´İÀ½
+    // ìŠ¤í‚¬ì°½ ë‹«ìŒ
     public void CloseSkillMenu()
     {
         skillPanel.SetActive(false);

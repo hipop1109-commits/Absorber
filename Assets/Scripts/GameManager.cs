@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private Player player;
 
-    // ����� ������ ����
+    // �����?������ ����
     [Serializable]
     public class SaveData
     {
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
         }
         else 
         { 
-            Debug.Log("������ ���÷��� Ȱ��ȭ �ȵƾ��"); 
+            Debug.Log("������ ���÷��� Ȱ��ȭ �ȵƾ��?); 
         }
     }
 
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
     {
         return !PlayerPrefs.HasKey("SaveSlot" + slot);
     }
-    // �����
+    // �����?
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
