@@ -20,15 +20,6 @@ public class GameManager : MonoBehaviour
 
     private Player player;
 
-    // �����?������ ����
-    [Serializable]
-    public class SaveData
-    {
-        public int playerLife;
-        public Vector3 playerPosition;
-    }
-
-
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
 
@@ -53,10 +44,6 @@ public class GameManager : MonoBehaviour
             lifeDisplayer.SetLives(player.PlayerHp, player.PlayerMaxHp);
             
         }
-        else 
-        { 
-            Debug.Log("������ ���÷��� Ȱ��ȭ �ȵƾ��?); 
-        }
     }
 
     void Update()
@@ -72,40 +59,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    // ���� ������ ����
-    public static void SaveGame(int slot)
-    {
-        SaveData data = new SaveData
-        {
-             // ���� ������
-            playerLife = 10,
-            playerPosition = new Vector3(0, 0, 0)
-            
-        };
-
-        string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString("SaveSlot" + slot, json);
-        PlayerPrefs.Save();
-        Debug.Log("Game Saved in Slot " + slot);
-    }
-    // ���� ������ �ҷ�����
-    public static SaveData LoadGame(int slot)
-    {
-        string key = "SaveSlot" + slot;
-        if (PlayerPrefs.HasKey(key))
-        {
-            string json = PlayerPrefs.GetString(key);
-            return JsonUtility.FromJson<SaveData>(json);
-        }
-        Debug.LogWarning("No Save Data in Slot " + slot);
-        return null;
-    }
-
-    // ���� ���� Ȯ��
-    public static bool IsSlotEmpty(int slot)
-    {
-        return !PlayerPrefs.HasKey("SaveSlot" + slot);
-    }
+    
     // �����?
     void Restart()
     {
