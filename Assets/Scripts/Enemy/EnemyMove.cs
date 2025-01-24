@@ -56,27 +56,30 @@ public class EnemyMove : MonoBehaviour
         }
 
         // 이동 처리
-        float moveDirection = movingRight ? 1 : -1; // 오른쪽이면 1, 왼쪽이면 -1
+        float moveDirection = movingRight ? -1 : 1; // 오른쪽이면 1, 왼쪽이면 -1
         rb.linearVelocity = new Vector2(moveDirection * moveSpeed, rb.linearVelocity.y);
 
 
         // 적의 스프라이트 방향 조정
-        transform.localScale = new Vector3(movingRight ? -3 : 3, 3, 1);
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * (moveDirection > 0 ? -1 : 1), transform.localScale.y, transform.localScale.z);
     }
 
     void FollowPlayer()
     {
-        // 플레이어 위치로 이동
+        // 플레이어가 없으면 동작하지 않음
         if (player == null) return;
 
+        // 방향 계산
         float direction = player.position.x - transform.position.x;
-        float moveDirection = direction > 0 ? -1 : 1;
+        float moveDirection = direction > 0 ? -1 : 1; // 플레이어가 오른쪽에 있으면 1, 왼쪽에 있으면 -1
 
+        // 속도 설정
         rb.linearVelocity = new Vector2(moveDirection * traceSpeed, rb.linearVelocity.y);
 
-        // 적의 스프라이트 방향 조정
-        transform.localScale = new Vector3(moveDirection > 0 ? -3 : 3, 3, 1);
+        // 스프라이트 방향 조정
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * (moveDirection > 0 ? -1 : 1), transform.localScale.y, transform.localScale.z);
     }
+
 
     void OnTriggerStay2D(Collider2D collision)
     {
