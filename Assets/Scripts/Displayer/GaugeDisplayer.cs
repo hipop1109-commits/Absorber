@@ -1,16 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class GaugeDisplayer : MonoBehaviour
 {
-    // °ÔÀÌÁö ÀÌ¹ÌÁö
+    // ê²Œì´ì§€ ì´ë¯¸ì§€
     public Image rockGaugeImage; 
     public Image grassGaugeImage;
     public Image waterGaugeImage;
 
     private void Update()
     {
-        // °ÔÀÌÁö Â÷¿À¸£´Â ÀÌ¹ÌÁö
+        // ê²Œì´ì§€ ì°¨ì˜¤ë¥´ëŠ” ì´ë¯¸ì§€
         rockGaugeImage.fillAmount = WeaponController.Instance.RockGauge / WeaponController.Instance.MaxGauge;
         grassGaugeImage.fillAmount = WeaponController.Instance.GrassGauge / WeaponController.Instance.MaxGauge;
         waterGaugeImage.fillAmount = WeaponController.Instance.WaterGauge / WeaponController.Instance.MaxGauge;
