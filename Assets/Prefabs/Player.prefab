@@ -1724,7 +1724,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 83
   m_Sprite: {fileID: -9197134654715703934, guid: 51126328e511fc5408c1f7bf3b1fd1d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2650,7 +2650,7 @@ Animator:
   m_GameObject: {fileID: 3516799355394027461}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0dfb0a3ad1e03304c9ed46b23d5a6d4e, type: 2}
+  m_Controller: {fileID: 9100000, guid: a36a7fd4898da4a71929f7ef039c58c9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3302,7 +3302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4085565555758114054}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 384.86588, y: -10.321416, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3381,7 +3381,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca678355025548429f9794bce344a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableObjects: []
+  enableObjects:
+  - {fileID: 5890992684251504555}
+  - {fileID: 8326068377739131854}
+  - {fileID: 3516799355394027461}
+  - {fileID: 5296097907561171670}
   invincibilityTime: 1
   moveSpeed: 20
   jumpSpeed: 20
@@ -4772,7 +4776,7 @@ Animator:
   m_GameObject: {fileID: 5296097907561171670}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c5fe52d8dc68f1849b501514ff754212, type: 2}
+  m_Controller: {fileID: 9100000, guid: 703d0f4161d85c145af46e6f114684ee, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

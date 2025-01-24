@@ -26,7 +26,6 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         vx = Vector2.left * moveSpeed;
-        Debug.Log("적 체력 : " + hp);
     }
 
     private void Update()

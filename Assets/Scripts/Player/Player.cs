@@ -26,6 +26,10 @@ public class Player
         DashCooldown = dashCooldown;
         DashDuration = dashDuration;
     }
+    public override string ToString()
+    {
+        return PlayerMaxHp.ToString();
+    }
 
 
     // 플레이어가 회복할 때 호출되는 메서드

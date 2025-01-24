@@ -29,6 +29,7 @@ public class EnemyAttackRange : MonoBehaviour
         if (collision.CompareTag("Player") && !isAttacking)
         {
             isPlayerInRange = true;
+            Debug.Log("공격");
             StartCoroutine(AttackPlayer());
         }
     }
@@ -53,14 +54,12 @@ public class EnemyAttackRange : MonoBehaviour
     private IEnumerator AttackPlayer()
     {
         isAttacking = true; // 공격 중 상태로 전환
-        Debug.Log("공격!");
 
         // 상태를 attack으로 전환
         a_stateMachine.TransitionTo(a_stateMachine.attackState);
 
         // 공격 중 이동 및 추적 비활성화
         enemyMove.enabled = false;
-        Debug.Log("비활1 공격");
 
         // 애니메이션이 끝난 후 상태를 idle로 전환
         yield return new WaitForSeconds(1f); // 애니메이션 지속 시간(1초)

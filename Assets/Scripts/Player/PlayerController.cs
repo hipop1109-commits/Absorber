@@ -41,14 +41,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        player = new Player(
-                maxHp: 100, // 최대 HP
-                /*                moveSpeed: 10f, // 이동 속도
-                                jumpSpeed: 10f, // 점프 속도*/
-                dashSpeed: 30f, // 대쉬 속도
-                dashCooldown: 1f, // 대쉬 쿨타임
-                dashDuration: 0.2f// 대쉬 지속 시간
-            );
+        player = new Player(100, 30f, 1f, 0.5f);
+        Debug.Log("player : " + player);
 
         // 상태 머신 초기화
         stateMachine = new StateMachine(this);
@@ -102,6 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             isHit = true;
             player.Damage(damage);
+            Debug.Log("hit");
 
             //player 색 바뀌게(다치는 모션 or 무적 모션)
             stateMachine.TransitionTo(stateMachine.hurtState);
