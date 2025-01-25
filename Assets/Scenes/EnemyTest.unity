@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &112180096 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8573062042580185682, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+  m_PrefabInstance: {fileID: 114642992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &114642992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,14 +136,46 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 364652717}
+    - target: {fileID: 5923411913636393395, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: hp
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 364652717}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: wallCheck
+      value: 
+      objectReference: {fileID: 1996041002}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: traceSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: checkRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 112180096}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: traceCollider
+      value: 
+      objectReference: {fileID: 842718711}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 364652715}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 7617469288490742302, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: m_LocalPosition.x
       value: -32.2
@@ -183,7 +220,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Onion Original
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5923411913636393395, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -534,6 +572,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &842718711 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4832586737753711317, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+  m_PrefabInstance: {fileID: 114642992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &892365703
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +1030,11 @@ Transform:
   - {fileID: 892365704}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1996041002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4987201771356351287, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+  m_PrefabInstance: {fileID: 114642992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

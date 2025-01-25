@@ -2,18 +2,34 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [Header("적 상태 설정")]
     public bool isDie = false;
     private bool isAttack = false;
-    [SerializeField] private float moveSpeed = 10f; //적 이동 속도
+    private bool isFollowing = false; // 플레이어 추적 여부
     [SerializeField] private int hp = 20;
     public int damage = 10;
+    Vector2 vx; 
+    private Rigidbody2D rb; // Rigidbody2D 컴포넌트
+    private Vector3 originalScale; // 초기 로컬 스케일 저장
+
+    [Header("일반 이동 설정")]
+    [SerializeField] private float moveSpeed = 8f; //적 이동 속도
+    [SerializeField] private Transform groundCheck; // 낭떠러지를 감지하는 위치
+    [SerializeField] private Transform wallCheck;   // 벽을 감지하는 위치
+    [SerializeField] private float checkRadius = 0.2f; // 감지 반경
+    [SerializeField] private LayerMask groundLayer; // Ground 레이어
+    [SerializeField] private bool movingRight = false; // 현재 이동 방향
+
+    [Header("플레이어 추적 설정")]
+    [SerializeField] private Transform player; // 플레이어 Transform
+    [SerializeField] private float traceSpeed = 15f; // 플레이어 추적 속도
+    [SerializeField] private Collider2D traceCollider; // 플레이어 추적 감지 범위
 
     [SerializeField] private PlayerController playerController;
-    private EnemyMove enemyMove;
+   // private EnemyController enemyController; // 적 컨트롤러
+/*    private EnemyStateMachine e_stateMachine;
+    private EnemyMove enemyMove;*/
     [SerializeField] private GameObject itemPrefab;
-
-    Vector2 vx;
-
     public EnemyStateMachine stateMachine; // 적의 상태를 관리할 상태 머신
 
     private void Awake()
@@ -23,18 +39,90 @@ public class EnemyController : MonoBehaviour
         // 상태 머신의 초기 상태를 Idle로 설정
         stateMachine.Initalize(stateMachine.idleState);
 
-        enemyMove = GetComponent<EnemyMove>();
+        //enemyMove = GetComponent<EnemyMove>();
 
     }
 
     private void Start()
     {
         vx = Vector2.left * moveSpeed;
+        rb = GetComponent<Rigidbody2D>(); // Rigidbody2D 초기화
+
+        originalScale = transform.localScale; // 초기 로컬 스케일 저장
     }
 
     private void Update()
     {
+        if (isDie)
+        {
+            if (stateMachine.CurrentState != stateMachine.dieState)
+            {
+                stateMachine.TransitionTo(stateMachine.dieState);
+            }
+            return;
+        }
 
+        else
+        {
+            if (isFollowing)
+            {
+                FollowPlayer(); // 플레이어 추적 동작
+            }
+            else
+            {
+                Patrol(); // 일반 이동 동작
+            }
+        }
+    }
+
+
+    private void Patrol()
+    {
+        // 낭떠러지 또는 벽 감지 시 방향 전환
+        if (!IsGroundAhead() || IsWallAhead())
+        {
+            movingRight = !movingRight;
+        }
+
+        // 이동 처리
+        Move(movingRight ? moveSpeed : -moveSpeed);
+    }
+
+    private void FollowPlayer()
+    {
+        if (player == null) return; // 플레이어가 없으면 리턴
+
+        // 플레이어와의 x축 거리 계산
+        float directionToPlayer = player.position.x - transform.position.x;
+
+        // 낭떠러지 또는 벽 감지 시 방향 전환
+        if (!IsGroundAhead() || IsWallAhead())
+        {
+            movingRight = !movingRight;
+        }
+
+        // 플레이어 위치에 따라 방향 설정
+        movingRight = directionToPlayer < 0;
+
+        // 이동 처리
+        Move(movingRight ? -traceSpeed : traceSpeed);
+    }
+
+    private void Move(float speed)
+    {
+        if (!isDie)
+        {
+            if (stateMachine.CurrentState != stateMachine.walkState)
+            {
+                // Rigidbody2D를 이용한 이동
+                rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
+
+                stateMachine.TransitionTo(stateMachine.walkState);
+
+                // 스프라이트 방향 조정
+                AdjustSpriteDirection(speed);
+            }
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -43,6 +131,15 @@ public class EnemyController : MonoBehaviour
         {
             //플레이어에게 데미지 입히기
             playerController.TakeDamage(damage);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // 플레이어 감지 시 추적 시작
+        if (collision.CompareTag("Player"))
+        {
+            isFollowing = true;
         }
     }
 
@@ -56,7 +153,7 @@ public class EnemyController : MonoBehaviour
             if (attack != null)
             {
                 EnemyTakeDamage(attack.damage);
-                enemyMove.enabled = false;
+                //enemyMove.enabled = false;
 
                 //일정 시간동안 추가 공격 무시
                 isAttack = true;
@@ -64,6 +161,8 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+    //일정 시간동안 추가 공격 무시 메서드
     private void ResetAttackState()
     {
         isAttack = false; // 공격 가능 상태로 복귀
@@ -72,51 +171,40 @@ public class EnemyController : MonoBehaviour
     //적이 공격을 안 받으면
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Attack"))
+        /*if (collision.gameObject.CompareTag("Attack")&&isDie)
         {
-            enemyMove.enabled = true;
+            stateMachine.TransitionTo(stateMachine.dieState);
+        }*/
+        // 플레이어 추적 중지
+        if (collision.CompareTag("Player"))
+        {
+            isFollowing = false;
         }
     }
 
     //적이 피해를 입는 메서드
     public void EnemyTakeDamage(int damage)
     {
-        if (isDie) return; // 이미 죽은 상태라면 무시
-        hp -= damage;
+        //if (isDie) return; // 이미 죽은 상태라면 무시
 
-        // 적이 피해를 입는 애니메이션
-        stateMachine.TransitionTo(stateMachine.hitState);
-        Debug.Log($"적{gameObject} 체력 : {hp}");
-
-        // 이동 멈추기
-        enemyMove.enabled = false;
-
-        if (hp <= 0)
+        //죽었을때
+        if (hp <= 0 && !isDie)
         {
             isDie = true;
-            stateMachine.TransitionTo(stateMachine.dieState);
-            enemyMove.enabled = false;
-            Debug.Log(stateMachine.CurrentState);
-            Invoke("DestroyEnemy", 2);
+            //stateMachine.TransitionTo(stateMachine.dieState);
+
+            Invoke("DestroyEnemy", 2f);
         }
+        //맞았을때
         else
         {
-            // 일정 시간 후 이동 재개
-            Invoke("EnableEnemyMove", 1f);
+            hp -= damage;
+
+            // 적이 피해를 입는 애니메이션
+            stateMachine.TransitionTo(stateMachine.hitState);
+            //Debug.Log($"적{gameObject} 체력 : {hp}");
+
         }
-    }
-
-    void EnableEnemyMove()
-    {
-        if (!isDie) // 적이 죽지 않은 경우에만 이동 재개
-            enemyMove.enabled = true;
-    }
-
-    //적이 공격하는 메서드
-    public void Attack(int damage)
-    {
-        //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
-        playerController.TakeDamage(damage + 10);
     }
 
 
@@ -127,6 +215,14 @@ public class EnemyController : MonoBehaviour
         //아이템 드랍
         SpawnItem();
     }
+
+    //적이 공격하는 메서드
+    public void Attack(int damage)
+    {
+        //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
+        playerController.TakeDamage(damage + 10);
+    }
+
 
     //아이템 드랍 메서드
     public void SpawnItem()
@@ -147,4 +243,54 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+
+
+    private bool IsGroundAhead()
+    {
+        // 낭떠러지 감지
+        return Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+    }
+
+    private bool IsWallAhead()
+    {
+        // 벽 감지
+        return Physics2D.OverlapCircle(wallCheck.position, checkRadius, groundLayer);
+    }
+
+    private void AdjustSpriteDirection(float moveDirection)
+    {
+        // 이동 방향에 따라 스프라이트 뒤집기
+        if ((moveDirection < 0 && transform.localScale.x < 0) ||
+            (moveDirection > 0 && transform.localScale.x > 0))
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, originalScale.y, originalScale.z);
+        }
+    }
+
+
+
+    private void OnDrawGizmosSelected()
+    {
+        // 낭떠러지 감지 반경 시각화
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+        }
+
+        // 벽 감지 반경 시각화
+        if (wallCheck != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
+        }
+
+        // 플레이어 추적 범위 시각화
+        if (traceCollider != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(traceCollider.bounds.center, traceCollider.bounds.size);
+        }
+    }
+
 }
