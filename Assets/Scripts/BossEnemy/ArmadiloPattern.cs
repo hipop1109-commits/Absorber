@@ -34,6 +34,8 @@ public class ArmadiloPattern : MonoBehaviour
     [SerializeField] private float cooldownTime = 3f;
     public PlayerController player;
     public EnemyStateMachine a_stateMachine;
+    public EnemyStateMachine c_stateMachine;
+    public EnemyStateMachine f_stateMachine;
 
     [SerializeField] private GameObject PlayerEnter;
 
@@ -42,7 +44,18 @@ public class ArmadiloPattern : MonoBehaviour
     }
     private void Start()
     {
-        a_stateMachine = GetComponent<EnemyController>().stateMachine;
+        if (gameObject.CompareTag("ArmadilloBoss")) // 이름이 "Armadillo"인 경우
+        {
+            a_stateMachine = GetComponent<EnemyController>().stateMachine;
+        }
+        if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
+        {
+            c_stateMachine = GetComponent<EnemyController>().stateMachine;
+        }
+        if (gameObject.CompareTag("FrogBoss")) // 이름이 "Armadillo"인 경우
+        {
+            f_stateMachine = GetComponent<EnemyController>().stateMachine;
+        }
         playerTransform = player.transform;
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
@@ -145,7 +158,18 @@ public class ArmadiloPattern : MonoBehaviour
         currentState = BossState.Attacking;
         rb.linearVelocity = Vector2.zero;
         // 근거리 공격 애니메이션 실행
-        Stomp();
+        if (gameObject.CompareTag("ArmadilloBoss")) // 이름이 "Armadillo"인 경우
+        {
+            Stomp();
+        }
+        else if (gameObject.CompareTag("CatapillarBoss")) // 특정 태그로 구분
+        {
+            IceStomp();
+        }
+        else if (gameObject.CompareTag("FrogBoss")) // 특정 태그로 구분
+        {
+            FrogTounge();
+        }
         yield return new WaitForSeconds(2f); // 공격 시간
         StartCooldown();
     }
@@ -156,7 +180,18 @@ public class ArmadiloPattern : MonoBehaviour
         currentState = BossState.Attacking;
         rb.linearVelocity = Vector2.zero;
         // 먼 거리 공격 애니메이션 실행
-        Angry();
+        if (gameObject.CompareTag("Armadillo"))// 이름이 "Armadillo"인 경우
+        {
+            Angry();
+        }
+        else if (gameObject.CompareTag("CatapillarBoss")) // 특정 태그로 구분
+        {
+            IceDrop();
+        }
+        else if (gameObject.CompareTag("FrogBoss")) // 특정 태그로 구분
+        {
+            FrogJump();
+        }
         yield return new WaitForSeconds(2f); // 공격 시간
         StartCooldown();
     }
@@ -167,7 +202,18 @@ public class ArmadiloPattern : MonoBehaviour
         currentState = BossState.Attacking;
         rb.linearVelocity = Vector2.zero;
         // 공중 공격 애니메이션 실행
-        Spine();
+        if (gameObject.CompareTag("ArmadilloBoss")) // 이름이 "Armadillo"인 경우
+        {
+            Spine();
+        }
+        else if (gameObject.CompareTag("CatapillarBoss")) // 특정 태그로 구분
+        {
+            IceJump();
+        }
+        else if (gameObject.CompareTag("FrogBoss")) // 특정 태그로 구분
+        {
+            FrogSpwan();
+        }
         yield return new WaitForSeconds(2f); // 공격 시간
         StartCooldown();
     }
@@ -228,4 +274,35 @@ public class ArmadiloPattern : MonoBehaviour
         }
 
     }
+
+    private void IceStomp()
+    {
+
     }
+
+    private void IceDrop()
+    {
+
+    }
+
+    private void IceJump()
+    {
+
+    }
+    
+    
+    private void FrogJump()
+    {
+
+    }
+
+    private void FrogTounge()
+    {
+
+    }
+
+    private void FrogSpwan()
+    {
+
+    }
+ }

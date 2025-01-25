@@ -13,6 +13,12 @@ public class EnemyStateMachine
     public A_AngryState a_AngryState;
     public A_StompState a_StompState;
     public A_SpineState a_SpineState;
+    public C_StompState c_StompState;
+    public C_DropState c_DropState;
+    public C_JumpState c_JumpState;
+    public F_JumpState f_JumpState;
+    public F_ToungeState f_ToungeState;
+    public F_SpwanState f_SpwanState;
     public EnemyStateMachine(EnemyController enemy)
     {
         this.enemy = enemy;
@@ -24,6 +30,12 @@ public class EnemyStateMachine
         a_AngryState = new A_AngryState(enemy);
         a_StompState = new A_StompState(enemy);
         a_SpineState = new A_SpineState(enemy);
+        c_StompState = new C_StompState(enemy);
+        c_DropState = new C_DropState(enemy);
+        c_JumpState = new C_JumpState(enemy);
+        f_JumpState = new F_JumpState(enemy);
+        f_ToungeState = new F_ToungeState(enemy);
+        f_SpwanState = new F_SpwanState(enemy);
     }
 
     //최초 state를 받아 이를 CurrentState에 넣고 Enter
