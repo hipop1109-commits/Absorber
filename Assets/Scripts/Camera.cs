@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class Camera : MonoBehaviour
-{ 
+{
     public float cameraSpeed = 5.0f;
 
     public GameObject player;

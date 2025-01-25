@@ -14,6 +14,7 @@ TagManager:
   - Enemy
   - Attack
   - Item
+  - AbsorbEffect
   layers:
   - Default
   - TransparentFX
