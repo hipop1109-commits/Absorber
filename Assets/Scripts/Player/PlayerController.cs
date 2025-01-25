@@ -1,1 +1,358 @@
-﻿using System; using System.Collections.Generic; using UnityEngine; using UnityEngine.EventSystems; using UnityEngine.InputSystem; using System.Collections;  public class PlayerController : MonoBehaviour {     private SpriteRenderer spriteRenderer; // 罹먮┃?곗쓽 ?ㅽ봽?쇱씠???뚮뜑??     public Player player;      public GameObject[] enableObjects; // 二쎌뿀?꾨븣 鍮꾪솢?깊솕???ㅻ툕?앺듃 由ъ뒪??      private float dashCooldownTimer; // ???荑⑦??꾩쓣 怨꾩궛?섍린 ?꾪븳 ??대㉧      private int select1 = 1;     private int select2 = 1;      private bool isHit = false;     private bool isDie = false;      [SerializeField] private float invincibilityTime = 1f; // 罹먮┃??臾댁쟻 ?쒓컙     [SerializeField] private float moveSpeed = 10f; // 罹먮┃???대룞 ?띾룄     [SerializeField] private float jumpSpeed = 10f; // 罹먮┃???먰봽 ?띾룄      private Rigidbody2D rb; // 罹먮┃?곗쓽 Rigidbody2D      private Vector2 moveDirection; // ?낅젰???대룞 諛⑺뼢      private bool isJump; // ?먰봽 以묒씤吏 ?щ?瑜??섑??대뒗 ?뚮옒洹?     private bool isDashing; // ???以묒씤吏 ?щ?瑜??섑??대뒗 ?뚮옒洹?      public StateMachine stateMachine; // 罹먮┃?곗쓽 ?곹깭瑜?愿由ы븷 ?곹깭 癒몄떊     RopeActive grappling;      private void Awake()     {          // 而댄룷?뚰듃 珥덇린??         rb = GetComponent<Rigidbody2D>();         spriteRenderer = GetComponent<SpriteRenderer>();          player = new Player(                 maxHp: 100, // 理쒕? HP                 /*                moveSpeed: 10f, // ?대룞 ?띾룄                                 jumpSpeed: 10f, // ?먰봽 ?띾룄*/                 dashSpeed: 30f, // ????띾룄                 dashCooldown: 1f, // ???荑⑦???                 dashDuration: 0.2f// ???吏???쒓컙             );          // ?곹깭 癒몄떊 珥덇린??         stateMachine = new StateMachine(this);     }      private void Start()     {         // ?곹깭 癒몄떊??珥덇린 ?곹깭瑜?Idle濡??ㅼ젙         stateMachine.Initalize(stateMachine.idleState);         grappling = GetComponent<RopeActive>();     }      private void FixedUpdate()     {         // ???以묒씠 ?꾨땶 寃쎌슦?먮쭔 ?대룞 泥섎━         if (!isDashing)         {             ApplyMovement();         }     }      private void Update()     {         // ?곹깭 癒몄떊???꾩옱 ?곹깭瑜??ㅽ뻾         stateMachine.Execute();          // 留덉슦???꾩튂瑜?湲곕컲?쇰줈 罹먮┃?곗쓽 ?ㅽ봽?쇱씠??諛⑺뼢 ?ㅼ젙         Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();         Vector3 mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint(             new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Mathf.Abs(UnityEngine.Camera.main.transform.position.z))         );          // 留덉슦???꾩튂? 罹먮┃?곗쓽 ?꾩옱 ?꾩튂瑜?鍮꾧탳??罹먮┃?곗쓽 諛⑺뼢 ?ㅼ젙         if ((mouseWorldPosition.x > transform.position.x && spriteRenderer.flipX) ||             (mouseWorldPosition.x < transform.position.x && !spriteRenderer.flipX))         {             spriteRenderer.flipX = !spriteRenderer.flipX;         }          // ???荑⑦?????대㉧ ?낅뜲?댄듃         if (dashCooldownTimer > 0)         {             dashCooldownTimer -= Time.deltaTime;         }     }      // ?뚮젅?댁뼱媛 ?곕?吏瑜?諛쏆쓣 ??     public void TakeDamage(int damage)     {         if (player.IsAlive() && !isHit && !isDie)         {             isHit = true;             player.Damage(damage);              //player ??諛붾뚭쾶(?ㅼ튂??紐⑥뀡 or 臾댁쟻 紐⑥뀡)             stateMachine.TransitionTo(stateMachine.hurtState);              //Player 臾댁쟻 ?쒓컙             Invoke("Invincibility", invincibilityTime);              Debug.Log($"Player Hp : {player.PlayerHp}");         }         if (!player.IsAlive() && !isDie)         {             Die();         }     }      //臾댁쟻?쒓컙     private void Invincibility()     {         isHit = false;     }       public void Die()     {         foreach (var enableObject in enableObjects)         {             enableObject.SetActive(false);         }         stateMachine.TransitionTo(stateMachine.dieState);         Debug.Log("Player Die");         rb.constraints = RigidbodyConstraints2D.FreezeAll;          isDie = true;      }       //select1媛믪쓣 媛?몄삤??硫붿냼??     public int GetSelect1()     {         return select1;     }      //select2媛믪쓣 媛?몄삤??硫붿냼??     public int GetSelect2()     {         return select2;     }      //Q(臾?1), ?(2), 諛붿쐞(3))     public void OnSelect1(InputValue value)     {         if (select1 >= 3)         {             select1 = 1;         }         else         {             select1 += 1;         }         // SlowTime ?묐룞 諛??쒓컙 蹂듭썝 肄붾（???쒖옉         //SlowTime.Instance.Slow();         StopAllCoroutines(); // ?댁쟾 肄붾（??醫낅즺 (以묐났 諛⑹?)         //StartCoroutine(ResetTimeScale());     }      //E     public void OnSelect2(InputValue value)     {         if (select2 >= 3)         {             select2 = 1;         }         else         {             select2 += 1;         }         // SlowTime ?묐룞 諛??쒓컙 蹂듭썝 肄붾（???쒖옉         //SlowTime.Instance.Slow();         StopAllCoroutines(); // ?댁쟾 肄붾（??醫낅즺 (以묐났 諛⑹?)         //StartCoroutine(ResetTimeScale());     }      private IEnumerator ResetTimeScale()     {         yield return new WaitForSecondsRealtime(SlowTime.Instance.slowLength);         SlowTime.Instance.Back();     }       //?고겢由??≪닔     public void OnAbsorb()     {         WeaponController.Instance.AbsorbClick();     }      //?고겢由??≪닔 痍⑥냼     public void OnAbsorbCancle()     {         WeaponController.Instance.AbsorbClickUp();     }      //醫뚰겢由?諛⑹텧     public void OnEmit()     {         Combination();         WeaponController.Instance.WeaponSelect();     }       //醫뚰겢由?諛⑹텧 痍⑥냼     public void OnEmitCancle()     {         WeaponController.Instance.WeaponLeft();     }       //議고빀 寃곌낵     private void Combination()     {         Dictionary<(int, int), string> combinations = new Dictionary<(int, int), string>         {             { (1, 1), "water"}, //臾?臾?             { (2, 2), "treeVine" }, // ?+?             { (3, 3), "rockBomb" }, // 諛붿쐞+諛붿쐞             { (1, 2), "potion" }, // 臾??             { (2, 1), "potion" }, // ?+臾?             { (2, 3), "platform" }, // ?+諛붿쐞             { (3, 2), "platform" }, // 諛붿쐞+?             { (1, 3), "bullet" }, // 臾?諛붿쐞             { (3, 1), "bullet" }  // 諛붿쐞+臾?         };          //?좏깮??議고빀         var selectedCombination = (select1, select2);          // 議고빀???대떦?섎뒗 寃곌낵 異쒕젰         if (combinations.TryGetValue(selectedCombination, out string result))         {             Debug.Log($"諛⑹텧: {result}");             WeaponController.Instance.WeaponMode = result;         }         else         {             Debug.Log("?좏슚?섏? ?딆? 議고빀?낅땲??");         }     }       // ?대룞 ?낅젰 泥섎━     public void OnMove(InputValue value)     {         if (isDie) return; // isDie媛 true?쇰㈃ ?곹깭 ?꾪솚??留됱쓬          moveDirection = value.Get<Vector2>(); // ?대룞 諛⑺뼢 ?ㅼ젙                      if (moveDirection.x != 0)             {                 // ?대룞 ?낅젰???덈뒗 寃쎌슦 Walk ?곹깭濡??꾪솚                 stateMachine.TransitionTo(stateMachine.walkState);             }             else             {                 // ?대룞 ?낅젰???녿뒗 寃쎌슦 Idle ?곹깭濡??꾪솚                 stateMachine.TransitionTo(stateMachine.idleState);             }               }       // ?먰봽 ?낅젰 泥섎━     public void OnJump(InputValue value)     {         if (isDie) return; // isDie媛 true?쇰㈃ ?곹깭 ?꾪솚??留됱쓬          if (value.isPressed && !isJump)         {             isJump = true; // ?먰봽 ?뚮옒洹??ㅼ젙             rb.linearVelocity = new Vector2(rb.linearVelocity.x, moveSpeed); // ?먰봽 ?띾룄 ?곸슜             stateMachine.TransitionTo(stateMachine.jumpState); // ?먰봽 ?곹깭濡??꾪솚         }     }      // ????낅젰 泥섎━     public void OnSprint(InputValue value)     {         if (value.isPressed && !isDashing && dashCooldownTimer <= 0)         {             // 媛留뚰엳 ?덉쓣 ?뚮룄 ???諛⑺뼢??吏?뺥븯湲??꾪빐 flipX ?먮뒗 留덉슦???꾩튂瑜?湲곗??쇰줈 諛⑺뼢 ?ㅼ젙             float dashDirection = moveDirection.x != 0 ? moveDirection.x : (spriteRenderer.flipX ? -1 : 1);              StartCoroutine(Dash(dashDirection)); // ???諛⑺뼢??留ㅺ컻蹂?섎줈 ?꾨떖             stateMachine.TransitionTo(stateMachine.dashState); // ????곹깭濡??꾪솚         }     }      // ?대룞 濡쒖쭅 泥섎━     private void ApplyMovement()     {         if (grappling.isAttach)         {             rb.AddForce(new Vector2(moveDirection.x * moveSpeed, 0));         }         else         {             Vector2 targetVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 0.1f); // 遺?쒕윭??蹂??       }         }     }      // ???濡쒖쭅 泥섎━     private System.Collections.IEnumerator Dash(float dashDirection)     {         isDashing = true; // ????뚮옒洹??ㅼ젙         Vector2 dashVelocity = new Vector2(dashDirection * player.DashSpeed, rb.linearVelocity.y); // ???諛⑺뼢 ?ㅼ젙         // rb.AddForce(dashForce, ForceMode2D.Impulse); // ??????곸슜          Debug.Log($"Dash Velocity: {dashVelocity}");         rb.linearVelocity = dashVelocity;          yield return new WaitForSeconds(player.DashDuration); // ???吏???쒓컙 ?湲?         isDashing = false; // ????뚮옒洹??댁젣         dashCooldownTimer = player.DashCooldown; // ???荑⑦????ㅼ젙         stateMachine.TransitionTo(stateMachine.idleState); // Idle ?곹깭濡??꾪솚     }      // 諛붾떏 異⑸룎 媛먯?     private void OnCollisionEnter2D(Collision2D collision)     {         if (isDie) return; // isDie媛 true?쇰㈃ ?곹깭 ?꾪솚??留됱쓬         if (collision.gameObject.CompareTag("ground"))         {             isJump = false; // ?먰봽 ?뚮옒洹??댁젣             if (moveDirection.x != 0)             {                 // ?대룞 ?낅젰???덈뒗 寃쎌슦 Walk ?곹깭濡??꾪솚                 stateMachine.TransitionTo(stateMachine.walkState);             }             else             {                 // ?대룞 ?낅젰???녿뒗 寃쎌슦 Idle ?곹깭濡??꾪솚                 stateMachine.TransitionTo(stateMachine.idleState);             }         }         if (collision.gameObject.CompareTag("Item"))         {             Debug.Log("Items");             player.GetEnergyCore(1);             Destroy(collision.gameObject);         }     }  } 
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using System.Collections;
+
+public class PlayerController : MonoBehaviour
+{
+    private SpriteRenderer spriteRenderer; // 캐릭터의 스프라이트 렌더러
+    public Player player;
+
+    public GameObject[] enableObjects; // 죽었을때 비활성화될 오브젝트 리스트
+
+    private float dashCooldownTimer; // 대쉬 쿨타임을 계산하기 위한 타이머
+
+    private int select1 = 1;
+    private int select2 = 1;
+
+    private bool isHit = false;
+    private bool isDie = false;
+
+    [SerializeField] private float invincibilityTime = 1f; // 캐릭터 무적 시간
+    [SerializeField] private float moveSpeed = 10f; // 캐릭터 이동 속도
+    [SerializeField] private float jumpSpeed = 10f; // 캐릭터 점프 속도
+
+    private Rigidbody2D rb; // 캐릭터의 Rigidbody2D
+
+    private Vector2 moveDirection; // 입력된 이동 방향
+
+    private bool isJump; // 점프 중인지 여부를 나타내는 플래그
+    private bool isDashing; // 대쉬 중인지 여부를 나타내는 플래그
+
+    public StateMachine stateMachine; // 캐릭터의 상태를 관리할 상태 머신
+    RopeActive grappling;
+
+    private void Awake()
+    {
+
+        // 컴포넌트 초기화
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        player = new Player(
+                maxHp: 100, // 최대 HP
+                /*                moveSpeed: 10f, // 이동 속도
+                                jumpSpeed: 10f, // 점프 속도*/
+                dashSpeed: 30f, // 대쉬 속도
+                dashCooldown: 1f, // 대쉬 쿨타임
+                dashDuration: 0.2f// 대쉬 지속 시간
+            );
+
+        // 상태 머신 초기화
+        stateMachine = new StateMachine(this);
+    }
+
+    private void Start()
+    {
+        // 상태 머신의 초기 상태를 Idle로 설정
+        stateMachine.Initalize(stateMachine.idleState);
+        grappling = GetComponent<RopeActive>();
+    }
+
+    private void FixedUpdate()
+    {
+        // 대쉬 중이 아닌 경우에만 이동 처리
+        if (!isDashing)
+        {
+            ApplyMovement();
+        }
+    }
+
+    private void Update()
+    {
+        // 상태 머신의 현재 상태를 실행
+        stateMachine.Execute();
+
+        // 마우스 위치를 기반으로 캐릭터의 스프라이트 방향 설정
+        Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
+        Vector3 mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint(
+            new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Mathf.Abs(UnityEngine.Camera.main.transform.position.z))
+        );
+
+        // 마우스 위치와 캐릭터의 현재 위치를 비교해 캐릭터의 방향 설정
+        if ((mouseWorldPosition.x > transform.position.x && spriteRenderer.flipX) ||
+            (mouseWorldPosition.x < transform.position.x && !spriteRenderer.flipX))
+        {
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        }
+
+        // 대쉬 쿨타임 타이머 업데이트
+        if (dashCooldownTimer > 0)
+        {
+            dashCooldownTimer -= Time.deltaTime;
+        }
+    }
+
+    // 플레이어가 데미지를 받을 때
+    public void TakeDamage(int damage)
+    {
+        if (player.IsAlive() && !isHit && !isDie)
+        {
+            isHit = true;
+            player.Damage(damage);
+
+            //player 색 바뀌게(다치는 모션 or 무적 모션)
+            stateMachine.TransitionTo(stateMachine.hurtState);
+
+            //Player 무적 시간
+            Invoke("Invincibility", invincibilityTime);
+
+            Debug.Log($"Player Hp : {player.PlayerHp}");
+        }
+        if (!player.IsAlive() && !isDie)
+        {
+            Die();
+        }
+    }
+
+    //무적시간
+    private void Invincibility()
+    {
+        isHit = false;
+    }
+
+
+    public void Die()
+    {
+        foreach (var enableObject in enableObjects)
+        {
+            enableObject.SetActive(false);
+            Debug.Log("비활성화");
+        }
+        stateMachine.TransitionTo(stateMachine.dieState);
+        Debug.Log("Player Die");
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        isDie = true;
+
+    }
+
+
+    //select1값을 가져오는 메소드 
+    public int GetSelect1()
+    {
+        return select1;
+    }
+
+    //select2값을 가져오는 메소드
+    public int GetSelect2()
+    {
+        return select2;
+    }
+
+    //Q(물(1), 풀(2), 바위(3))
+    public void OnSelect1(InputValue value)
+    {
+        if (select1 >= 3)
+        {
+            select1 = 1;
+        }
+        else
+        {
+            select1 += 1;
+        }
+        // SlowTime 작동 및 시간 복원 코루틴 시작
+        //SlowTime.Instance.Slow();
+        StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
+        //StartCoroutine(ResetTimeScale());
+    }
+
+    //E
+    public void OnSelect2(InputValue value)
+    {
+        if (select2 >= 3)
+        {
+            select2 = 1;
+        }
+        else
+        {
+            select2 += 1;
+        }
+        // SlowTime 작동 및 시간 복원 코루틴 시작
+        //SlowTime.Instance.Slow();
+        StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
+        //StartCoroutine(ResetTimeScale());
+    }
+
+    private IEnumerator ResetTimeScale()
+    {
+        yield return new WaitForSecondsRealtime(SlowTime.Instance.slowLength);
+        SlowTime.Instance.Back();
+    }
+
+
+    //우클릭 흡수
+    public void OnAbsorb()
+    {
+        WeaponController.Instance.AbsorbClick();
+    }
+
+    //우클릭 흡수 취소
+    public void OnAbsorbCancle()
+    {
+        WeaponController.Instance.AbsorbClickUp();
+    }
+
+    //좌클릭 방출
+    public void OnEmit()
+    {
+        Combination();
+        WeaponController.Instance.WeaponSelect();
+    }
+
+
+    //좌클릭 방출 취소
+    public void OnEmitCancle()
+    {
+        WeaponController.Instance.WeaponLeft();
+    }
+
+
+    //조합 결과
+    private void Combination()
+    {
+        Dictionary<(int, int), string> combinations = new Dictionary<(int, int), string>
+        {
+            { (1, 1), "water"}, //물+물
+            { (2, 2), "treeVine" }, // 풀+풀
+            { (3, 3), "rockBomb" }, // 바위+바위
+            { (1, 2), "potion" }, // 물+풀
+            { (2, 1), "potion" }, // 풀+물
+            { (2, 3), "platform" }, // 풀+바위
+            { (3, 2), "platform" }, // 바위+풀
+            { (1, 3), "bullet" }, // 물+바위
+            { (3, 1), "bullet" }  // 바위+물
+        };
+
+        //선택된 조합
+        var selectedCombination = (select1, select2);
+
+        // 조합에 해당하는 결과 출력
+        if (combinations.TryGetValue(selectedCombination, out string result))
+        {
+            WeaponController.Instance.WeaponMode = result;
+        }
+        else
+        {
+            Debug.Log("유효하지 않은 조합입니다.");
+        }
+    }
+
+
+    // 이동 입력 처리
+    public void OnMove(InputValue value)
+    {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
+        moveDirection = value.Get<Vector2>(); // 이동 방향 설정
+
+        if (moveDirection.x != 0)
+        {
+            // 이동 입력이 있는 경우 Walk 상태로 전환
+            stateMachine.TransitionTo(stateMachine.walkState);
+        }
+        else
+        {
+            // 이동 입력이 없는 경우 Idle 상태로 전환
+            stateMachine.TransitionTo(stateMachine.idleState);
+        }
+
+
+    }
+
+
+    // 점프 입력 처리
+    public void OnJump(InputValue value)
+    {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
+        if (value.isPressed && !isJump)
+        {
+            isJump = true; // 점프 플래그 설정
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, moveSpeed); // 점프 속도 적용
+            stateMachine.TransitionTo(stateMachine.jumpState); // 점프 상태로 전환
+        }
+    }
+
+    // 대쉬 입력 처리
+    public void OnSprint(InputValue value)
+    {
+        if (value.isPressed && !isDashing && dashCooldownTimer <= 0)
+        {
+            // 가만히 있을 때도 대쉬 방향을 지정하기 위해 flipX 또는 마우스 위치를 기준으로 방향 설정
+            float dashDirection = moveDirection.x != 0 ? moveDirection.x : (spriteRenderer.flipX ? -1 : 1);
+
+            StartCoroutine(Dash(dashDirection)); // 대쉬 방향을 매개변수로 전달
+            stateMachine.TransitionTo(stateMachine.dashState); // 대쉬 상태로 전환
+        }
+    }
+
+    // 이동 로직 처리
+    private void ApplyMovement()
+    {
+        if (grappling.isAttach)
+        {
+            rb.AddForce(new Vector2(moveDirection.x * moveSpeed, 0));
+        }
+        else
+        {
+            Vector2 targetVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 0.1f); // 부드러운 변화        }
+        }
+    }
+
+    // 대쉬 로직 처리
+    private System.Collections.IEnumerator Dash(float dashDirection)
+    {
+        isDashing = true; // 대쉬 플래그 설정
+        Vector2 dashVelocity = new Vector2(dashDirection * player.DashSpeed, rb.linearVelocity.y); // 대쉬 방향 설정
+        // rb.AddForce(dashForce, ForceMode2D.Impulse); // 대쉬 힘 적용
+
+        Debug.Log($"Dash Velocity: {dashVelocity}");
+        rb.linearVelocity = dashVelocity;
+
+        yield return new WaitForSeconds(player.DashDuration); // 대쉬 지속 시간 대기
+        isDashing = false; // 대쉬 플래그 해제
+        dashCooldownTimer = player.DashCooldown; // 대쉬 쿨타임 설정
+        stateMachine.TransitionTo(stateMachine.idleState); // Idle 상태로 전환
+    }
+
+    // 바닥 충돌 감지
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            isJump = false; // 점프 플래그 해제
+            if (moveDirection.x != 0)
+            {
+                // 이동 입력이 있는 경우 Walk 상태로 전환
+                stateMachine.TransitionTo(stateMachine.walkState);
+            }
+            else
+            {
+                // 이동 입력이 없는 경우 Idle 상태로 전환
+                stateMachine.TransitionTo(stateMachine.idleState);
+            }
+        }
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            Debug.Log("Items");
+            player.GetEnergyCore(1);
+            Destroy(collision.gameObject);
+        }
+    }
+
+}

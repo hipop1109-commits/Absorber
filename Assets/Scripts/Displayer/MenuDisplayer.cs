@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEditor.Overlays;
 
 public class MenuDisplayer : MonoBehaviour
 {
@@ -32,8 +33,11 @@ public class MenuDisplayer : MonoBehaviour
     private ColorAdjustments colorAdjustments;
     
     // 사운드 볼륨슬라이더
-    [SerializeField]private Slider MasterVolumeSlider;
+    [SerializeField] private Slider MasterVolumeSlider;
 
+    // 세이브 슬롯 텍스트
+    [SerializeField] private TextMeshProUGUI saveSlotText;
+    private SaveManager saveManager;
 
     private void OnEnable()
     {
@@ -66,6 +70,9 @@ public class MenuDisplayer : MonoBehaviour
         {
             resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
         }
+
+        saveManager = FindObjectOfType<SaveManager>();
+        UpdateSaveSlotUI();
         
     }
 
@@ -135,6 +142,21 @@ public class MenuDisplayer : MonoBehaviour
         else
         {
             OnOffButtonText.text = "Off";
+        }
+    }
+
+    public void UpdateSaveSlotUI()
+    {
+        SaveManager.SaveData saveData = saveManager.LoadGame();
+
+        if (saveData != null )
+        {
+            saveSlotText.text = $"HP: {saveData.playerHP}, Energy: {saveData.energyCore}, " +
+                                $"Position: ({saveData.playerX}, {saveData.playerY})";
+        }
+        else
+        {
+            saveSlotText.text = "Empty Slot";
         }
     }
   

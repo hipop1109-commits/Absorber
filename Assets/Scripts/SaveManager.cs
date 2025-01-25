@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
@@ -6,44 +7,70 @@ public class SaveManager : MonoBehaviour
     [Serializable]
     public class SaveData
     {
-        public int playerLife;
-        public int weaponLevel;
-        public int coreAmount;
-        public Vector3 playerPosition;
-        public string lastSavedTime;
+        public float playerX;
+        public float playerY;
+        public int playerHP;
+        public int energyCore;
     }
 
-    // 자동저장
-    public static void AutoSave(int slot, int life, int weaponLe, int coreAm, Vector3 positon)
+    private string savePath;
+    private PlayerController playerController;
+    private Player player;
+
+    private void Awake()
     {
-        SaveData data = new SaveData
+        savePath = Application.persistentDataPath + "/saveSlot.json";
+    }
+    
+    public void SaveGame()
+    {
+        SaveData saveData = new SaveData
         {
-            playerLife = life,
-            weaponLevel = weaponLe,
-            coreAmount = coreAm,
-            playerPosition = positon,
-            lastSavedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            playerX = playerController.transform.position.x,
+            playerY = playerController.transform.position.y,
+            playerHP = playerController.player.PlayerHp,
+            energyCore = playerController.player.EnergyCore
         };
 
-        string json = JsonUtility.ToJson(data); // JSON 문자열로 변환
-        PlayerPrefs.SetString("SaveSlot" + slot, json); // PlayerPrefs에 저장
-        PlayerPrefs.Save(); // 저장 실행
-    }
+        string json = JsonUtility.ToJson(saveData);
+        File.WriteAllText(savePath, json);  
 
-    // 저장 데이터 불러오기
-    public static SaveData LoadGame(int slot)
+        Debug.Log("Game Saved: " + savePath);
+
+        MenuDisplayer saveSlot = FindObjectOfType<MenuDisplayer>();
+
+        //// 슬롯 UI 업데이트 
+        //foreach (var slot in saveSlot)
+        //{
+        //    slot.UpdateSlotUI();
+        //}
+    }
+    // 
+    public SaveData LoadGame()
     {
-        string key = "SaveSlot" + slot;
-        if (PlayerPrefs.HasKey(key))
+        if(File.Exists(savePath))
         {
-            string json = PlayerPrefs.GetString(key);
+            string json = File.ReadAllText(savePath);
             return JsonUtility.FromJson<SaveData>(json);
         }
+
+        Debug.LogWarning("세이브 파일없어요");
         return null;
     }
-    // 저장 슬롯 상태 확인 
-    public static bool IsSlotEmpty(int slot)
+
+    // 클릭시 게임 로드
+    public void OnSaveSlotClicked()
     {
-        return !PlayerPrefs.HasKey("SaveSlot" +  slot); 
+        SaveData saveData = LoadGame();
+
+        if(saveData != null)
+        {
+            playerController.player.RoadPlayerHp(saveData.playerHP);
+            playerController.player.RoadEnergyCore(saveData.energyCore);
+
+            playerController.transform.position = new Vector3(saveData.playerX, saveData.playerY, 0);
+            player.EnergyCoreTextUpdate();
+            LifeDisplayer.Instance.SetLives(player.PlayerHp, player.PlayerMaxHp);
+        }
     }
 }

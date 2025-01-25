@@ -8,17 +8,23 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     
-    // Å¬ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½Ã¢
+    // Å¬¸®¾î or °ÔÀÓ¿À¹ö ÆË¾÷Ã¢
     [SerializeField] private GameObject popupCanvas;
-    // ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
    
     [SerializeField]private LifeDisplayer lifeDisplayer;
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
+    
     [SerializeField]private int life = 10; 
 
     private Player player;
+    private PlayerController playerController;
+    private SaveManager saveManager;
+
+    [SerializeField] private Vector3 saveTargetPositon; // ÀÚµ¿ ÀúÀå Æ®¸®°Å À§Ä¡
+    [SerializeField] private float saveTriggerRadius = 1f; // ÀÚµ¿ ÀúÀå Æ®¸®°Å ¹Ý°æ
+
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -37,18 +43,20 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {   // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
+    {   
         if (lifeDisplayer != null)
         {
             player = new Player(life, 0f,0f,0f);
             lifeDisplayer.SetLives(player.PlayerHp, player.PlayerMaxHp);
             
         }
+        saveManager = FindObjectOfType<SaveManager>();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     void Update()
     {
-        // ï¿½×½ï¿½Æ®ï¿½ï¿½
+        
         if (Input.GetKeyDown(KeyCode.G))
         {
             //player.TakeDamage(1);
@@ -58,20 +66,33 @@ public class GameManager : MonoBehaviour
             player.Heal(1);
         }
 
+        if (Vector3.Distance(playerController.transform.position, saveTargetPositon) <= saveTriggerRadius)
+        {
+            Debug.Log("Auto Save Triggered");
+            saveManager.SaveGame();
+        } 
+
     }
-    
-    // ï¿½ï¿½ï¿½ï¿½ï¿?
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            saveManager.SaveGame();
+        }
+    }
+
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    // ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
+    
     void GameOver()
     {
         isCleared = false;
         popupCanvas.SetActive(true);
     }
-    // ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+    
     public void GameClear()
     {
         isCleared = true;
