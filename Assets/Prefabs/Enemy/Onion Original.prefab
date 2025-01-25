@@ -2734,7 +2734,6 @@ GameObject:
   - component: {fileID: 7617469288490742302}
   - component: {fileID: 7408750560195692055}
   - component: {fileID: 5036462388773630395}
-  - component: {fileID: 5923411913636393395}
   - component: {fileID: 6346150318070152060}
   - component: {fileID: 3070130709209013532}
   - component: {fileID: 7548329503286451599}
@@ -2819,29 +2818,6 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
---- !u!114 &5923411913636393395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8983893056736634771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ace8e50428ca5cf40ba5e090fad8e3d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 8
-  groundCheck: {fileID: 8573062042580185682}
-  wallCheck: {fileID: 4987201771356351287}
-  checkRadius: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  movingRight: 1
-  player: {fileID: 0}
-  traceSpeed: 15
-  traceCollider: {fileID: 4832586737753711317}
 --- !u!114 &6346150318070152060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2854,10 +2830,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addad1aaf883dfc4bae42269e196833b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  hp: 100
+  isDie: 0
+  hp: 10
   damage: 10
-  playerController: {fileID: 8936840402439526155, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
+  moveSpeed: 10
+  groundCheck: {fileID: 8573062042580185682}
+  wallCheck: {fileID: 4987201771356351287}
+  checkRadius: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  movingRight: 0
+  player: {fileID: 0}
+  traceSpeed: 15
+  traceCollider: {fileID: 4832586737753711317}
+  playerController: {fileID: 0}
   itemPrefab: {fileID: 7548755192223622589, guid: 83aad3daec26a4f9d9d83ec3614d2320, type: 3}
 --- !u!61 &3070130709209013532
 BoxCollider2D:
