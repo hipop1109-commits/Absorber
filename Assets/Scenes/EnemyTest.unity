@@ -132,6 +132,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 364652717}
     - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
+      propertyPath: hp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346150318070152060, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 364652715}

@@ -32,6 +32,13 @@ public class EnemyMove : MonoBehaviour
 
     private void Update()
     {
+        if (!enabled || enemyController.isDie)  // 적이 죽었을 경우 이동을 중지
+        {
+            enabled=false;
+            Debug.Log("주거");
+            return; // 적이 죽으면 이동하지 않음
+        }
+
         if (isFollowing)
         {
             FollowPlayer(); // 플레이어 추적 동작
@@ -76,6 +83,8 @@ public class EnemyMove : MonoBehaviour
 
     private void Move(float speed)
     {
+        if (!enabled) return; // 컴포넌트 비활성화 시 이동 및 상태 변경 중단
+
         // Rigidbody2D를 이용한 이동
         rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
 
