@@ -10,15 +10,21 @@ public class GameManager : MonoBehaviour
     
     // Ŭ���� or ���ӿ��� �˾�â
     [SerializeField] private GameObject popupCanvas;
-    // ���� Ŭ���� ����
+    
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
    
     [SerializeField]private LifeDisplayer lifeDisplayer;
-    // ���� �� 
+    
     [SerializeField]private int life = 10; 
 
     private Player player;
+    private PlayerController playerController;
+    private SaveManager saveManager;
+
+    [SerializeField] private Vector3 saveTargetPositon; // �ڵ� ���� Ʈ���� ��ġ
+    [SerializeField] private float saveTriggerRadius = 1f; // �ڵ� ���� Ʈ���� �ݰ�
+
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -37,18 +43,20 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {   // ���� �̹��� Ȱ��ȭ
+    {   
         if (lifeDisplayer != null)
         {
             player = new Player(life, 0f,0f,0f);
             lifeDisplayer.SetLives(player.PlayerHp, player.PlayerMaxHp);
             
         }
+        saveManager = FindObjectOfType<SaveManager>();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     void Update()
     {
-        // �׽�Ʈ��
+        
         if (Input.GetKeyDown(KeyCode.G))
         {
             //player.TakeDamage(1);
@@ -58,20 +66,33 @@ public class GameManager : MonoBehaviour
             player.Heal(1);
         }
 
+        if (Vector3.Distance(playerController.transform.position, saveTargetPositon) <= saveTriggerRadius)
+        {
+            Debug.Log("Auto Save Triggered");
+            saveManager.SaveGame();
+        } 
+
     }
-    
-    // �����?
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            saveManager.SaveGame();
+        }
+    }
+
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    // ���ӿ���
+    
     void GameOver()
     {
         isCleared = false;
         popupCanvas.SetActive(true);
     }
-    // ���� Ŭ����
+    
     public void GameClear()
     {
         isCleared = true;
