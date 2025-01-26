@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class C_StompState : MonoBehaviour
 {
-    EnemyController enemy;
-    public C_StompState(EnemyController enemy)
+    BaseEnemy enemy;
+    public C_StompState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

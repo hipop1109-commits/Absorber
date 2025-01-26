@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class E_HitState : IState
 {
-    EnemyController enemy;
-    public E_HitState(EnemyController enemy)
+    BaseEnemy enemy;
+    public E_HitState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

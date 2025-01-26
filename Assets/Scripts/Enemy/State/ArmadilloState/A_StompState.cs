@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class A_StompState : IState
 {
-    EnemyController enemy;
-    public A_StompState(EnemyController enemy)
+    BaseEnemy enemy;
+    public A_StompState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyAttackRange : MonoBehaviour
 {
-    private EnemyController enemyController;
+    private BaseEnemy enemy;
 
     public EnemyStateMachine a_stateMachine; // 적의 상태를 관리할 스테이트 머신
 
@@ -12,10 +12,10 @@ public class EnemyAttackRange : MonoBehaviour
     void Start()
     {
         // enemyController 할당
-        enemyController = GetComponentInParent<EnemyController>();
+        enemy = GetComponentInParent<BaseEnemy>();
 
         // 스테이트 머신 초기화
-        a_stateMachine = enemyController.stateMachine;
+        a_stateMachine = enemy.stateMachine;
 
         //공격 루틴 시작
         StartCoroutine(AttackLoop());
@@ -24,7 +24,7 @@ public class EnemyAttackRange : MonoBehaviour
     // 플레이어가 감지 범위에 들어왔는지 확인
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && enemyController.isDie == false)
+        if (collision.CompareTag("Player") && enemy.isDie == false)
         {
             isPlayerInRange = true;
         }
@@ -45,7 +45,7 @@ public class EnemyAttackRange : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(3f, 5f));
 
-            if(enemyController.isDie == false && isPlayerInRange)
+            if(enemy.isDie == false && isPlayerInRange)
             {
                 a_stateMachine.TransitionTo(a_stateMachine.attackState);
             }

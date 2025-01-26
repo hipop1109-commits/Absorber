@@ -3,13 +3,14 @@ using UnityEngine;
 public class EnemyStateMachine 
 {
     public IState CurrentState { get; private set; }
-    EnemyController enemy;
+    BaseEnemy enemy;
 
     public E_IdleState idleState;
     public E_WalkState walkState;
     public E_AttackState attackState;
     public E_HitState hitState;
     public E_DieState dieState;
+    public E_JumpState jumpState;
     public A_AngryState a_AngryState;
     public A_StompState a_StompState;
     public A_SpineState a_SpineState;
@@ -19,7 +20,7 @@ public class EnemyStateMachine
     public F_JumpState f_JumpState;
     public F_ToungeState f_ToungeState;
     public F_SpwanState f_SpwanState;
-    public EnemyStateMachine(EnemyController enemy)
+    public EnemyStateMachine(BaseEnemy enemy)
     {
         this.enemy = enemy;
         idleState = new E_IdleState(enemy);
@@ -27,6 +28,7 @@ public class EnemyStateMachine
         attackState = new E_AttackState(enemy);
         hitState = new E_HitState(enemy);
         dieState = new E_DieState(enemy);
+        jumpState = new E_JumpState(enemy);
         a_AngryState = new A_AngryState(enemy);
         a_StompState = new A_StompState(enemy);
         a_SpineState = new A_SpineState(enemy);

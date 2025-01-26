@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class C_DropState : MonoBehaviour
 {
-    EnemyController enemy;
-    public C_DropState(EnemyController enemy)
+    BaseEnemy enemy;
+    public C_DropState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

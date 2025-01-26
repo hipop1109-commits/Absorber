@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class F_JumpState : MonoBehaviour
 {
-    EnemyController enemy;
-    public F_JumpState(EnemyController enemy)
+    BaseEnemy enemy;
+    public F_JumpState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     private bool isFollowing = false; // 플레이어 추적 여부
     [SerializeField] private int hp = 20;
     public int damage = 10;
-    Vector2 vx; 
+    Vector2 vx;
     private Rigidbody2D rb; // Rigidbody2D 컴포넌트
     private Vector3 originalScale; // 초기 로컬 스케일 저장
 
@@ -146,7 +146,7 @@ public class EnemyController : MonoBehaviour
     //적이 공격을 받으면
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDie||isAttack) return; // 이미 죽은 적은 충돌 무시
+        if (isDie || isAttack) return; // 이미 죽은 적은 충돌 무시
         if (collision.gameObject.CompareTag("Attack"))
         {
             Attack attack = collision.GetComponent<Attack>();
@@ -289,3 +289,4 @@ public class EnemyController : MonoBehaviour
     }
 
 }
+*/

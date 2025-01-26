@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class F_SpwanState : MonoBehaviour
 {
-    EnemyController enemy;
-    public F_SpwanState(EnemyController enemy)
+    BaseEnemy enemy;
+    public F_SpwanState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }
