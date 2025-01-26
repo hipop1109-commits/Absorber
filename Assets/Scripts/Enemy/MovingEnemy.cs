@@ -51,6 +51,8 @@ public class MovingEnemy : BaseEnemy
         // 플레이어와의 x축 거리 계산
         float directionToPlayer = player.position.x - transform.position.x;
 
+        Debug.Log($"directionToPlayer : {directionToPlayer}");
+
         // 낭떠러지 또는 벽 감지 시 방향 전환
         if (!IsGroundAhead() || IsWallAhead())
         {
@@ -58,7 +60,7 @@ public class MovingEnemy : BaseEnemy
         }
 
         // 플레이어 위치에 따라 방향 설정
-        movingRight = directionToPlayer < 0;
+        movingRight = directionToPlayer > 0;
 
         // 이동 처리
         Move(movingRight ? traceSpeed : -traceSpeed);
@@ -86,9 +88,11 @@ public class MovingEnemy : BaseEnemy
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log("traceCollider : "+ traceCollider);
         // 플레이어 감지 시 추적 시작
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && traceCollider.IsTouching(collision))
         {
+            Debug.Log("follow");
             isFollowing = true;
         }
     }

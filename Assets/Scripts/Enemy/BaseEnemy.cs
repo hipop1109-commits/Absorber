@@ -30,21 +30,6 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected abstract void PerformMovement(); // 이동 로직(이동형/고정형에서 각각 구현)
 
-    public void EnemyTakeDamage(int damage)
-    {
-        if (isDie) return;
-
-        hp -= damage;
-        if (hp <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            stateMachine.TransitionTo(stateMachine.hitState);
-            Debug.Log($"{gameObject.name} 체력: {hp}");
-        }
-    }
 
     //적이 공격을 받으면
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,6 +54,24 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         isAttacked = false; // 공격 가능 상태로 복귀
     }
+    // 데미지를 입을때
+    public void EnemyTakeDamage(int damage)
+    {
+        if (isDie) return;
+
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            stateMachine.TransitionTo(stateMachine.hitState);
+            Debug.Log($"{gameObject.name} 체력: {hp}");
+        }
+    }
+
+    // 적의 Attack
     public void Attack(int damage)
     {
         //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
