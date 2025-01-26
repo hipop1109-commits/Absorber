@@ -30,11 +30,11 @@
     //에너지코어 텍스트 업데이트
     public void EnergyCoreTextUpdate()     {
         // SkillDisplayer의 에너지 코어 텍스트 업데이트
-        SkillDisplayer.Instance.energyCoreText.text = EnergyCore.ToString("D3");     }     public void RoadPlayerHp(int hp)
+        SkillDisplayer.Instance.energyCoreText.text = EnergyCore.ToString("D3");     }     // 게임 로드 시 Hp 값 변경을 위함     public void RoadPlayerHp(int hp)
     {
         PlayerHp = Mathf.Clamp(hp, 0, PlayerMaxHp);
     }
-
+    // 게임 로드 시 에너지코어 값 변경을 위함
     public void RoadEnergyCore(int energy)
     {
         EnergyCore = energy;

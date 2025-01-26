@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Data;
 using System.IO;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : Singleton<SaveManager>
 {
     [Serializable]
     public class SaveData
@@ -11,25 +12,30 @@ public class SaveManager : MonoBehaviour
         public float playerY;
         public int playerHP;
         public int energyCore;
+        public string lastSavedTime;
     }
 
     private string savePath;
     private PlayerController playerController;
     private Player player;
 
-    private void Awake()
+    private void Start()
     {
         savePath = Application.persistentDataPath + "/saveSlot.json";
     }
     
     public void SaveGame()
     {
+        if (playerController == null)
+            playerController = FindObjectOfType<PlayerController>();
+
         SaveData saveData = new SaveData
         {
             playerX = playerController.transform.position.x,
             playerY = playerController.transform.position.y,
             playerHP = playerController.player.PlayerHp,
-            energyCore = playerController.player.EnergyCore
+            energyCore = playerController.player.EnergyCore,
+            lastSavedTime = DateTime.Now.ToString("g")
         };
 
         string json = JsonUtility.ToJson(saveData);
@@ -37,15 +43,9 @@ public class SaveManager : MonoBehaviour
 
         Debug.Log("Game Saved: " + savePath);
 
-        MenuDisplayer saveSlot = FindObjectOfType<MenuDisplayer>();
-
-        //// 슬롯 UI 업데이트 
-        //foreach (var slot in saveSlot)
-        //{
-        //    slot.UpdateSlotUI();
-        //}
+        MenuDisplayer saveSlot = MenuDisplayer.Instance;
     }
-    // 
+    // 게임로드
     public SaveData LoadGame()
     {
         if(File.Exists(savePath))
@@ -59,17 +59,17 @@ public class SaveManager : MonoBehaviour
     }
 
     // 클릭시 게임 로드
-    public void OnSaveSlotClicked()
+    public void LoadGameData(SaveData saveData)
     {
-        SaveData saveData = LoadGame();
-
         if(saveData != null)
         {
+            if (playerController == null)
+                playerController = FindObjectOfType<PlayerController>();
+
             playerController.player.RoadPlayerHp(saveData.playerHP);
             playerController.player.RoadEnergyCore(saveData.energyCore);
-
             playerController.transform.position = new Vector3(saveData.playerX, saveData.playerY, 0);
-            player.EnergyCoreTextUpdate();
+            //player.EnergyCoreTextUpdate();
             LifeDisplayer.Instance.SetLives(player.PlayerHp, player.PlayerMaxHp);
         }
     }
