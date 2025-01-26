@@ -1,24 +1,24 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class MovingEnemy : BaseEnemy
 {
-    [Header("ÀÌµ¿ °ü·Ã ¼³Á¤")]
+    [Header("ì´ë™ ê´€ë ¨ ì„¤ì •")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float traceSpeed = 7f;
     [SerializeField] private float detectionRange = 5f;
-    private bool isFollowing = false; // ÇÃ·¹ÀÌ¾î ÃßÀû ¿©ºÎ
+    private bool isFollowing = false; // í”Œë ˆì´ì–´ ì¶”ì  ì—¬ë¶€
     [SerializeField] private Transform groundCheck, wallCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float checkRadius = 2f;
-    [SerializeField] private Collider2D traceCollider; // ÇÃ·¹ÀÌ¾î ÃßÀû °¨Áö ¹üÀ§
+    [SerializeField] private Collider2D traceCollider; // í”Œë ˆì´ì–´ ì¶”ì  ê°ì§€ ë²”ìœ„
 
     [SerializeField] private bool movingRight = true;
     [SerializeField] private Transform player;
-    private Vector3 originalScale; // ÃÊ±â ·ÎÄÃ ½ºÄÉÀÏ ÀúÀå
+    private Vector3 originalScale; // ì´ˆê¸° ë¡œì»¬ ìŠ¤ì¼€ì¼ ì €ì¥
 
     private void Start()
     {
-        originalScale = transform.localScale; // ÃÊ±â ·ÎÄÃ ½ºÄÉÀÏ ÀúÀå
+        originalScale = transform.localScale; // ì´ˆê¸° ë¡œì»¬ ìŠ¤ì¼€ì¼ ì €ì¥
     }
     protected override void PerformMovement()
     {
@@ -34,33 +34,33 @@ public class MovingEnemy : BaseEnemy
 
     private void Patrol()
     {
-        // ³¶¶°·¯Áö ¶Ç´Â º® °¨Áö ½Ã ¹æÇâ ÀüÈ¯
+        // ë‚­ë– ëŸ¬ì§€ ë˜ëŠ” ë²½ ê°ì§€ ì‹œ ë°©í–¥ ì „í™˜
         if (!IsGroundAhead() || IsWallAhead())
         {
             movingRight = !movingRight;
         }
 
-        // ÀÌµ¿ Ã³¸®
+        // ì´ë™ ì²˜ë¦¬
         Move(movingRight ? moveSpeed : -moveSpeed);
     }
 
     private void FollowPlayer()
     {
-        if (player == null) return; // ÇÃ·¹ÀÌ¾î°¡ ¾øÀ¸¸é ¸®ÅÏ
+        if (player == null) return; // í”Œë ˆì´ì–´ê°€ ì—†ìœ¼ë©´ ë¦¬í„´
 
-        // ÇÃ·¹ÀÌ¾î¿ÍÀÇ xÃà °Å¸® °è»ê
+        // í”Œë ˆì´ì–´ì™€ì˜ xì¶• ê±°ë¦¬ ê³„ì‚°
         float directionToPlayer = player.position.x - transform.position.x;
 
-        // ³¶¶°·¯Áö ¶Ç´Â º® °¨Áö ½Ã ¹æÇâ ÀüÈ¯
+        // ë‚­ë– ëŸ¬ì§€ ë˜ëŠ” ë²½ ê°ì§€ ì‹œ ë°©í–¥ ì „í™˜
         if (!IsGroundAhead() || IsWallAhead())
         {
             movingRight = !movingRight;
         }
 
-        // ÇÃ·¹ÀÌ¾î À§Ä¡¿¡ µû¶ó ¹æÇâ ¼³Á¤
+        // í”Œë ˆì´ì–´ ìœ„ì¹˜ì— ë”°ë¼ ë°©í–¥ ì„¤ì •
         movingRight = directionToPlayer < 0;
 
-        // ÀÌµ¿ Ã³¸®
+        // ì´ë™ ì²˜ë¦¬
         Move(movingRight ? traceSpeed : -traceSpeed);
     }
 
@@ -68,36 +68,25 @@ public class MovingEnemy : BaseEnemy
     {
         if (!isDie)
         {
-            // ÀÌµ¿ Ã³¸®
+            // ì´ë™ ì²˜ë¦¬
             rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
 
-/*            // »óÅÂ ÀüÈ¯Àº ÇÑ ¹ø¸¸ ¼öÇà
+/*            // ìƒíƒœ ì „í™˜ì€ í•œ ë²ˆë§Œ ìˆ˜í–‰
             if (stateMachine.CurrentState != stateMachine.walkState)
             {
             }*/
             stateMachine.TransitionTo(stateMachine.walkState);
 
             Debug.Log("speed : " + speed);
-            // ½ºÇÁ¶óÀÌÆ® ¹æÇâ Á¶Á¤
+            // ìŠ¤í”„ë¼ì´íŠ¸ ë°©í–¥ ì¡°ì •
             AdjustSpriteDirection(speed);
         }
     }
 
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("playerController : " + playerController);
-            //ÇÃ·¹ÀÌ¾î¿¡°Ô µ¥¹ÌÁö ÀÔÈ÷±â
-            playerController.TakeDamage(damage);
-            Debug.Log("ÀÏ¹İ µ¥¹ÌÁö");
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // ÇÃ·¹ÀÌ¾î °¨Áö ½Ã ÃßÀû ½ÃÀÛ
+        // í”Œë ˆì´ì–´ ê°ì§€ ì‹œ ì¶”ì  ì‹œì‘
         if (collision.CompareTag("Player"))
         {
             isFollowing = true;
@@ -113,24 +102,24 @@ public class MovingEnemy : BaseEnemy
 
     private void AdjustSpriteDirection(float moveDirection)
     {
-        // ÀÌµ¿ ¹æÇâ¿¡ µû¶ó ½ºÇÁ¶óÀÌÆ® µÚÁı±â
-        if ((moveDirection < 0 && transform.localScale.x > 0) ||
-            (moveDirection > 0 && transform.localScale.x < 0))
+        // ì´ë™ ë°©í–¥ì— ë”°ë¼ ìŠ¤í”„ë¼ì´íŠ¸ ë’¤ì§‘ê¸°
+        if ((moveDirection < 0 && transform.localScale.x < 0) ||
+            (moveDirection > 0 && transform.localScale.x > 0))
         {
-            transform.localScale = new Vector3(transform.localScale.x, originalScale.y, originalScale.z);
+            transform.localScale = new Vector3(-transform.localScale.x, originalScale.y, originalScale.z);
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        // ³¶¶°·¯Áö °¨Áö ¹İ°æ ½Ã°¢È­
+        // ë‚­ë– ëŸ¬ì§€ ê°ì§€ ë°˜ê²½ ì‹œê°í™”
         if (groundCheck != null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
         }
 
-        // º® °¨Áö ¹İ°æ ½Ã°¢È­
+        // ë²½ ê°ì§€ ë°˜ê²½ ì‹œê°í™”
         if (wallCheck != null)
         {
             Gizmos.color = Color.blue;

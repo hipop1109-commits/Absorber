@@ -1,23 +1,23 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-    [Header("°øÅë ¼³Á¤")]
-    public bool isDie = false; // ÀûÀÌ »ç¸ÁÇß´ÂÁö ¿©ºÎ
-    protected bool isAttacked = false; // ÀûÀÌ °ø°İ¹Ş´Â ÁßÀÎÁö ¿©ºÎ
-    protected Rigidbody2D rb; // Rigidbody2D ÂüÁ¶
-    [SerializeField] protected int hp = 20; // Àû Ã¼·Â
-    public int damage = 10; // Àû °ø°İ·Â
-    [SerializeField] protected GameObject itemPrefab; // µå¶øÇÒ ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ
-    public PlayerController playerController; // ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯ ÂüÁ¶
-    public EnemyStateMachine stateMachine; // »óÅÂ ¸Ó½Å ÂüÁ¶
+    [Header("ê³µí†µ ì„¤ì •")]
+    public bool isDie = false; // ì ì´ ì‚¬ë§í–ˆëŠ”ì§€ ì—¬ë¶€
+    protected bool isAttacked = false; // ì ì´ ê³µê²©ë°›ëŠ” ì¤‘ì¸ì§€ ì—¬ë¶€
+    protected Rigidbody2D rb; // Rigidbody2D ì°¸ì¡°
+    [SerializeField] protected int hp = 20; // ì  ì²´ë ¥
+    public int damage = 10; // ì  ê³µê²©ë ¥
+    [SerializeField] protected GameObject itemPrefab; // ë“œëí•  ì•„ì´í…œ í”„ë¦¬íŒ¹
+    public PlayerController playerController; // í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤ëŸ¬ ì°¸ì¡°
+    public EnemyStateMachine stateMachine; // ìƒíƒœ ë¨¸ì‹  ì°¸ì¡°
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        // »óÅÂ ¸Ó½Å ÃÊ±âÈ­
+        // ìƒíƒœ ë¨¸ì‹  ì´ˆê¸°í™”
         stateMachine = new EnemyStateMachine(this);
-        // »óÅÂ ¸Ó½ÅÀÇ ÃÊ±â »óÅÂ¸¦ Idle·Î ¼³Á¤
+        // ìƒíƒœ ë¨¸ì‹ ì˜ ì´ˆê¸° ìƒíƒœë¥¼ Idleë¡œ ì„¤ì •
         stateMachine.Initalize(stateMachine.idleState);
 
     }
@@ -25,10 +25,10 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void Update()
     {
         if (isDie) return;
-        PerformMovement(); // ÀÌµ¿ ·ÎÁ÷
+        PerformMovement(); // ì´ë™ ë¡œì§
     }
 
-    protected abstract void PerformMovement(); // ÀÌµ¿ ·ÎÁ÷(ÀÌµ¿Çü/°íÁ¤Çü¿¡¼­ °¢°¢ ±¸Çö)
+    protected abstract void PerformMovement(); // ì´ë™ ë¡œì§(ì´ë™í˜•/ê³ ì •í˜•ì—ì„œ ê°ê° êµ¬í˜„)
 
     public void EnemyTakeDamage(int damage)
     {
@@ -42,14 +42,14 @@ public abstract class BaseEnemy : MonoBehaviour
         else
         {
             stateMachine.TransitionTo(stateMachine.hitState);
-            Debug.Log($"{gameObject.name} Ã¼·Â: {hp}");
+            Debug.Log($"{gameObject.name} ì²´ë ¥: {hp}");
         }
     }
 
-    //ÀûÀÌ °ø°İÀ» ¹ŞÀ¸¸é
+    //ì ì´ ê³µê²©ì„ ë°›ìœ¼ë©´
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDie || isAttacked) return; // ÀÌ¹Ì Á×Àº ÀûÀº Ãæµ¹ ¹«½Ã
+        if (isDie || isAttacked) return; // ì´ë¯¸ ì£½ì€ ì ì€ ì¶©ëŒ ë¬´ì‹œ
         if (collision.gameObject.CompareTag("Attack"))
         {
             Attack attack = collision.GetComponent<Attack>();
@@ -57,53 +57,64 @@ public abstract class BaseEnemy : MonoBehaviour
             {
                 EnemyTakeDamage(attack.damage);
 
-                //ÀÏÁ¤ ½Ã°£µ¿¾È Ãß°¡ °ø°İ ¹«½Ã
+                //ì¼ì • ì‹œê°„ë™ì•ˆ ì¶”ê°€ ê³µê²© ë¬´ì‹œ
                 isAttacked = true;
-                Invoke("ResetAttackState", 1f); // 0.5ÃÊ ÈÄ ´Ù½Ã °ø°İ °¡´É
+                Invoke("ResetAttackState", 1f); // 0.5ì´ˆ í›„ ë‹¤ì‹œ ê³µê²© ê°€ëŠ¥
             }
         }
     }
 
-    //ÀÏÁ¤ ½Ã°£µ¿¾È Ãß°¡ °ø°İ ¹«½Ã ¸Ş¼­µå
+    //ì¼ì • ì‹œê°„ë™ì•ˆ ì¶”ê°€ ê³µê²© ë¬´ì‹œ ë©”ì„œë“œ
     private void ResetAttackState()
     {
-        isAttacked = false; // °ø°İ °¡´É »óÅÂ·Î º¹±Í
+        isAttacked = false; // ê³µê²© ê°€ëŠ¥ ìƒíƒœë¡œ ë³µê·€
     }
     public void Attack(int damage)
     {
-        //½ºÅ³ µ¥¹ÌÁö(TakeDamage´Â Àû¿¡°Ô ´ê¾ÒÀ»¶§ Ã¼·ÂÀÌ ´â´Â ¸Ş¼­µå±â ¶§¹®¿¡ AttackÀ» ¹Ş¾ÒÀ»¶§ Á¶±İ ´õ ´â°Ô ÇÔ)
+        //ìŠ¤í‚¬ ë°ë¯¸ì§€(TakeDamageëŠ” ì ì—ê²Œ ë‹¿ì•˜ì„ë•Œ ì²´ë ¥ì´ ë‹³ëŠ” ë©”ì„œë“œê¸° ë•Œë¬¸ì— Attackì„ ë°›ì•˜ì„ë•Œ ì¡°ê¸ˆ ë” ë‹³ê²Œ í•¨)
         playerController.TakeDamage(damage + 10);
-        Debug.Log("½ºÅ³ µ¥¹ÌÁö");
+        Debug.Log("ìŠ¤í‚¬ ë°ë¯¸ì§€");
     }
 
     protected virtual void Die()
     {
-        isDie = true; // »ç¸Á »óÅÂ ¼³Á¤
-        Debug.Log($"{gameObject.name} »ç¸Á");
+        isDie = true; // ì‚¬ë§ ìƒíƒœ ì„¤ì •
+        Debug.Log($"{gameObject.name} ì‚¬ë§");
 
-        // ÀÏÁ¤ ½Ã°£ ÈÄ ¾ÆÀÌÅÛ ½ºÆù
+        // ì¼ì • ì‹œê°„ í›„ ì•„ì´í…œ ìŠ¤í°
         Invoke(nameof(SpawnItem), 2f);
 
-        // Àû °´Ã¼ Á¦°Å
+        // ì  ê°ì²´ ì œê±°
         Destroy(gameObject);
     }
 
+    // í”Œë ˆì´ì–´ê°€ ë‹¿ìœ¼ë©´ í”¼ê°€ ë‹³ëŠ” ë©”ì„œë“œ
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("playerController : " + playerController);
+            //í”Œë ˆì´ì–´ì—ê²Œ ë°ë¯¸ì§€ ì…íˆê¸°
+            playerController.TakeDamage(damage);
+            Debug.Log("ì¼ë°˜ ë°ë¯¸ì§€");
+        }
+    }
 
     protected virtual void SpawnItem()
     {
         if (itemPrefab != null)
         {
-            // Àû À§Ä¡º¸´Ù ¾à°£ À§¿¡ ¾ÆÀÌÅÛ »ı¼º
+            // ì  ìœ„ì¹˜ë³´ë‹¤ ì•½ê°„ ìœ„ì— ì•„ì´í…œ ìƒì„±
             GameObject item = Instantiate(itemPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
             Rigidbody2D rb = item.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                // À§·Î ¿Ã¶ó°¡´Â ÈûÀ» ÁÜ
+                // ìœ„ë¡œ ì˜¬ë¼ê°€ëŠ” í˜ì„ ì¤Œ
                 rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
 
-                // Áß·ÂÀ» ÇØÁ¦ÇÏ¿© ¹Ù´ÚÀ¸·Î ºüÁö´Â ¹®Á¦ ¹æÁö
-                rb.gravityScale = 1f; // Áß·ÂÀ» ÁÙ¿© ÀÚ¿¬½º·¯¿î ¿òÁ÷ÀÓ À¯Áö
+                // ì¤‘ë ¥ì„ í•´ì œí•˜ì—¬ ë°”ë‹¥ìœ¼ë¡œ ë¹ ì§€ëŠ” ë¬¸ì œ ë°©ì§€
+                rb.gravityScale = 1f; // ì¤‘ë ¥ì„ ì¤„ì—¬ ìì—°ìŠ¤ëŸ¬ìš´ ì›€ì§ì„ ìœ ì§€
             }
         }
     }
