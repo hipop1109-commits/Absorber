@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class A_AngryState : IState
 {
-    EnemyController enemy;
-    public A_AngryState(EnemyController enemy)
+    BaseEnemy enemy;
+    public A_AngryState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

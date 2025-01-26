@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class F_ToungeState : MonoBehaviour
 {
-    EnemyController enemy;
-    public F_ToungeState(EnemyController enemy)
+    BaseEnemy enemy;
+    public F_ToungeState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

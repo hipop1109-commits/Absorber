@@ -14,19 +14,12 @@ public class LifeDisplayer : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     void Start()
     {
-        var playerController = FindObjectOfType<PlayerController>();
+/*        var playerController = FindObjectOfType<PlayerController>();
         if (playerController != null && playerController.player != null)
         {
             Debug.Log($"PlayerMaxHp: {playerController.player.PlayerMaxHp}");
@@ -34,7 +27,7 @@ public class LifeDisplayer : MonoBehaviour
         else
         {
             Debug.LogError("PlayerController or Player is not initialized.");
-        }
+        }*/
     }
 
 

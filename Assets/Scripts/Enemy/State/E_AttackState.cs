@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class E_AttackState : IState
 {
-    EnemyController enemy;
-    public E_AttackState(EnemyController enemy)
+    BaseEnemy enemy;
+    public E_AttackState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

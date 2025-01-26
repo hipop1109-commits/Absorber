@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class E_WalkState : IState
 {
-    EnemyController enemy;
-    public E_WalkState(EnemyController enemy)
+    BaseEnemy enemy;
+    public E_WalkState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

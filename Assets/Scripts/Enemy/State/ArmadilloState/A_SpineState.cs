@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class A_SpineState : IState
 {
-    EnemyController enemy;
-    public A_SpineState(EnemyController enemy)
+    BaseEnemy enemy;
+    public A_SpineState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

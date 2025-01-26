@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class E_DieState : IState
 {
-    EnemyController enemy;
-    public E_DieState(EnemyController enemy)
+    BaseEnemy enemy;
+    public E_DieState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

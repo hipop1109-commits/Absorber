@@ -96,7 +96,6 @@ public class PlayerController : MonoBehaviour
         {
             isHit = true;
             player.Damage(damage);
-            Debug.Log("hit");
 
             //player 색 바뀌게(다치는 모션 or 무적 모션)
             stateMachine.TransitionTo(stateMachine.hurtState);
@@ -158,10 +157,6 @@ public class PlayerController : MonoBehaviour
         {
             select1 += 1;
         }
-        // SlowTime 작동 및 시간 복원 코루틴 시작
-        //SlowTime.Instance.Slow();
-        StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
-        //StartCoroutine(ResetTimeScale());
     }
 
     //E
@@ -175,16 +170,6 @@ public class PlayerController : MonoBehaviour
         {
             select2 += 1;
         }
-        // SlowTime 작동 및 시간 복원 코루틴 시작
-        //SlowTime.Instance.Slow();
-        StopAllCoroutines(); // 이전 코루틴 종료 (중복 방지)
-        //StartCoroutine(ResetTimeScale());
-    }
-
-    private IEnumerator ResetTimeScale()
-    {
-        yield return new WaitForSecondsRealtime(SlowTime.Instance.slowLength);
-        SlowTime.Instance.Back();
     }
 
 
@@ -314,8 +299,6 @@ public class PlayerController : MonoBehaviour
         isDashing = true; // 대쉬 플래그 설정
         Vector2 dashVelocity = new Vector2(dashDirection * player.DashSpeed, rb.linearVelocity.y); // 대쉬 방향 설정
         // rb.AddForce(dashForce, ForceMode2D.Impulse); // 대쉬 힘 적용
-
-        Debug.Log($"Dash Velocity: {dashVelocity}");
         rb.linearVelocity = dashVelocity;
 
         yield return new WaitForSeconds(player.DashDuration); // 대쉬 지속 시간 대기

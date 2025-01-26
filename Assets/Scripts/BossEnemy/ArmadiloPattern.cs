@@ -46,15 +46,15 @@ public class ArmadiloPattern : MonoBehaviour
     {
         if (gameObject.CompareTag("ArmadilloBoss")) // 이름이 "Armadillo"인 경우
         {
-            a_stateMachine = GetComponent<EnemyController>().stateMachine;
+            a_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
         if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
         {
-            c_stateMachine = GetComponent<EnemyController>().stateMachine;
+            c_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
         if (gameObject.CompareTag("FrogBoss")) // 이름이 "Armadillo"인 경우
         {
-            f_stateMachine = GetComponent<EnemyController>().stateMachine;
+            f_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
         playerTransform = player.transform;
         rb = GetComponent<Rigidbody2D>();

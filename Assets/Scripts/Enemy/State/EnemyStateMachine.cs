@@ -1,15 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyStateMachine 
 {
     public IState CurrentState { get; private set; }
-    EnemyController enemy;
+    BaseEnemy enemy;
 
     public E_IdleState idleState;
     public E_WalkState walkState;
     public E_AttackState attackState;
     public E_HitState hitState;
     public E_DieState dieState;
+    public E_JumpState jumpState;
     public A_AngryState a_AngryState;
     public A_StompState a_StompState;
     public A_SpineState a_SpineState;
@@ -19,7 +20,7 @@ public class EnemyStateMachine
     public F_JumpState f_JumpState;
     public F_ToungeState f_ToungeState;
     public F_SpwanState f_SpwanState;
-    public EnemyStateMachine(EnemyController enemy)
+    public EnemyStateMachine(BaseEnemy enemy)
     {
         this.enemy = enemy;
         idleState = new E_IdleState(enemy);
@@ -27,6 +28,7 @@ public class EnemyStateMachine
         attackState = new E_AttackState(enemy);
         hitState = new E_HitState(enemy);
         dieState = new E_DieState(enemy);
+        jumpState = new E_JumpState(enemy);
         a_AngryState = new A_AngryState(enemy);
         a_StompState = new A_StompState(enemy);
         a_SpineState = new A_SpineState(enemy);
@@ -38,15 +40,15 @@ public class EnemyStateMachine
         f_SpwanState = new F_SpwanState(enemy);
     }
 
-    //ÃÖÃÊ state¸¦ ¹Ş¾Æ ÀÌ¸¦ CurrentState¿¡ ³Ö°í Enter
+    //ìµœì´ˆ stateë¥¼ ë°›ì•„ ì´ë¥¼ CurrentStateì— ë„£ê³  Enter
     public void Initalize(IState state)
     {
         CurrentState = state;
         state.Enter();
     }
 
-    //¹Ù²ğ state¸¦ ¹Ş¾Æ ÇöÀç state¿¡ ´ëÇØ¼­´Â Exit¸¦ ¼öÇàÇÏ°í CurrentState¸¦ ¹Ù²Ù¸ç 
-    //¹Ù²ğ stateÀÇ Enter¸¦ ¼öÇà
+    //ë°”ë€” stateë¥¼ ë°›ì•„ í˜„ì¬ stateì— ëŒ€í•´ì„œëŠ” Exitë¥¼ ìˆ˜í–‰í•˜ê³  CurrentStateë¥¼ ë°”ê¾¸ë©° 
+    //ë°”ë€” stateì˜ Enterë¥¼ ìˆ˜í–‰
     public void TransitionTo(IState nextState)
     {
         CurrentState.Exit();
