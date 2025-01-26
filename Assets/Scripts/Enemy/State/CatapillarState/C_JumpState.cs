@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class C_JumpState : MonoBehaviour
+public class C_JumpState : IState
 {
     EnemyController enemy;
     public C_JumpState(EnemyController enemy)

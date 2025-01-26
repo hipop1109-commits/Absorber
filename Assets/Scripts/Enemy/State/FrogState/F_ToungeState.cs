@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class F_ToungeState : MonoBehaviour
+public class F_ToungeState : IState
 {
     EnemyController enemy;
     public F_ToungeState(EnemyController enemy)

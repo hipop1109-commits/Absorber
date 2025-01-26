@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class F_SpwanState : MonoBehaviour
+public class F_SpwanState : IState
 {
     EnemyController enemy;
     public F_SpwanState(EnemyController enemy)

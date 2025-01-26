@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class C_DropState : MonoBehaviour
+public class C_DropState : IState
 {
     EnemyController enemy;
     public C_DropState(EnemyController enemy)

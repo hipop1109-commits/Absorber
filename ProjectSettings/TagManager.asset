@@ -15,6 +15,9 @@ TagManager:
   - Attack
   - Item
   - AbsorbEffect
+  - ArmadilloBoss
+  - CatapillarBoss
+  - FrogBoss
   layers:
   - Default
   - TransparentFX
