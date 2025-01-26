@@ -18,12 +18,13 @@ public class SaveManager : Singleton<SaveManager>
     private string savePath;
     private PlayerController playerController;
     private Player player;
+    private MenuDisplayer menuDisplayer;
 
     private void Start()
     {
         savePath = Application.persistentDataPath + "/saveSlot.json";
     }
-    
+    // 게임 세이브
     public void SaveGame()
     {
         if (playerController == null)
@@ -43,7 +44,7 @@ public class SaveManager : Singleton<SaveManager>
 
         Debug.Log("Game Saved: " + savePath);
 
-        MenuDisplayer saveSlot = MenuDisplayer.Instance;
+        menuDisplayer = FindObjectOfType<MenuDisplayer>();
     }
     // 게임로드
     public SaveData LoadGame()

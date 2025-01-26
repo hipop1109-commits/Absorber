@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEditor.Overlays;
 
-public class MenuDisplayer : Singleton<MenuDisplayer>
+public class MenuDisplayer : MonoBehaviour
 {
     // Menu Panel
     [SerializeField] private GameObject menuPanel;
