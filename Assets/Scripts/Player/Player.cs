@@ -71,7 +71,7 @@ public class Player
     {
         PlayerHp = Mathf.Clamp(hp, 0, PlayerMaxHp);
     }
-
+    // 게임 로드 시 에너지코어 값 변경을 위함
     public void RoadEnergyCore(int energy)
     {
         EnergyCore = energy;

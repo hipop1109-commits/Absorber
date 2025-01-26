@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEditor.Overlays;
 
-public class MenuDisplayer : MonoBehaviour
+public class MenuDisplayer : Singleton<MenuDisplayer>
 {
     // Menu Panel
     [SerializeField] private GameObject menuPanel;
@@ -41,6 +41,13 @@ public class MenuDisplayer : MonoBehaviour
 
     private void OnEnable()
     {
+        // 밝기 설정 초기화
+        if (postProcessingVolume.profile.TryGet(out colorAdjustments))
+        {
+            colorAdjustments.postExposure.value = 0;
+            brightnessSlider.value = 0;
+            brightnessSlider.onValueChanged.AddListener(AdjustBrightness);
+        }
         // 메뉴 활성화시 초기화
         brightnessSlider.value = colorAdjustments.postExposure.value;
         MasterVolumeSlider.value = AudioListener.volume;
@@ -50,14 +57,6 @@ public class MenuDisplayer : MonoBehaviour
 
     void Start()
     {
-        // 밝기 설정 초기화
-        if (postProcessingVolume.profile.TryGet(out colorAdjustments))
-        {
-            colorAdjustments.postExposure.value = 0;
-            brightnessSlider.value = 0;
-            brightnessSlider.onValueChanged.AddListener(AdjustBrightness);
-        }
-  
         // 슬라이더 초기화
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
         MasterVolumeSlider.onValueChanged.AddListener(SetVolume);
@@ -71,7 +70,7 @@ public class MenuDisplayer : MonoBehaviour
             resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
         }
 
-        saveManager = FindObjectOfType<SaveManager>();
+        saveManager = SaveManager.Instance;
         UpdateSaveSlotUI();
         
     }
@@ -147,17 +146,23 @@ public class MenuDisplayer : MonoBehaviour
 
     public void UpdateSaveSlotUI()
     {
-        SaveManager.SaveData saveData = saveManager.LoadGame();
+        SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
 
-        if (saveData != null )
+        if (saveData != null)
         {
             saveSlotText.text = $"HP: {saveData.playerHP}, Energy: {saveData.energyCore}, " +
-                                $"Position: ({saveData.playerX}, {saveData.playerY})";
+                                $"({saveData.lastSavedTime})";
         }
         else
         {
             saveSlotText.text = "Empty Slot";
         }
+    }
+
+    public void OnLoadClicked()
+    {
+        SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
+        SaveManager.Instance.LoadGameData(saveData);
     }
   
     // 세이브 메뉴 오픈

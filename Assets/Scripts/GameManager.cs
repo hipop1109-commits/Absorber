@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton <GameManager>
 {
     
     // Ŭ���� or ���ӿ��� �˾�â
@@ -14,33 +14,16 @@ public class GameManager : MonoBehaviour
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
    
-    [SerializeField]private LifeDisplayer lifeDisplayer;
+    [SerializeField] private LifeDisplayer lifeDisplayer;
     
-    [SerializeField]private int life = 10; 
+    [SerializeField] private int life = 10; 
 
     private Player player;
     private PlayerController playerController;
     private SaveManager saveManager;
 
-    [SerializeField] private Vector3 saveTargetPositon; // �ڵ� ���� Ʈ���� ��ġ
+    [SerializeField] private Transform saveTrigger; // �ڵ� ���� Ʈ���� ��ġ
     [SerializeField] private float saveTriggerRadius = 1f; // �ڵ� ���� Ʈ���� �ݰ�
-
-
-    private static GameManager instance;
-    public static GameManager Instance { get { return instance; } }
-
-    private void Awake()
-    {
-        if (instance == null) 
-        { 
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {   
@@ -50,23 +33,22 @@ public class GameManager : MonoBehaviour
             lifeDisplayer.SetLives(player.PlayerHp, player.PlayerMaxHp);
             
         }
-        saveManager = FindObjectOfType<SaveManager>();
+        saveManager = SaveManager.Instance;
         playerController = FindObjectOfType<PlayerController>();
     }
 
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            //player.TakeDamage(1);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            player.Heal(1);
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    //player.TakeDamage(1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    player.Heal(1);
+        //}
 
-        if (Vector3.Distance(playerController.transform.position, saveTargetPositon) <= saveTriggerRadius)
+        if (Vector3.Distance(playerController.transform.position, saveTrigger.position) <= saveTriggerRadius)
         {
             Debug.Log("Auto Save Triggered");
             saveManager.SaveGame();
@@ -78,6 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Save Trigger Activated");
             saveManager.SaveGame();
         }
     }
