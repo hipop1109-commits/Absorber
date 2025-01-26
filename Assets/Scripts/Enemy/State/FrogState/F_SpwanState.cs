@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class F_SpwanState : MonoBehaviour
+public class F_SpwanState : IState
 {
     BaseEnemy enemy;
     public F_SpwanState(BaseEnemy enemy)

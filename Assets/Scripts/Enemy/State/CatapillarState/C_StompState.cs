@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class C_StompState : MonoBehaviour
+public class C_StompState : IState
 {
     BaseEnemy enemy;
     public C_StompState(BaseEnemy enemy)

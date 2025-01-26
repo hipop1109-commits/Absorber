@@ -19,6 +19,9 @@ public class ArmadiloPattern : MonoBehaviour
     [SerializeField] private GameObject AirRange;
     [SerializeField] private GameObject BackRange;
 
+    [SerializeField] private GameObject[] StompEffect;
+    [SerializeField] private float effectDuration = 0.33f;
+
     [SerializeField] private GameObject spinePrefab; // 가시 프리팹
     [SerializeField] private Transform[] spawnPoints; // 가시 발사 지점
     [SerializeField] private float fireRate = 0.5f; // 가시 발사 간격
@@ -48,11 +51,11 @@ public class ArmadiloPattern : MonoBehaviour
         {
             a_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
-        if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
+        else if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
         {
             c_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
-        if (gameObject.CompareTag("FrogBoss")) // 이름이 "Armadillo"인 경우
+        else if (gameObject.CompareTag("FrogBoss")) // 이름이 "Armadillo"인 경우
         {
             f_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
@@ -62,6 +65,11 @@ public class ArmadiloPattern : MonoBehaviour
         currentState = BossState.Idle;
         rangeState = RangeState.Out;
         StartCoroutine(ProcessActions());
+
+        foreach (var effect in StompEffect)
+        {
+            effect.SetActive(false);
+        }
     }
 
    
@@ -180,7 +188,7 @@ public class ArmadiloPattern : MonoBehaviour
         currentState = BossState.Attacking;
         rb.linearVelocity = Vector2.zero;
         // 먼 거리 공격 애니메이션 실행
-        if (gameObject.CompareTag("Armadillo"))// 이름이 "Armadillo"인 경우
+        if (gameObject.CompareTag("ArmadilloBoss"))// 이름이 "Armadillo"인 경우
         {
             Angry();
         }
@@ -245,6 +253,7 @@ public class ArmadiloPattern : MonoBehaviour
     private void Stomp()
     {
         a_stateMachine.TransitionTo(a_stateMachine.a_StompState);
+        StartCoroutine(PlayStompEffects());
     }
 
     private void Angry()
@@ -259,7 +268,25 @@ public class ArmadiloPattern : MonoBehaviour
         StartCoroutine(SpineAttackRoutine());
     }
 
-    private IEnumerator SpineAttackRoutine()
+    private IEnumerator PlayStompEffects()
+    {
+        yield return new WaitForSeconds(2.35f);
+        foreach (var effect in StompEffect)
+        {
+            // 이펙트 활성화
+            effect.SetActive(true);
+
+            // 설정한 시간 동안 활성 상태 유지
+            yield return new WaitForSeconds(effectDuration);
+
+            // 이펙트 비활성화
+            yield return new WaitForSeconds(effectDuration); // 효과 지속 시간
+            effect.SetActive(false); // 효과 비활성화
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+        private IEnumerator SpineAttackRoutine()
     {
         for (int i = 0; i < totalSpines; i++)
         {

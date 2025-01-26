@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class F_JumpState : MonoBehaviour
+public class F_JumpState : IState
 {
     BaseEnemy enemy;
     public F_JumpState(BaseEnemy enemy)

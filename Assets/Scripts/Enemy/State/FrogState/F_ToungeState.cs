@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class F_ToungeState : MonoBehaviour
+public class F_ToungeState : IState
 {
     BaseEnemy enemy;
     public F_ToungeState(BaseEnemy enemy)
