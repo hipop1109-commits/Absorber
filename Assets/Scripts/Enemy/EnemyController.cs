@@ -26,9 +26,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Collider2D traceCollider; // 플레이어 추적 감지 범위
 
     [SerializeField] private PlayerController playerController;
-   // private EnemyController enemyController; // 적 컨트롤러
-/*    private EnemyStateMachine e_stateMachine;
-    private EnemyMove enemyMove;*/
     [SerializeField] private GameObject itemPrefab;
     public EnemyStateMachine stateMachine; // 적의 상태를 관리할 상태 머신
 
@@ -38,8 +35,6 @@ public class EnemyController : MonoBehaviour
         stateMachine = new EnemyStateMachine(this);
         // 상태 머신의 초기 상태를 Idle로 설정
         stateMachine.Initalize(stateMachine.idleState);
-
-        //enemyMove = GetComponent<EnemyMove>();
 
     }
 
@@ -51,7 +46,7 @@ public class EnemyController : MonoBehaviour
         originalScale = transform.localScale; // 초기 로컬 스케일 저장
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isDie)
         {
@@ -73,6 +68,8 @@ public class EnemyController : MonoBehaviour
                 Patrol(); // 일반 이동 동작
             }
         }
+
+        Debug.Log("IsGroundAhead() : " + IsGroundAhead());
     }
 
 
@@ -112,18 +109,20 @@ public class EnemyController : MonoBehaviour
     {
         if (!isDie)
         {
+            // 이동 처리
+            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
+
+            // 상태 전환은 한 번만 수행
             if (stateMachine.CurrentState != stateMachine.walkState)
             {
-                // Rigidbody2D를 이용한 이동
-                rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
-
                 stateMachine.TransitionTo(stateMachine.walkState);
-
-                // 스프라이트 방향 조정
-                AdjustSpriteDirection(speed);
             }
+
+            // 스프라이트 방향 조정
+            AdjustSpriteDirection(speed);
         }
     }
+
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -131,6 +130,7 @@ public class EnemyController : MonoBehaviour
         {
             //플레이어에게 데미지 입히기
             playerController.TakeDamage(damage);
+            Debug.Log("일반 데미지");
         }
     }
 
@@ -153,7 +153,6 @@ public class EnemyController : MonoBehaviour
             if (attack != null)
             {
                 EnemyTakeDamage(attack.damage);
-                //enemyMove.enabled = false;
 
                 //일정 시간동안 추가 공격 무시
                 isAttack = true;
@@ -168,13 +167,9 @@ public class EnemyController : MonoBehaviour
         isAttack = false; // 공격 가능 상태로 복귀
     }
 
-    //적이 공격을 안 받으면
+    // 플레이어가 범위에서 벗어나면
     private void OnTriggerExit2D(Collider2D collision)
     {
-        /*if (collision.gameObject.CompareTag("Attack")&&isDie)
-        {
-            stateMachine.TransitionTo(stateMachine.dieState);
-        }*/
         // 플레이어 추적 중지
         if (collision.CompareTag("Player"))
         {
@@ -191,7 +186,6 @@ public class EnemyController : MonoBehaviour
         if (hp <= 0 && !isDie)
         {
             isDie = true;
-            //stateMachine.TransitionTo(stateMachine.dieState);
 
             Invoke("DestroyEnemy", 2f);
         }
@@ -202,7 +196,7 @@ public class EnemyController : MonoBehaviour
 
             // 적이 피해를 입는 애니메이션
             stateMachine.TransitionTo(stateMachine.hitState);
-            //Debug.Log($"적{gameObject} 체력 : {hp}");
+            Debug.Log($"적{gameObject} 체력 : {hp}");
 
         }
     }
@@ -221,6 +215,7 @@ public class EnemyController : MonoBehaviour
     {
         //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
         playerController.TakeDamage(damage + 10);
+        Debug.Log("스킬 데미지");
     }
 
 

@@ -41,8 +41,9 @@ public class Player
     //플레이어 데미지
     public void Damage(int damage)
     {
+        Debug.Log("player damage");
         PlayerHp -= damage; PlayerHp = Mathf.Max(PlayerHp, 0); // 최소값을 0으로 고정
-        //LifeDisplayer.Instance.SetLives(PlayerHp, PlayerMaxHp);
+        LifeDisplayer.Instance.SetLives(PlayerHp, PlayerMaxHp);
     }
     public bool IsAlive() 
     { 
