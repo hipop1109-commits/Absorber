@@ -20,10 +20,7 @@ public class GameManager : Singleton <GameManager>
 
     private Player player;
     private PlayerController playerController;
-    private SaveManager saveManager;
-
-    [SerializeField] private Transform saveTrigger; // 자동 저장 트리거 위치
-    [SerializeField] private float saveTriggerRadius = 1f; // 자동 저장 트리거 반경
+    
 
     private void Start()
     {   
@@ -33,7 +30,7 @@ public class GameManager : Singleton <GameManager>
             lifeDisplayer.SetLives(player.PlayerHp, player.PlayerMaxHp);
             
         }
-        saveManager = SaveManager.Instance;
+
         playerController = FindObjectOfType<PlayerController>();
     }
 
@@ -48,21 +45,6 @@ public class GameManager : Singleton <GameManager>
         //    player.Heal(1);
         //}
 
-        if (Vector3.Distance(playerController.transform.position, saveTrigger.position) <= saveTriggerRadius)
-        {
-            Debug.Log("Auto Save Triggered");
-            saveManager.SaveGame();
-        } 
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Save Trigger Activated");
-            saveManager.SaveGame();
-        }
     }
 
     void Restart()
