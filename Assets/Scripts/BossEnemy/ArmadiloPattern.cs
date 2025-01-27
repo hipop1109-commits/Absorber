@@ -22,6 +22,8 @@ public class ArmadiloPattern : MonoBehaviour
     [SerializeField] private GameObject[] StompEffect;
     [SerializeField] private float effectDuration = 0.33f;
 
+    [SerializeField] private GameObject IceJumpEffect;
+
     [SerializeField] private GameObject spinePrefab; // 가시 프리팹
     [SerializeField] private Transform[] spawnPoints; // 가시 발사 지점
     [SerializeField] private float fireRate = 0.5f; // 가시 발사 간격
@@ -70,6 +72,8 @@ public class ArmadiloPattern : MonoBehaviour
         {
             effect.SetActive(false);
         }
+
+        IceJumpEffect.SetActive(false);
     }
 
    
@@ -302,19 +306,35 @@ public class ArmadiloPattern : MonoBehaviour
 
     }
 
+    private IEnumerator IceJumpEffects()
+    {
+            IceJumpEffect.SetActive(true);
+            yield return new WaitForSeconds(1.5f); // 효과 지속 시간
+            IceJumpEffect.SetActive(false); // 효과 비활성화
+    }
+
+    private IEnumerator IceDropEffects()
+    {
+        IceJumpEffect.SetActive(true);
+        yield return new WaitForSeconds(1.5f); // 효과 지속 시간
+        IceJumpEffect.SetActive(false); // 효과 비활성화
+    }
+
     private void IceStomp()
     {
-
+        c_stateMachine.TransitionTo(c_stateMachine.c_StompState);
     }
 
     private void IceDrop()
     {
-
+        c_stateMachine.TransitionTo(c_stateMachine.c_DropState);
+        StartCoroutine(IceDropEffects());
     }
 
     private void IceJump()
     {
-
+        c_stateMachine.TransitionTo(c_stateMachine.c_JumpState);
+        StartCoroutine(IceJumpEffects());
     }
     
     
