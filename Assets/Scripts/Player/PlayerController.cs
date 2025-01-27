@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
             //player 색 바뀌게(다치는 모션 or 무적 모션)
             stateMachine.TransitionTo(stateMachine.hurtState);
-
+            
             //Player 무적 시간
             Invoke("Invincibility", invincibilityTime);
 
