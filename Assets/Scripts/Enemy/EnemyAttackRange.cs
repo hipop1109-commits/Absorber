@@ -3,64 +3,76 @@ using System.Collections;
 
 public class EnemyAttackRange : MonoBehaviour
 {
-    private BaseEnemy enemy;
-    private FlyEnemy flyEnemy; // FlyEnemy ì°¸ì¡° ë³€ìˆ˜ ì¶”ê°€
+    private BaseEnemy enemy; // ÀûÀÇ ±âº» Á¤º¸¸¦ °ü¸®ÇÏ´Â BaseEnemy Å¬·¡½º
+    private FlyEnemy flyEnemy; // FlyEnemy Å¬·¡½º¿¡ ´ëÇÑ ÂüÁ¶¸¦ Ãß°¡
+    private MovingEnemy movingEnemy;
 
-    public EnemyStateMachine a_stateMachine; // ì ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•  ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹ 
+    public EnemyStateMachine a_stateMachine; // ÀûÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â »óÅÂ ¸Ó½Å
 
-    private bool isPlayerInRange = false; // í”Œë ˆì´ì–´ê°€ ë²”ìœ„ ë‚´ì— ìˆëŠ”ì§€ í™•ì¸
+   // private bool isPlayerInRange = false; // ÇÃ·¹ÀÌ¾î°¡ °ø°İ ¹üÀ§¿¡ ÀÖ´ÂÁö È®ÀÎÇÏ´Â º¯¼ö
 
     void Start()
     {
-        // enemyController í• ë‹¹
+        // BaseEnemy Å¬·¡½º °¡Á®¿À±â
         enemy = GetComponentInParent<BaseEnemy>();
 
-        // FlyEnemyê°€ ìˆë‹¤ë©´ ì°¸ì¡°
+        // FlyEnemy Å¬·¡½º°¡ Á¸ÀçÇÏ¸é °¡Á®¿À±â
         flyEnemy = GetComponentInParent<FlyEnemy>();
 
-        // ìŠ¤í…Œì´íŠ¸ ë¨¸ì‹  ì´ˆê¸°í™”
+        movingEnemy = GetComponentInParent<MovingEnemy>();
+
+        // »óÅÂ ¸Ó½Å ÃÊ±âÈ­
         a_stateMachine = enemy.stateMachine;
 
-        // ê³µê²© ë£¨í‹´ ì‹œì‘
+        // °ø°İ ·çÇÁ ÄÚ·çÆ¾ ½ÃÀÛ
         StartCoroutine(AttackLoop());
     }
 
-    // í”Œë ˆì´ì–´ê°€ ê°ì§€ ë²”ìœ„ì— ë“¤ì–´ì™”ëŠ”ì§€ í™•ì¸
+    // ÇÃ·¹ÀÌ¾î°¡ °ø°İ ¹üÀ§ ¾È¿¡ µé¾î¿Ô´ÂÁö È®ÀÎ
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && enemy.isDie == false)
         {
-            Debug.Log($"{transform.parent.gameObject}ì˜ ê³µê²© ë²”ìœ„ ë‚´");
-            isPlayerInRange = true;
+            Debug.Log($"{transform.parent.gameObject}ÀÌ(°¡) °ø°İ ¹üÀ§¿¡ ÇÃ·¹ÀÌ¾î¸¦ °¨ÁöÇß½À´Ï´Ù.");
+           // isPlayerInRange = true;
         }
     }
 
+/*    // ÇÃ·¹ÀÌ¾î°¡ °ø°İ ¹üÀ§¸¦ ¹ş¾î³µÀ» ¶§ È£Ãâ
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            isPlayerInRange = false; // í”Œë ˆì´ì–´ ë²”ìœ„ í”Œë˜ê·¸ ì´ˆê¸°í™”
+            isPlayerInRange = false; // ÇÃ·¹ÀÌ¾î ¹üÀ§ ÃÊ±âÈ­
         }
-    }
+    }*/
 
-    // ì½”ë£¨í‹´ìœ¼ë¡œ ì¼ì • ì‹œê°„ í›„ ì¬ê³µê²© ì²˜ë¦¬
+    // ¹İº¹ÀûÀÎ °ø°İ µ¿ÀÛÀ» Ã³¸®ÇÏ´Â ÄÚ·çÆ¾
     private IEnumerator AttackLoop()
     {
-        while(true)
+        while (true)
         {
-            // ì¼ì • ì‹œê°„ ëŒ€ê¸° (ëœë¤í•˜ê²Œ 3ì´ˆì—ì„œ 5ì´ˆ ì‚¬ì´)
+            // °ø°İ ´ë±â ½Ã°£ (3ÃÊ¿¡¼­ 5ÃÊ »çÀÌ ·£´ı)
             yield return new WaitForSeconds(Random.Range(3f, 5f));
 
-            if(enemy.isDie == false)
+            if (enemy.isDie == false)
             {
-                // ê³µê²© ìƒíƒœë¡œ ì „í™˜
+                // °ø°İ »óÅÂ·Î ÀüÈ¯
                 a_stateMachine.TransitionTo(a_stateMachine.attackState);
 
-                // FlyEnemyì¼ ê²½ìš°ì—ë§Œ ê³µê²© í›„ idleë¡œ ì „í™˜
+                // movingEnemy °æ¿ì °ø°İ ÈÄ 1ÃÊ ÈÄ walk »óÅÂ·Î ÀüÈ¯
+                if (movingEnemy != null)
+                {
+                    yield return new WaitForSeconds(2f); // °ø°İ ¾Ö´Ï¸ŞÀÌ¼Ç ½Ã°£ ´ë±â (1ÃÊ)
+                    a_stateMachine.TransitionTo(a_stateMachine.walkState); // FlyEnemy´Â idle »óÅÂ·Î ÀüÈ¯
+                }
+
+
+                // FlyEnemyÀÇ °æ¿ì °ø°İ ÈÄ 1ÃÊ ÈÄ idle »óÅÂ·Î ÀüÈ¯
                 if (flyEnemy != null)
                 {
-                    yield return new WaitForSeconds(1f); // ê³µê²© ì• ë‹ˆë©”ì´ì…˜ ì§€ì† ì‹œê°„ (1ì´ˆ)
-                    a_stateMachine.TransitionTo(a_stateMachine.idleState); // FlyEnemyë§Œ idleë¡œ ì „í™˜
+                    yield return new WaitForSeconds(2f); // °ø°İ ¾Ö´Ï¸ŞÀÌ¼Ç ½Ã°£ ´ë±â (1ÃÊ)
+                    a_stateMachine.TransitionTo(a_stateMachine.idleState); // FlyEnemy´Â idle »óÅÂ·Î ÀüÈ¯
                 }
             }
         }

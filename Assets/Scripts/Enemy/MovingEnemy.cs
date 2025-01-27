@@ -26,13 +26,16 @@ public class MovingEnemy : BaseEnemy
 
     protected override void PerformMovement()
     {
-        if (isFollowing)
+        if (stateMachine.CurrentState != stateMachine.attackState) // 공격 상태에서는 이동하지 않음
         {
-            FollowPlayer();
-        }
-        else
-        {
-            Patrol();
+            if (isFollowing)
+            {
+                FollowPlayer();
+            }
+            else
+            {
+                Patrol();
+            }
         }
     }
 
