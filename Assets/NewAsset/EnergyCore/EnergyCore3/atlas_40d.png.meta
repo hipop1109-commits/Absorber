@@ -584,7 +584,26 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      atlas_40d_0: 854899215185428015
+      atlas_40d_1: 8444116682206344635
+      atlas_40d_10: -1661350958851078561
+      atlas_40d_11: -2821437810132325425
+      atlas_40d_12: -1027212835385173399
+      atlas_40d_13: -2416625394533347954
+      atlas_40d_14: -1755244721731059121
+      atlas_40d_15: 2938668104330093259
+      atlas_40d_16: -4998035729506356358
+      atlas_40d_17: -926588192908632377
+      atlas_40d_18: 3515528306506748435
+      atlas_40d_2: 2498280865921450331
+      atlas_40d_3: 6978734489835851072
+      atlas_40d_4: 8282789526240479478
+      atlas_40d_5: -5069855389172685121
+      atlas_40d_6: -5570891348271438444
+      atlas_40d_7: 8524289699782065992
+      atlas_40d_8: 5976423315952327375
+      atlas_40d_9: -7333109648788200637
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
