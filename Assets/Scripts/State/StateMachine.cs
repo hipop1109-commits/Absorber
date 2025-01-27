@@ -11,6 +11,7 @@ public class StateMachine
     public WalkState walkState;
     public HurtState hurtState;
     public DieState dieState;
+    public HealState healState;
 
     public StateMachine(PlayerController player)
     {
@@ -21,6 +22,7 @@ public class StateMachine
         jumpState = new JumpState(player);
         hurtState = new HurtState(player);
         dieState = new DieState(player);
+        healState = new HealState(player);
     }
 
     //최초 state를 받아 이를 CurrentState에 넣고 Enter

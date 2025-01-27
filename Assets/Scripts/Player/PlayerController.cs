@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
             //player 색 바뀌게(다치는 모션 or 무적 모션)
             stateMachine.TransitionTo(stateMachine.hurtState);
-            
+
             //Player 무적 시간
             Invoke("Invincibility", invincibilityTime);
 
@@ -237,18 +237,18 @@ public class PlayerController : MonoBehaviour
         if (isDie) return; // isDie가 true라면 상태 전환을 막음
 
         moveDirection = value.Get<Vector2>(); // 이동 방향 설정
-        
-            if (moveDirection.x != 0)
-            {
-                // 이동 입력이 있는 경우 Walk 상태로 전환
-                stateMachine.TransitionTo(stateMachine.walkState);
-            }
-            else
-            {
-                // 이동 입력이 없는 경우 Idle 상태로 전환
-                stateMachine.TransitionTo(stateMachine.idleState);
-            }
-        
+
+        if (moveDirection.x != 0)
+        {
+            // 이동 입력이 있는 경우 Walk 상태로 전환
+            stateMachine.TransitionTo(stateMachine.walkState);
+        }
+        else
+        {
+            // 이동 입력이 없는 경우 Idle 상태로 전환
+            stateMachine.TransitionTo(stateMachine.idleState);
+        }
+
 
     }
 
@@ -311,6 +311,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
         if (collision.gameObject.CompareTag("ground"))
         {
             isJump = false; // 점프 플래그 해제
@@ -325,12 +326,33 @@ public class PlayerController : MonoBehaviour
                 stateMachine.TransitionTo(stateMachine.idleState);
             }
         }
-        if (collision.gameObject.CompareTag("Item"))
+
+        // 에너지 코어 드랍 먹기
+        if (collision.gameObject.CompareTag("EnergyCore"))
         {
-            Debug.Log("Items");
+            Debug.Log("EnergyCore");
             player.GetEnergyCore(1);
             Destroy(collision.gameObject);
         }
+
+        // 힐링 포션을 일정 시간이 지난 후 먹기
+        if (collision.gameObject.CompareTag("Potion"))
+        {
+            StartCoroutine(ConsumePotionAfterDelay(collision.gameObject));
+        }
+    }
+
+    // 포션을 3초 뒤에 먹을 수 있도록 하는 코루틴
+    private IEnumerator ConsumePotionAfterDelay(GameObject potion)
+    {
+        // 3초 기다림
+        yield return new WaitForSeconds(3f);
+
+        // 포션 먹기
+        int healAmount = potion.GetComponent<HealPotion>().HealAmount;
+        player.Heal(healAmount);
+        stateMachine.TransitionTo(stateMachine.healState);
+        Destroy(potion); // 포션 오브젝트 제거
     }
 
 }

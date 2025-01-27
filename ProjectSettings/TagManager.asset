@@ -13,11 +13,12 @@ TagManager:
   - Ring
   - Enemy
   - Attack
-  - Item
   - AbsorbEffect
   - ArmadilloBoss
   - CatapillarBoss
   - FrogBoss
+  - EnergyCore
+  - Potion
   layers:
   - Default
   - TransparentFX
