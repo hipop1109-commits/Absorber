@@ -18,6 +18,9 @@ public class EnemyAttack : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 적이 플레이어를 공격하는 메서드
+    /// </summary>
     public void Attack()
     {
         //공격 데미지

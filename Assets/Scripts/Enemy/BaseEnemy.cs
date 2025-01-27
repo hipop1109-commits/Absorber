@@ -4,7 +4,6 @@ public abstract class BaseEnemy : MonoBehaviour
 {
     [Header("공통 설정")]
     public bool isDie = false; // 적이 사망했는지 여부
-    protected bool isAttacked = false; // 적이 공격받는 중인지 여부
     protected Rigidbody2D rb; // Rigidbody2D 참조
     [SerializeField] protected int hp = 20; // 적 체력
     public int damage = 10; // 적 공격력
@@ -37,7 +36,7 @@ public abstract class BaseEnemy : MonoBehaviour
     //적이 공격을 받으면
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDie || isAttacked) return; // 이미 죽은 적은 충돌 무시
+        if (isDie) return; // 이미 죽은 적은 충돌 무시
 
         if (collision.gameObject.CompareTag("Attack") && !processedAttacks.Contains(collision))
         {
@@ -47,19 +46,11 @@ public abstract class BaseEnemy : MonoBehaviour
             if (attack != null)
             {
                 EnemyTakeDamage(attack.damage);
-
-                // // 일정 시간 동안 추가 공격 무시
-                // isAttacked = true;
-                // Invoke("ResetAttackState", 1f);
             }
         }
     }
 
-    //일정 시간동안 추가 공격 무시 메서드
-    // private void ResetAttackState()
-    // {
-    //     isAttacked = false; // 공격 가능 상태로 복귀
-    // }
+
     // 데미지를 입을때
     public void EnemyTakeDamage(int damage)
     {
@@ -78,7 +69,9 @@ public abstract class BaseEnemy : MonoBehaviour
         }
     }
 
-    // 적의 Attack
+    /// <summary>
+    /// 적의 Attack
+    /// </summary>
     public void Attack(int damage)
     {
         //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
@@ -86,7 +79,9 @@ public abstract class BaseEnemy : MonoBehaviour
         Debug.Log("스킬 데미지");
     }
 
-    // 적이 죽는 메서드
+    /// <summary>
+    /// 적이 죽는 메서드
+    /// </summary>
     protected virtual void Die()
     {
         isDie = true; // 사망 상태 설정
