@@ -17,9 +17,11 @@ public abstract class BaseEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         // 상태 머신 초기화
         stateMachine = new EnemyStateMachine(this);
-        // 상태 머신의 초기 상태를 Idle로 설정
-        stateMachine.Initalize(stateMachine.idleState);
 
+    }
+    protected virtual void Start()
+    {
+        // 상태 머신의 초기 상태를 자식에서 설정
     }
 
     protected virtual void Update()
@@ -63,6 +65,7 @@ public abstract class BaseEnemy : MonoBehaviour
         if (hp <= 0)
         {
             Die();
+            Debug.Log("Die");
         }
         else
         {
@@ -79,16 +82,24 @@ public abstract class BaseEnemy : MonoBehaviour
         Debug.Log("스킬 데미지");
     }
 
+    // 적이 죽는 메서드
     protected virtual void Die()
     {
         isDie = true; // 사망 상태 설정
+        stateMachine.TransitionTo(stateMachine.dieState);
+        Debug.Log(stateMachine.CurrentState);
         Debug.Log($"{gameObject.name} 사망");
 
-        // 일정 시간 후 아이템 스폰
-        Invoke(nameof(SpawnItem), 2f);
+        // 일정 시간 후 적 제거
+        Invoke("DestroyEnemy", 1f);
+    }
 
-        // 적 객체 제거
+    void DestroyEnemy()
+    {
+        //적 사라짐
         Destroy(gameObject);
+        //아이템 드랍
+        SpawnItem();
     }
 
     // 플레이어가 닿으면 피가 닳는 메서드

@@ -8,8 +8,11 @@ public class FlyEnemy : BaseEnemy
     private Vector3 startPosition; // 시작 위치
     private float time;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+        // 비행형 적의 초기 상태를 idleState로 설정
+        stateMachine.Initalize(stateMachine.idleState);
         startPosition = transform.position; // 시작 위치 기록
     }
 

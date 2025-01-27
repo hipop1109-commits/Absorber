@@ -16,10 +16,14 @@ public class MovingEnemy : BaseEnemy
     [SerializeField] private Transform player;
     private Vector3 originalScale; // 초기 로컬 스케일 저장
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        // 이동형 적의 초기 상태를 walkState로 설정
+        stateMachine.Initalize(stateMachine.walkState);
         originalScale = transform.localScale; // 초기 로컬 스케일 저장
     }
+
     protected override void PerformMovement()
     {
         if (isFollowing)
@@ -51,8 +55,6 @@ public class MovingEnemy : BaseEnemy
         // 플레이어와의 x축 거리 계산
         float directionToPlayer = player.position.x - transform.position.x;
 
-        Debug.Log($"directionToPlayer : {directionToPlayer}");
-
         // 낭떠러지 또는 벽 감지 시 방향 전환
         if (!IsGroundAhead() || IsWallAhead())
         {
@@ -73,11 +75,11 @@ public class MovingEnemy : BaseEnemy
             // 이동 처리
             rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
 
-/*            // 상태 전환은 한 번만 수행
+            // 상태 전환은 한 번만 수행
             if (stateMachine.CurrentState != stateMachine.walkState)
             {
-            }*/
-            stateMachine.TransitionTo(stateMachine.walkState);
+                stateMachine.TransitionTo(stateMachine.walkState);
+            }
 
             Debug.Log("speed : " + speed);
             // 스프라이트 방향 조정
@@ -88,7 +90,7 @@ public class MovingEnemy : BaseEnemy
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("traceCollider : "+ traceCollider);
+        Debug.Log("traceCollider : " + traceCollider);
         // 플레이어 감지 시 추적 시작
         if (collision.CompareTag("Player") && traceCollider.IsTouching(collision))
         {

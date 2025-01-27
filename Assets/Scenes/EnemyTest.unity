@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 562258062403942249, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.3890438
+      value: 0.38904378
       objectReference: {fileID: 0}
     - target: {fileID: 1637935363179192253, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: m_LocalRotation.w
@@ -173,15 +173,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7097705508701268552, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.119131565
+      value: -0.119131535
       objectReference: {fileID: 0}
     - target: {fileID: 7617469288490742302, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.8
+      value: -28.2
       objectReference: {fileID: 0}
     - target: {fileID: 7617469288490742302, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11
+      value: 4.9
       objectReference: {fileID: 0}
     - target: {fileID: 7617469288490742302, guid: 3d541e7a033228a4facd7b6d1c141387, type: 3}
       propertyPath: m_LocalPosition.z
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDie: 0
-  hp: 20
+  hp: 10
   damage: 10
   itemPrefab: {fileID: 7548755192223622589, guid: 83aad3daec26a4f9d9d83ec3614d2320, type: 3}
   playerController: {fileID: 364652715}
