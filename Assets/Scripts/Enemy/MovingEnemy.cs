@@ -90,7 +90,6 @@ public class MovingEnemy : BaseEnemy
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("traceCollider : " + traceCollider);
         // 플레이어 감지 시 추적 시작
         if (collision.CompareTag("Player") && traceCollider.IsTouching(collision))
         {

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2809759154479567776}
   - component: {fileID: -4092501705996676606}
   - component: {fileID: 6052416339778530113}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaterGun
   m_TagString: Attack
   m_Icon: {fileID: 0}

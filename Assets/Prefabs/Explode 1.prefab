@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1891662806480222119}
   - component: {fileID: 6341991272825866733}
   - component: {fileID: -6980803469100113112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Explode 1
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ BoxCollider2D:
   m_Offset: {x: -0.038712263, y: -0.02419436}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.65, y: 0.86}
     newSize: {x: 1.65, y: 0.86}
     adaptiveTilingThreshold: 0.5

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class FlyEnemy : BaseEnemy
 {
-
     public float speed = 2f; // 이동 속도
     public float distance = 5f; // 왔다 갔다 하는 거리
     private Vector3 startPosition; // 시작 위치

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections.Generic;
 public abstract class BaseEnemy : MonoBehaviour
 {
     [Header("공통 설정")]
@@ -11,6 +11,7 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] protected GameObject itemPrefab; // 드랍할 아이템 프리팹
     public PlayerController playerController; // 플레이어 컨트롤러 참조
     public EnemyStateMachine stateMachine; // 상태 머신 참조
+    private HashSet<Collider2D> processedAttacks = new HashSet<Collider2D>(); // 이미 처리된 Attack 오브젝트 추적
 
     protected virtual void Awake()
     {
@@ -37,25 +38,28 @@ public abstract class BaseEnemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDie || isAttacked) return; // 이미 죽은 적은 충돌 무시
-        if (collision.gameObject.CompareTag("Attack"))
+
+        if (collision.gameObject.CompareTag("Attack") && !processedAttacks.Contains(collision))
         {
+            processedAttacks.Add(collision); // 처리된 Attack 저장
+
             Attack attack = collision.GetComponent<Attack>();
             if (attack != null)
             {
                 EnemyTakeDamage(attack.damage);
 
-                //일정 시간동안 추가 공격 무시
-                isAttacked = true;
-                Invoke("ResetAttackState", 1f); // 0.5초 후 다시 공격 가능
+                // // 일정 시간 동안 추가 공격 무시
+                // isAttacked = true;
+                // Invoke("ResetAttackState", 1f);
             }
         }
     }
 
     //일정 시간동안 추가 공격 무시 메서드
-    private void ResetAttackState()
-    {
-        isAttacked = false; // 공격 가능 상태로 복귀
-    }
+    // private void ResetAttackState()
+    // {
+    //     isAttacked = false; // 공격 가능 상태로 복귀
+    // }
     // 데미지를 입을때
     public void EnemyTakeDamage(int damage)
     {

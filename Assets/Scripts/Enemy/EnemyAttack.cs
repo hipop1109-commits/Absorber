@@ -3,10 +3,9 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     private BaseEnemy enemy;
-
     void Start()
     {
-        // enemyController 할당
+        // BaseEnemy 할당
         enemy = GetComponentInParent<BaseEnemy>();
     }
     // 공격 범위에 들어왔는지 확인
@@ -16,6 +15,7 @@ public class EnemyAttack : MonoBehaviour
         {
             Attack();
         }
+
     }
 
     public void Attack()
