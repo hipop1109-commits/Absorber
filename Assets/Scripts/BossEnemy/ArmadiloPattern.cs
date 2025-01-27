@@ -24,6 +24,12 @@ public class ArmadiloPattern : MonoBehaviour
 
     [SerializeField] private GameObject IceJumpEffect;
 
+    [SerializeField] private GameObject FrogJumpEffect;
+
+    [SerializeField] private BoxCollider2D FrogSpwanPoint;
+    [SerializeField] private GameObject FrogPrefab;
+    public int maxDrops = 10;
+
     [SerializeField] private GameObject spinePrefab; // 가시 프리팹
     [SerializeField] private Transform[] spawnPoints; // 가시 발사 지점
     [SerializeField] private float fireRate = 0.5f; // 가시 발사 간격
@@ -74,6 +80,8 @@ public class ArmadiloPattern : MonoBehaviour
         }
 
         IceJumpEffect.SetActive(false);
+
+        FrogJumpEffect.SetActive(false);
     }
 
    
@@ -320,6 +328,44 @@ public class ArmadiloPattern : MonoBehaviour
         IceJumpEffect.SetActive(false); // 효과 비활성화
     }
 
+    private IEnumerator FrogJumpEffects()
+    {
+        yield return new WaitForSeconds(1.25f);
+        FrogJumpEffect.SetActive(true);
+        yield return new WaitForSeconds(0.5f); // 효과 지속 시간
+        FrogJumpEffect.SetActive(false); // 효과 비활성화
+    }
+    private IEnumerator FrogSpwanEffects()
+    {
+        yield return new WaitForSeconds(0.33f);
+
+        float duration = 1f;
+        float elapsedTime = 0f;
+        int drops = 0;
+
+        while (elapsedTime < duration && drops < maxDrops)
+        {
+            Vector3 randomPosition = GetRandomPositionInCollider();
+            Instantiate(FrogPrefab, randomPosition, Quaternion.identity);
+
+            drops++;
+            elapsedTime += Time.deltaTime; // 한 프레임 시간 추가
+            yield return new WaitForSeconds(0.1f); // 간격 조정 (여기선 0.1초마다 생성)
+        }
+    }
+    private Vector2 GetRandomPositionInCollider()
+    {
+        // 콜라이더의 중심과 크기 가져오기
+        Vector2 center = FrogSpwanPoint.bounds.center;
+        Vector2 size = FrogSpwanPoint.bounds.size;
+
+        // 콜라이더 범위 내에서 랜덤 위치 계산
+        float randomX = Random.Range(center.x - size.x / 2, center.x + size.x / 2);
+        float randomY = Random.Range(center.y - size.y / 2, center.y + size.y / 2);
+
+        return new Vector2(randomX, randomY);
+    }
+
     private void IceStomp()
     {
         c_stateMachine.TransitionTo(c_stateMachine.c_StompState);
@@ -340,16 +386,18 @@ public class ArmadiloPattern : MonoBehaviour
     
     private void FrogJump()
     {
-
+        f_stateMachine.TransitionTo(f_stateMachine.f_JumpState);
+        StartCoroutine(FrogJumpEffects());
     }
 
     private void FrogTounge()
     {
-
+        f_stateMachine.TransitionTo(f_stateMachine.f_ToungeState);
     }
 
     private void FrogSpwan()
     {
-
+        f_stateMachine.TransitionTo(f_stateMachine.f_SpwanState);
+        StartCoroutine(FrogSpwanEffects());
     }
  }
