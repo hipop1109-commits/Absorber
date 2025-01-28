@@ -31,7 +31,7 @@ public class WeaponController : MonoBehaviour
     //게이지 최대값
     public float MaxGauge = 100f;
     //게이지가 차는 속도
-    public float FillSpeed = 1f;
+    public float FillSpeed = 2f;
 
     //총을 놓을 기준점
     public Transform GunPivot;
@@ -154,20 +154,17 @@ public class WeaponController : MonoBehaviour
         // 태그에 따라 효과 활성화
         switch (other.tag)
         {
-            case "Rock":
-                Debug.Log("인식");
+            case "Rock":    
                 ActivateEffect(RockEffect);
                 isRockActive = true;
                 FillGauge();
                 break;
             case "Grass":
-                Debug.Log("인식");
                 ActivateEffect(GrassEffect);
                 isGrassActive = true;
                 FillGauge();
                 break;
             case "Water":
-                Debug.Log("인식");
                 ActivateEffect(WaterEffect);
                 isWaterActive = true;
                 FillGauge();
