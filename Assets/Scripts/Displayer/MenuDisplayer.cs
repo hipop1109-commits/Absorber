@@ -79,6 +79,7 @@ public class MenuDisplayer : MonoBehaviour
     {   // Esc 로 메뉴 패널 활성화
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            
             OpenMenu();
         }
     }
