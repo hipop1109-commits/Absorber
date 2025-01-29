@@ -6417,7 +6417,7 @@ MonoBehaviour:
   maxPlatformDistance: 1
   maxPlatforms: 2
   HealPrefab: {fileID: 7762289673465362634, guid: 9fc39fa5a59b07344b6cb184efd06b28, type: 3}
-  WaterPrefab: {fileID: 7013776971245333020, guid: dbba8a0c48af65942b89ab8c738b9cf9, type: 3}
+  WaterPrefab: {fileID: 7573001674969744934, guid: 3327582daef37f847b1854773859e76a, type: 3}
   rope: {fileID: 8966793745442745221}
 --- !u!1 &8548702323138874081
 GameObject:

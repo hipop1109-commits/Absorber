@@ -2341,140 +2341,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &79253978
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 79253979}
-  - component: {fileID: 79253981}
-  - component: {fileID: 79253980}
-  m_Layer: 0
-  m_Name: desert ground elements_1 (2)
-  m_TagString: ground
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &79253979
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79253978}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.0012918615, w: 0.9999992}
-  m_LocalPosition: {x: -69.100006, y: 29.04, z: 113.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 126534046}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.148}
---- !u!61 &79253980
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79253978}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.9, y: 12.626667}
-    newSize: {x: 3.48, y: 8.47}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.9, y: 12.626667}
-  m_EdgeRadius: 0
---- !u!212 &79253981
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79253978}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -6513528582114508000, guid: 678a30181c3a3314aa2b68d3eb2b0399, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 3.48, y: 8.47}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &79454634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,7 +3361,7 @@ GameObject:
   - component: {fileID: 110455038}
   - component: {fileID: 110455037}
   - component: {fileID: 110455036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -4018,7 +3884,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 79253979}
   - {fileID: 1796348051}
   - {fileID: 388788091}
   - {fileID: 724004028}
@@ -4173,7 +4038,7 @@ GameObject:
   - component: {fileID: 134178750}
   - component: {fileID: 134178749}
   - component: {fileID: 134178748}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (5)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -4677,7 +4542,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -6269,7 +6134,7 @@ GameObject:
   - component: {fileID: 187482880}
   - component: {fileID: 187482879}
   - component: {fileID: 187482878}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (1)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -13033,7 +12898,7 @@ GameObject:
   - component: {fileID: 347416541}
   - component: {fileID: 347416540}
   - component: {fileID: 347416539}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (17)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -15148,7 +15013,7 @@ GameObject:
   - component: {fileID: 388788094}
   - component: {fileID: 388788093}
   - component: {fileID: 388788092}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -20824,6 +20689,71 @@ Transform:
   - {fileID: 833879821}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &596596392
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2663712936160226066, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2041286904961421552}
+    - target: {fileID: 2663712936160226066, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 2124237530}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 460.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -15.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669877738268593575, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874598147476051396, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
+      propertyPath: m_Name
+      value: Spike Grand Father
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eaf38f079a8193940bed6ceb1faa3dc1, type: 3}
 --- !u!1 &598822843
 GameObject:
   m_ObjectHideFlags: 0
@@ -25287,14 +25217,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 235744355661641622, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.98131484
-      objectReference: {fileID: 0}
-    - target: {fileID: 235744355661641622, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.19240889
-      objectReference: {fileID: 0}
     - target: {fileID: 965537753913269065, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
       propertyPath: m_LocalPosition.x
       value: 422.3
@@ -25335,82 +25257,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1512859643127168913, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.8481697
-      objectReference: {fileID: 0}
-    - target: {fileID: 1512859643127168913, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.5297247
-      objectReference: {fileID: 0}
-    - target: {fileID: 2076597477373929105, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.54343754
-      objectReference: {fileID: 0}
-    - target: {fileID: 2076597477373929105, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.8394496
-      objectReference: {fileID: 0}
     - target: {fileID: 2138750967547544362, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
       propertyPath: m_Name
       value: Stone frog
-      objectReference: {fileID: 0}
-    - target: {fileID: 3674246044815930841, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.89118576
-      objectReference: {fileID: 0}
-    - target: {fileID: 3674246044815930841, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.45363867
-      objectReference: {fileID: 0}
-    - target: {fileID: 5572708670886981603, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9902813
-      objectReference: {fileID: 0}
-    - target: {fileID: 5572708670886981603, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.13907905
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309852662098516775, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.8244826
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309852662098516775, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.56588733
-      objectReference: {fileID: 0}
-    - target: {fileID: 7421639555970647901, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.8485464
-      objectReference: {fileID: 0}
-    - target: {fileID: 7421639555970647901, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.52912104
-      objectReference: {fileID: 0}
-    - target: {fileID: 8241155800419014042, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9605635
-      objectReference: {fileID: 0}
-    - target: {fileID: 8241155800419014042, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.27806076
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251133564391070361, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9339134
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251133564391070361, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.3574995
       objectReference: {fileID: 0}
     - target: {fileID: 8392926296853755838, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 2041286904961421552}
-    - target: {fileID: 8392926296853755838, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
-      propertyPath: checkRadius
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8392926296853755838, guid: 8c4f80308f21ad147a6907c53d5c6210, type: 3}
       propertyPath: playerController
       value: 
@@ -25855,7 +25709,7 @@ GameObject:
   - component: {fileID: 799135725}
   - component: {fileID: 799135724}
   - component: {fileID: 799135723}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (1)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -28580,7 +28434,7 @@ GameObject:
   - component: {fileID: 851705525}
   - component: {fileID: 851705524}
   - component: {fileID: 851705527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (11)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -34096,7 +33950,7 @@ GameObject:
   - component: {fileID: 976695524}
   - component: {fileID: 976695523}
   - component: {fileID: 976695522}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (3)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -34561,7 +34415,7 @@ GameObject:
   - component: {fileID: 984841301}
   - component: {fileID: 984841300}
   - component: {fileID: 984841299}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (23)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -38374,7 +38228,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2063671
+    m_Bits: 2063735
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -39515,7 +39369,7 @@ GameObject:
   - component: {fileID: 1119427016}
   - component: {fileID: 1119427015}
   - component: {fileID: 1119427014}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (22)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -43773,7 +43627,7 @@ GameObject:
   - component: {fileID: 1212131018}
   - component: {fileID: 1212131017}
   - component: {fileID: 1212131016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (15)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -46039,7 +45893,7 @@ GameObject:
   - component: {fileID: 1289115307}
   - component: {fileID: 1289115306}
   - component: {fileID: 1289115309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (6)
   m_TagString: Ring
   m_Icon: {fileID: 0}
@@ -48808,7 +48662,7 @@ GameObject:
   - component: {fileID: 1367414837}
   - component: {fileID: 1367414836}
   - component: {fileID: 1367414835}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (10)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -55171,7 +55025,7 @@ GameObject:
   - component: {fileID: 1556114747}
   - component: {fileID: 1556114746}
   - component: {fileID: 1556114745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (19)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -57037,7 +56891,7 @@ GameObject:
   - component: {fileID: 1619024776}
   - component: {fileID: 1619024775}
   - component: {fileID: 1619024774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (20)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -60131,6 +59985,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672834490}
   m_CullTransparentMesh: 1
+--- !u!1001 &1675693983
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 311
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -12.089068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622079747049377497, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3795239776086693562, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
+      propertyPath: m_Name
+      value: Caterpillar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 46a358cdbe9822c4c8aea072d91da5c3, type: 3}
 --- !u!1 &1683998523
 GameObject:
   m_ObjectHideFlags: 0
@@ -60404,7 +60315,7 @@ GameObject:
   - component: {fileID: 1707163838}
   - component: {fileID: 1707163837}
   - component: {fileID: 1707163836}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (4)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -61417,7 +61328,7 @@ GameObject:
   - component: {fileID: 1728802537}
   - component: {fileID: 1728802536}
   - component: {fileID: 1728802535}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (18)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -74601,7 +74512,7 @@ GameObject:
   - component: {fileID: 2017778905}
   - component: {fileID: 2017778904}
   - component: {fileID: 2017778903}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (21)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -75690,7 +75601,7 @@ GameObject:
   - component: {fileID: 2047493050}
   - component: {fileID: 2047493049}
   - component: {fileID: 2047493048}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (16)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -76622,7 +76533,7 @@ GameObject:
   - component: {fileID: 2076358124}
   - component: {fileID: 2076358123}
   - component: {fileID: 2076358122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Desert ground (17)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -79442,3 +79353,5 @@ SceneRoots:
   - {fileID: 1924821946}
   - {fileID: 1174596436}
   - {fileID: 587754302}
+  - {fileID: 596596392}
+  - {fileID: 1675693983}

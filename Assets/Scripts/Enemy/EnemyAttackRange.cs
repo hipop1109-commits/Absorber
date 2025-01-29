@@ -63,7 +63,7 @@ public class EnemyAttackRange : MonoBehaviour
                 // movingEnemy 경우 공격 후 1초 후 walk 상태로 전환
                 if (movingEnemy != null)
                 {
-                    yield return new WaitForSeconds(2f); // 공격 애니메이션 시간 대기 (1초)
+                    yield return new WaitForSeconds(1.5f); // 공격 애니메이션 시간 대기 (1초)
                     a_stateMachine.TransitionTo(a_stateMachine.walkState); // FlyEnemy는 idle 상태로 전환
                 }
 
