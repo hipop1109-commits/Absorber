@@ -8,15 +8,21 @@ public class LifeDisplayer : MonoBehaviour
     public List<GameObject> lifeImages;
 
     private static LifeDisplayer instance;
-    public static LifeDisplayer Instance { get { return instance; } }
+    public static LifeDisplayer Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<LifeDisplayer>(); // 자동으로 찾기
+            }
+            return instance;
+        }
+    }
 
     [SerializeField] private PlayerController playerController;
 
-    private void Awake()
-    {
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+   
     void Start()
     {
 /*        var playerController = FindObjectOfType<PlayerController>();

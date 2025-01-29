@@ -3287,6 +3287,7 @@ GameObject:
   - component: {fileID: 3034202710023442235}
   - component: {fileID: 843059281042783397}
   - component: {fileID: 8966793745442745221}
+  - component: {fileID: 451839279164256797}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3304,7 +3305,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 384.86588, y: -10.321416, z: 0}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1164447000658309347}
@@ -3632,7 +3633,46 @@ MonoBehaviour:
   isHookActive: 0
   isLineMax: 0
   isAttach: 0
-  weapon: {fileID: 3126254551064774195}
+  weapon: {fileID: 451839279164256797}
+--- !u!114 &451839279164256797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085565555758114054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613cfeed7a915e43913b76b5a58dafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbsorbRange: {fileID: 627742477616179618}
+  RockEffect: {fileID: 7075754842566583337}
+  WaterEffect: {fileID: 4997231260229978803}
+  GrassEffect: {fileID: 7075754842566583337}
+  RockGauge: 0
+  GrassGauge: 0
+  WaterGauge: 0
+  MaxGauge: 100
+  FillSpeed: 2
+  GunPivot: {fileID: 1164447000658309347}
+  Gun: {fileID: 3002983426393360058}
+  WeaponMode: 
+  bulletPrefab: {fileID: 3421690336342018467, guid: 8585b0d72ef6c8f449e5593017703bb6, type: 3}
+  bombPrefab: {fileID: 3785595691207982745, guid: 2bf48233c5032364fbfbf4c749fbe320, type: 3}
+  firePoint: {fileID: 6855463202887653121}
+  bulletSpeed: 10
+  fireCooldown: 0.5
+  BombFireCooldown: 2
+  mouseWorldPosition: {x: 0, y: 0, z: 0}
+  bulletPool: {fileID: 0}
+  platformPrefab: {fileID: 4127994144953814145, guid: 533d45c122c2f7e44ad4472c0bfc2c55, type: 3}
+  platformSpeed: 5
+  maxPlatformDistance: 2
+  maxPlatforms: 2
+  HealPrefab: {fileID: 6148495373531438781}
+  WaterPrefab: {fileID: 7573001674969744934, guid: 3327582daef37f847b1854773859e76a, type: 3}
+  rope: {fileID: 8966793745442745221}
 --- !u!1 &4088026069530357622
 GameObject:
   m_ObjectHideFlags: 0
@@ -6297,7 +6337,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3002983426393360058}
   - component: {fileID: 2200545546176720407}
-  - component: {fileID: 3126254551064774195}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -6380,45 +6419,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3126254551064774195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8326068377739131854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9613cfeed7a915e43913b76b5a58dafc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbsorbRange: {fileID: 627742477616179618}
-  RockEffect: {fileID: 7075754842566583337}
-  WaterEffect: {fileID: 4997231260229978803}
-  GrassEffect: {fileID: 3333985063618060891}
-  RockGauge: 50
-  GrassGauge: 50
-  WaterGauge: 50
-  MaxGauge: 100
-  FillSpeed: 5
-  GunPivot: {fileID: 1164447000658309347}
-  Gun: {fileID: 3002983426393360058}
-  WeaponMode: 5
-  bulletPrefab: {fileID: 3421690336342018467, guid: 8585b0d72ef6c8f449e5593017703bb6, type: 3}
-  bombPrefab: {fileID: 3785595691207982745, guid: 2bf48233c5032364fbfbf4c749fbe320, type: 3}
-  firePoint: {fileID: 6855463202887653121}
-  bulletSpeed: 30
-  fireCooldown: 0.5
-  BombFireCooldown: 2
-  mouseWorldPosition: {x: 0, y: 0, z: 0}
-  bulletPool: {fileID: 0}
-  platformPrefab: {fileID: 4127994144953814145, guid: 533d45c122c2f7e44ad4472c0bfc2c55, type: 3}
-  platformSpeed: 5
-  maxPlatformDistance: 1
-  maxPlatforms: 2
-  HealPrefab: {fileID: 7762289673465362634, guid: 9fc39fa5a59b07344b6cb184efd06b28, type: 3}
-  WaterPrefab: {fileID: 7573001674969744934, guid: 3327582daef37f847b1854773859e76a, type: 3}
-  rope: {fileID: 8966793745442745221}
 --- !u!1 &8548702323138874081
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,17 @@ public class SkillDisplayer : MonoBehaviour
     public GameObject skillPanel;
 
     private static SkillDisplayer instance;
-    public static SkillDisplayer Instance { get { return instance; } }
+    public static SkillDisplayer Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<SkillDisplayer>(); // 자동으로 찾기
+            }
+            return instance;
+        }
+    }
 
     private void Awake()
     {

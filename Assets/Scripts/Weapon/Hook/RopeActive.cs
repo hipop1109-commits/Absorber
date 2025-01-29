@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class RopeActive : MonoBehaviour
 {
-
     //로프 변수
     public LineRenderer line;
     public Transform hook;
@@ -24,7 +23,7 @@ public class RopeActive : MonoBehaviour
         line.SetPosition(1, hook.position);
         line.useWorldSpace = true;
         isAttach = false;
-
+        hook.gameObject.SetActive(false);
     }
 
     private void Update()

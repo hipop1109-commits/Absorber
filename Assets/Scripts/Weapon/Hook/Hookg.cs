@@ -3,6 +3,21 @@ using UnityEngine;
 
 public class Hookg : MonoBehaviour
 {
+    public static Hookg Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     //로프 불러오기
     RopeActive grappling;
     //조인트 불러오기

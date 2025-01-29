@@ -8,6 +8,15 @@ public class GaugeDisplayer : MonoBehaviour
     public Image grassGaugeImage;
     public Image waterGaugeImage;
 
+    private static GaugeDisplayer instance;
+    public static GaugeDisplayer Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Update()
     {
         // 게이지 차오르는 이미지

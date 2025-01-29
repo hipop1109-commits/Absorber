@@ -14,6 +14,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void Awake()
     {
+        playerController = FindFirstObjectByType<PlayerController>();
+
         rb = GetComponent<Rigidbody2D>();
         // 상태 머신 초기화
         stateMachine = new EnemyStateMachine(this);

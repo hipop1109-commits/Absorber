@@ -6,15 +6,13 @@ public class SceneController : MonoBehaviour
     // 씬 배열
     public enum Scenes
     {
-        //Forest,
-        //ForestBoss,
-        //SnowNormalScene,
-        //SnowBossScene,
-        //DesertNormalScene,
-        //DesertBossScene
-        DessertNormalSceneTest2,
-        ForestTest2,
-        SnowTest
+        //sTutorialScene,
+        Forest,
+        BossForest,
+        DesertNormalScene,
+        DesertBossScene,
+        SnowNormalScene,
+        SnowBossScene
     }
 
     // 스테이지 추적 변수 
