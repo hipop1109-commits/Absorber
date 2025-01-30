@@ -146,9 +146,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 19
+        y: 0
         width: 192
-        height: 17
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,33 +163,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: divider-fade-003_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 192
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1c10a19091fd3d8d0800000000000000
-      internalID: -2822667242811293247
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6b2c6401f034a57428f2b35ab96907bd
     internalID: 0
     vertices: []
     indices: 
@@ -200,7 +178,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       divider-fade-003_0: 3284000376194966173
-      divider-fade-003_1: -2822667242811293247
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
