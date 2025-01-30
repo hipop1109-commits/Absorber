@@ -5125,6 +5125,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 451839279164256797, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
+      propertyPath: RockGauge
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 451839279164256797, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
+      propertyPath: GrassGauge
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 451839279164256797, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
+      propertyPath: WaterGauge
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3126254551064774195, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
       propertyPath: MaxGauge
       value: 200
