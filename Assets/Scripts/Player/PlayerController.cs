@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("비활성화");
         }
         stateMachine.TransitionTo(stateMachine.dieState);
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerDie);
         Debug.Log("Player Die");
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
@@ -149,6 +150,7 @@ public class PlayerController : MonoBehaviour
     //Q(물(1), 풀(2), 바위(3))
     public void OnSelect1(InputValue value)
     {
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.WeaponChange);
         if (select1 >= 3)
         {
             select1 = 1;
@@ -162,6 +164,7 @@ public class PlayerController : MonoBehaviour
     //E
     public void OnSelect2(InputValue value)
     {
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.WeaponChange);
         if (select2 >= 3)
         {
             select2 = 1;
@@ -262,7 +265,9 @@ public class PlayerController : MonoBehaviour
         {
             isJump = true; // 점프 플래그 설정
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, moveSpeed); // 점프 속도 적용
-            stateMachine.TransitionTo(stateMachine.jumpState); // 점프 상태로 전환
+            stateMachine.TransitionTo(stateMachine.jumpState); // 점프 상태로 전환            
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerJump);
+
         }
     }
 
@@ -275,7 +280,8 @@ public class PlayerController : MonoBehaviour
             float dashDirection = moveDirection.x != 0 ? moveDirection.x : (spriteRenderer.flipX ? -1 : 1);
 
             StartCoroutine(Dash(dashDirection)); // 대쉬 방향을 매개변수로 전달
-            stateMachine.TransitionTo(stateMachine.dashState); // 대쉬 상태로 전환
+            stateMachine.TransitionTo(stateMachine.dashState); // 대쉬 상태로 전환            
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerDash);
         }
     }
 
@@ -289,7 +295,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             Vector2 targetVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
-            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 0.1f); // 부드러운 변화        }
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 0.1f); // 부드러운 변화
+                      
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerWalk);
         }
     }
 
@@ -332,6 +340,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("EnergyCore");
             player.GetEnergyCore(1);
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.Get);
             Destroy(collision.gameObject);
         }
 
@@ -352,6 +361,7 @@ public class PlayerController : MonoBehaviour
         int healAmount = potion.GetComponent<HealPotion>().HealAmount;
         player.Heal(healAmount);
         stateMachine.TransitionTo(stateMachine.healState);
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.Get);
         Destroy(potion); // 포션 오브젝트 제거
     }
 

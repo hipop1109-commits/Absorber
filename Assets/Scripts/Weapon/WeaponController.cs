@@ -100,7 +100,7 @@ public class WeaponController : MonoBehaviour
         mouseWorldPosition = UnityEngine.Camera.main.ScreenToWorldPoint
         (new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, transform.position.z - GunPivot.position.z));
 
-        
+
 
         // 총구의 회전방향 설정
         Vector2 direction = new Vector2(
@@ -129,6 +129,8 @@ public class WeaponController : MonoBehaviour
     {
         isAbsorbing = true;
         AbsorbRange.SetActive(true);
+        AudioManager.Instance.PlayLoopSound(AudioManager.AudioType.WeaponAbsorb);
+
     }
 
     //오른마우스 뗐을때
@@ -136,6 +138,7 @@ public class WeaponController : MonoBehaviour
     {
         isAbsorbing = false;
         AbsorbRange.SetActive(false);
+        AudioManager.Instance.StopLoopSound(AudioManager.AudioType.WeaponAbsorb);
 
         RockEffect.SetActive(false);
         GrassEffect.SetActive(false);
@@ -154,7 +157,7 @@ public class WeaponController : MonoBehaviour
         // 태그에 따라 효과 활성화
         switch (other.tag)
         {
-            case "Rock":    
+            case "Rock":
                 ActivateEffect(RockEffect);
                 isRockActive = true;
                 FillGauge();
@@ -231,15 +234,18 @@ public class WeaponController : MonoBehaviour
         {
             case "water":
                 StartCoroutine(WaterSpray()); //파도타기
+                AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerWaterAttack);
                 break;
             case "potion":
                 StartCoroutine(HealPotion()); //회복포션
                 break;
             case "bullet":
                 StartCoroutine(RockBullet()); //돌총알
+                AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerShootAttack);
                 break;
             case "rockBomb":
                 StartCoroutine(RockBomb()); //돌폭탄
+                AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerBombAttack);
                 break;
             case "treeVine":
                 if (canShoot && GrassGauge > 0)
@@ -362,7 +368,7 @@ public class WeaponController : MonoBehaviour
 
     IEnumerator HealPotion()
     {
-       
+
         if (canShoot && !isGeneratingHealPotion && RockGauge > 0 && GrassGauge > 0)
         {
             isGeneratingHealPotion = true;

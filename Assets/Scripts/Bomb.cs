@@ -13,6 +13,9 @@ public class Bomb : MonoBehaviour
     private IEnumerator BombExplode()
     {
         yield return new WaitForSeconds(2f);
+
+        //터지는 소리
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerBomb);
         Destroy(gameObject);
 
         Vector3 explosionPosition = transform.position + new Vector3(0, 3 , 0);
