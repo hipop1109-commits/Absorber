@@ -2,17 +2,29 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private PlayerController playerController; // ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯ ÂüÁ¶
+    private PlayerController playerController; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½
     private BaseEnemy baseEnemy;
+
+    protected virtual void Awake()
+    {
+        playerController = FindFirstObjectByType<PlayerController>();
+    }
     private void Start()
     {
         baseEnemy = GetComponentInParent<BaseEnemy>();
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ´êÀ¸¸é ÇÇ°¡ ´â´Â ¸Þ¼­µå
+    // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        playerController = collision.gameObject.GetComponent<PlayerController>();
-        playerController.TakeDamage(baseEnemy.damage);
+          if(collision.CompareTag("Player"))
+        {
+            playerController.TakeDamage(baseEnemy.damage);
+        }
+
+        Debug.Log("È®ï¿½ï¿½ : " + transform.parent.name);
+
+        //playerController = collision.gameObject.GetComponent<PlayerController>();
+        //playerController.TakeDamage(baseEnemy.damage);
     }
 }

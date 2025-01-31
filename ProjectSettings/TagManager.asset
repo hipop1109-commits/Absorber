@@ -19,6 +19,7 @@ TagManager:
   - FrogBoss
   - EnergyCore
   - Potion
+  - NextButton
   layers:
   - Default
   - TransparentFX
