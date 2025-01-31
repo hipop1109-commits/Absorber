@@ -19,9 +19,10 @@ public class DialogueTrigger : MonoBehaviour
     public TMP_Text leftTextBox;  // 주인공 대화 TMP 박스
     public TMP_Text rightTextBox; // 상대방 대화 TMP 박스
     public GameObject dialogueCanvas; // 대화 UI (캔버스)
+    public bool isDialougeActive = false;
 
     private int currentLineIndex = 0; // 현재 대화 인덱스 (각 트리거마다 개별 관리)
-    private bool isDialogueActive = false; // 대화 진행 중인지 체크 (개별 관리)
+    static public bool isDialogueActive = false; // 대화 진행 중인지 체크 (개별 관리)
 
     private static DialogueTrigger activeDialogue = null; // 현재 진행 중인 대화 (다른 트리거 방해 방지)
     private bool hasTriggered = false;
@@ -48,6 +49,7 @@ public class DialogueTrigger : MonoBehaviour
         dialogueCanvas.SetActive(true); // 대화 UI 활성화
         Time.timeScale = 0; // **시간 멈추기**
         ShowDialogueLine(); // 첫 대사 표시
+        isDialogueActive = true;
     }
 
     public void OnClickNext()
