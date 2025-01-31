@@ -22,11 +22,6 @@ public class MovingEnemy : BaseEnemy
         // 이동형 적의 초기 상태를 walkState로 설정
         stateMachine.Initalize(stateMachine.walkState);
         originalScale = transform.localScale; // 초기 로컬 스케일 저장
-
-        if (PlayerController.instance != null)
-        {
-            player = PlayerController.instance.transform;
-        }
     }
 
     protected override void PerformMovement()

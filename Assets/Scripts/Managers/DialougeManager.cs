@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialougeManager : MonoBehaviour
@@ -12,50 +10,15 @@ public class DialougeManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-            DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 등록
-        }
         else
-        {
             Destroy(gameObject);
-        }
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        StartCoroutine(WaitForNextButton()); // 씬이 바뀌면 버튼 다시 찾기
-    }
-
-    private IEnumerator WaitForNextButton()
-    {
-        GameObject btnObj = null;
-
-        // `NextButton`을 찾을 수 있을 때까지 대기
-        while (btnObj == null)
-        {
-            btnObj = GameObject.FindWithTag("NextButton");
-            yield return null; // 한 프레임 대기
-        }
-
-        nextButton = btnObj.GetComponent<Button>();
-
-        if (nextButton != null && currentDialogue != null)
-        {
-            nextButton.onClick.RemoveAllListeners();
-            nextButton.onClick.AddListener(() => currentDialogue.OnClickNext());
-        }
     }
 
     public void SetCurrentDialogue(DialogueTrigger dialogue)
     {
         currentDialogue = dialogue;
-    }
-
-    // DialogueTrigger가 활성화될 때 버튼을 찾도록 함
-    public void OnDialogueEnabled()
-    {
-        StartCoroutine(WaitForNextButton());
+        nextButton.onClick.RemoveAllListeners(); // 기존 연결 제거
+        nextButton.onClick.AddListener(() => currentDialogue.OnClickNext()); // 새로운 트리거 연결
     }
 }

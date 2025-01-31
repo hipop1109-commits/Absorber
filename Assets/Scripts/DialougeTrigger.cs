@@ -26,21 +26,16 @@ public class DialogueTrigger : MonoBehaviour
 
     private static DialogueTrigger activeDialogue = null; // 현재 진행 중인 대화 (다른 트리거 방해 방지)
     private bool hasTriggered = false;
-
-   
-
     void Start()
     {
         dialogueCanvas.SetActive(false); // 시작 시 대화 UI 비활성화
     }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isDialogueActive && activeDialogue == null && !hasTriggered) // 현재 대화가 진행 중이 아닐 때만 실행
         {
             hasTriggered = true;
-            DialougeManager.instance.OnDialogueEnabled();
             DialougeManager.instance.SetCurrentDialogue(this);
             StartDialogue();
         }
@@ -54,7 +49,7 @@ public class DialogueTrigger : MonoBehaviour
         dialogueCanvas.SetActive(true); // 대화 UI 활성화
         Time.timeScale = 0; // **시간 멈추기**
         ShowDialogueLine(); // 첫 대사 표시
-       
+        isDialogueActive = true;
     }
 
     public void OnClickNext()

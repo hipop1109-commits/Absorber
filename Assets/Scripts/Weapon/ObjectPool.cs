@@ -26,10 +26,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < initialSize; i++)
         {
             GameObject obj = Instantiate(prefab);
-
             obj.SetActive(false); // 비활성화
-            DontDestroyOnLoad(obj);
-
             pool.Enqueue(obj);
         }
     }
