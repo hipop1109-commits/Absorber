@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     public StateMachine stateMachine; // 캐릭터의 상태를 관리할 상태 머신
     RopeActive grappling;
+    public static PlayerController instance { get; private set; }
 
     private void Awake()
     {
@@ -46,6 +48,16 @@ public class PlayerController : MonoBehaviour
 
         // 상태 머신 초기화
         stateMachine = new StateMachine(this);
+
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -87,6 +99,23 @@ public class PlayerController : MonoBehaviour
         {
             dashCooldownTimer -= Time.deltaTime;
         }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneController.Scenes currentScene = (SceneController.Scenes)System.Enum.Parse(typeof(SceneController.Scenes), scene.name);
+        Vector2 spawnPosition = SceneController.GetSpawnPosition(currentScene);
+        transform.position = spawnPosition; // 새 씬에서 위치 설정
     }
 
     // 플레이어가 데미지를 받을 때

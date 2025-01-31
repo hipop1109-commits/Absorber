@@ -67,6 +67,8 @@ public class ArmadiloPattern : MonoBehaviour
         {
             f_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
+        player = FindFirstObjectByType<PlayerController>();
+    
         playerTransform = player.transform;
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
