@@ -33,7 +33,6 @@ public class Hookg : MonoBehaviour
     {
         if(collision.CompareTag("Ring"))
         {
-            Debug.Log("¤·¤·");
             joint2D.enabled = true;
             grappling.isAttach = true;
         }

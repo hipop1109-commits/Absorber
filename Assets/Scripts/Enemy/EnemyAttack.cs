@@ -2,9 +2,14 @@
 
 public class EnemyAttack : MonoBehaviour
 {
-    private BaseEnemy enemy;
+    private PlayerController playerController; // �÷��̾� ��Ʈ�ѷ� ����
+    private BaseEnemy baseEnemy;
 
-    void Start()
+    protected virtual void Awake()
+    {
+        playerController = FindFirstObjectByType<PlayerController>();
+    }
+    private void Start()
     {
         // enemyController 할당
         enemy = GetComponentInParent<BaseEnemy>();
@@ -20,7 +25,14 @@ public class EnemyAttack : MonoBehaviour
 
     public void Attack()
     {
-        //공격 데미지
-        enemy.Attack(enemy.damage);
+          if(collision.CompareTag("Player"))
+        {
+            playerController.TakeDamage(baseEnemy.damage);
+        }
+
+        Debug.Log("Ȯ�� : " + transform.parent.name);
+
+        //playerController = collision.gameObject.GetComponent<PlayerController>();
+        //playerController.TakeDamage(baseEnemy.damage);
     }
 }
