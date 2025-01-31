@@ -6,8 +6,7 @@ public class SceneController : MonoBehaviour
     // ¾À ¹è¿­
     public enum Scenes
     {
-        LoadingScene,
-        TutorialScene,
+        //TutorialScene,
         Forest,
         BossForest,
         DesertNormalScene,
@@ -35,7 +34,8 @@ public class SceneController : MonoBehaviour
         if (currentStage < System.Enum.GetValues(typeof(Scenes)).Length)
         {
             Scenes nextScene = (Scenes)currentStage;
-            SceneManager.LoadScene(nextScene.ToString());
+            targetScene = nextScene.ToString(); // ¸ñÇ¥ ¾À ÀúÀå
+            SceneManager.LoadScene("LoadingScene"); // ·Îµù ¾À ¸ÕÀú ½ÇÇà
             currentStage++;
         }
         else

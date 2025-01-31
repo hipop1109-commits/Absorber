@@ -9,14 +9,13 @@ public class Bullet : MonoBehaviour
         objectPool = pool; // ObjectPool을 초기화
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    private void OnTriggerEnter2D(Collider2D other) { 
         // 적 또는 장애물과 충돌 처리
-        if (collision.gameObject.CompareTag("Enemy")) // 적 태그 확인
+        if (other.gameObject.CompareTag("Enemy")) // 적 태그 확인
         {
            objectPool.ReturnObject(gameObject);
         }
-        else if (collision.gameObject.CompareTag("ground")) // 벽이나 다른 객체에 충돌
+        else if (other.gameObject.CompareTag("ground")) // 벽이나 다른 객체에 충돌
         {
            objectPool.ReturnObject(gameObject);
         }

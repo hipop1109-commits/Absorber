@@ -44,7 +44,7 @@ public class WeaponController : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject bombPrefab;
     public Transform firePoint;
-    public float bulletSpeed = 10f;
+    public float bulletSpeed = 20f;
     public float fireCooldown = 0.5f;
     public float BombFireCooldown = 2f;
     private bool canShoot = true;
@@ -94,6 +94,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
+        if (DialogueTrigger.isDialogueActive) return;
 
         //마우스의 현재 위치를 탐색하는 변수 설정 (메인카메라 활용)
         Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
@@ -127,6 +128,7 @@ public class WeaponController : MonoBehaviour
     //오른마우스 눌렀을때
     public void AbsorbClick()
     {
+        if (DialogueTrigger.isDialogueActive) return;
         isAbsorbing = true;
         AbsorbRange.SetActive(true);
         AudioManager.Instance.PlayLoopSound(AudioManager.AudioType.WeaponAbsorb);
@@ -230,6 +232,7 @@ public class WeaponController : MonoBehaviour
     //무기 고르는 (왼마우스 눌렀을 때 발동)
     public void WeaponSelect()
     {
+        if (DialogueTrigger.isDialogueActive) return;
         switch (WeaponMode)
         {
             case "water":
