@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c72c0816c464da04c8a5a6d9f668db4d
+guid: e3dd50c247ca06942bca04711080e69f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -428051873381102337
-    second: GrassCircle_0
+      213: -5675684907081693519
+    second: ArrowsLeft_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GrassCircle_0
+      name: ArrowsLeft_0
       rect:
         serializedVersion: 2
-        x: 115
-        y: 116
-        width: 283
-        height: 283
+        x: 0
+        y: 0
+        width: 48
+        height: 84
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ffccdadc6114f0af0800000000000000
-      internalID: -428051873381102337
+      spriteID: 1b68958e5aaeb31b0800000000000000
+      internalID: -5675684907081693519
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      GrassCircle_0: -428051873381102337
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

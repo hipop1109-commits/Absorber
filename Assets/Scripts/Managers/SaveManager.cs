@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Data;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : Singleton<SaveManager>
 {
@@ -13,6 +15,7 @@ public class SaveManager : Singleton<SaveManager>
         public int playerHP;
         public int energyCore;
         public string lastSavedTime;
+        public string currentScene;
     }
 
     private string savePath;
@@ -36,7 +39,8 @@ public class SaveManager : Singleton<SaveManager>
             playerY = playerController.transform.position.y,
             playerHP = playerController.player.PlayerHp,
             energyCore = playerController.player.EnergyCore,
-            lastSavedTime = DateTime.Now.ToString("g")
+            lastSavedTime = DateTime.Now.ToString("g"),
+            currentScene = SceneManager.GetActiveScene().name
         };
 
         string json = JsonUtility.ToJson(saveData);
@@ -61,17 +65,45 @@ public class SaveManager : Singleton<SaveManager>
 
     // 클릭시 게임 로드
     public void LoadGameData(SaveData saveData)
-    {
+    {   
         if(saveData != null)
         {
-            if (playerController == null)
-                playerController = FindObjectOfType<PlayerController>();
+            string currentScene = SceneManager.GetActiveScene().name;
 
-            playerController.player.RoadPlayerHp(saveData.playerHP);
-            playerController.player.RoadEnergyCore(saveData.energyCore);
-            playerController.transform.position = new Vector3(saveData.playerX, saveData.playerY, 0);
-            //player.EnergyCoreTextUpdate();
-            LifeDisplayer.Instance.SetLives(player.PlayerHp, player.PlayerMaxHp);
+            if (saveData.currentScene != currentScene)
+            {
+                SceneManager.LoadScene(saveData.currentScene);
+                StartCoroutine(WaitAndLoadData(saveData));
+            }
+            else
+            {
+                ApplySaveData(saveData);
+            }
         }
+    }
+    private IEnumerator WaitAndLoadData(SaveData saveData)
+    {
+        // 씬이 로드될 때까지 기다림
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().name == saveData.currentScene);
+        yield return new WaitForSeconds(0.1f);
+
+        while (playerController == null)
+        {
+            playerController = FindObjectOfType<PlayerController>();
+        }
+        ApplySaveData(saveData);
+    }
+
+    // 세이브 데이터 적용
+    private void ApplySaveData(SaveData saveData)
+    {
+        if (playerController == null)
+            playerController = FindObjectOfType<PlayerController>();
+
+        playerController.player.RoadPlayerHp(saveData.playerHP);
+        playerController.player.RoadEnergyCore(saveData.energyCore);
+        playerController.transform.position = new Vector3(saveData.playerX, saveData.playerY, 0);
+        //player.EnergyCoreTextUpdate();
+        LifeDisplayer.Instance.SetLives(player.PlayerHp, player.PlayerMaxHp);
     }
 }
