@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Dialouge : MonoBehaviour
@@ -69,5 +70,12 @@ public class Dialouge : MonoBehaviour
         leftTextBox.text = "";
         rightTextBox.text = "";
         Debug.Log("대화가 끝났습니다.");
+        StartCoroutine(LoadNextScene());
+    }
+
+    IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(1f); // 1초 대기 후 씬 전환
+        SceneManager.LoadScene("TutorialScene"); //원하는 씬 이름으로 변경
     }
 }

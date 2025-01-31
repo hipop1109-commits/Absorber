@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IceScene/SnowBossScene.unity
     guid: c50aa955bf559e0498fdc110ddff474f
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: e0826c2ce321d5f42b6fdd5b3aad6670
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
