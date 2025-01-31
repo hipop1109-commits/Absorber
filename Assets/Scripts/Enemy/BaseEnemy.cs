@@ -103,17 +103,6 @@ public abstract class BaseEnemy : MonoBehaviour
         SpawnItem();
     }
 
-    // 플레이어가 닿으면 피가 닳는 메서드
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("playerController : " + playerController);
-            //플레이어에게 데미지 입히기
-            playerController.TakeDamage(damage);
-            Debug.Log("일반 데미지");
-        }
-    }
 
     protected virtual void SpawnItem()
     {

@@ -5137,6 +5137,10 @@ PrefabInstance:
       propertyPath: WaterGauge
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 627742477616179618, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3126254551064774195, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
       propertyPath: MaxGauge
       value: 200
@@ -12132,7 +12136,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2063735
+    m_Bits: 2064375
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
