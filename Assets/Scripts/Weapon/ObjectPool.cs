@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    public static ObjectPool Instance { get; private set; }
+
     public GameObject prefab; // 풀링할 프리팹
     public int initialSize = 10; // 초기 풀 크기
 
@@ -10,6 +12,16 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         // 초기 풀 생성
         for (int i = 0; i < initialSize; i++)
         {
