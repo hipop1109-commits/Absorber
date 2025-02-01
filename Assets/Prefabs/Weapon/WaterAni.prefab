@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1690090606502766704}
   - component: {fileID: 416775235973479744}
   - component: {fileID: 1096100436942573239}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaterAni
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -212,4 +212,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef64d424a792234297981d43141b44d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPool: {fileID: 4790652207326536336, guid: bdcc4d2fa335b6340a87157296434edc, type: 3}

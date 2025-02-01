@@ -311,7 +311,7 @@ public class WeaponController : MonoBehaviour
             Rigidbody2D rb = Bomb.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = firePoint.right * bulletSpeed; // 발사 방향과 속도 설정
+                rb.linearVelocity = firePoint.right * 10; // 발사 방향과 속도 설정
             }
             StartCoroutine(Cooldown(3f));
             yield return null;

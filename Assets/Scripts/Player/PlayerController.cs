@@ -331,7 +331,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // 대쉬 로직 처리
-    private System.Collections.IEnumerator Dash(float dashDirection)
+    private IEnumerator Dash(float dashDirection)
     {
         isDashing = true; // 대쉬 플래그 설정
         Vector2 dashVelocity = new Vector2(dashDirection * player.DashSpeed, rb.linearVelocity.y); // 대쉬 방향 설정
@@ -342,6 +342,16 @@ public class PlayerController : MonoBehaviour
         isDashing = false; // 대쉬 플래그 해제
         dashCooldownTimer = player.DashCooldown; // 대쉬 쿨타임 설정
         stateMachine.TransitionTo(stateMachine.idleState); // Idle 상태로 전환
+    }
+    
+    // 떨어졌을때 죽게하기
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("DeadZone"))
+        {
+            Die();
+            Debug.Log("주금");
+        }
     }
 
     // 바닥 충돌 감지
