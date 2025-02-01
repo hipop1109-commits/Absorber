@@ -10,7 +10,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void OnClickGameStart()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("DialougeScene");
     }
     // 메뉴 패널 닫기
     public void OnClickQuit()
