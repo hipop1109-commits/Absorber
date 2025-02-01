@@ -68,7 +68,6 @@ public class Player
         // SkillDisplayer의 에너지 코어 텍스트 업데이트
         SkillDisplayer.Instance.energyCoreText.text = EnergyCore.ToString("D3");
     }
-    // 게임 로드 시 플레이어HP 값 변경을 위함
     public void RoadPlayerHp(int hp)
     {
         PlayerHp = Mathf.Clamp(hp, 0, PlayerMaxHp);

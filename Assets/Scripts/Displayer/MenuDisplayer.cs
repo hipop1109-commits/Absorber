@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEditor.Overlays;
-using UnityEngine.Audio;
-using UnityEditor.ShaderGraph.Internal;
 
 public class MenuDisplayer : MonoBehaviour
 {
@@ -33,12 +31,9 @@ public class MenuDisplayer : MonoBehaviour
     [SerializeField] private Slider brightnessSlider;
     [SerializeField] private Volume postProcessingVolume;
     private ColorAdjustments colorAdjustments;
-
-    [SerializeField] private AudioMixer audioMixer;
+    
     // 사운드 볼륨슬라이더
-    [SerializeField] private Slider masterVolumeSlider;
-    [SerializeField] private Slider bgmVolumeSlider;
-    [SerializeField] private Slider sfxVolumeSlider;
+    [SerializeField] private Slider MasterVolumeSlider;
 
     // 세이브 슬롯 텍스트
     [SerializeField] private TextMeshProUGUI saveSlotText;
@@ -53,38 +48,18 @@ public class MenuDisplayer : MonoBehaviour
             brightnessSlider.value = 0;
             brightnessSlider.onValueChanged.AddListener(AdjustBrightness);
         }
-        // 밝기 리스너 등록
+        // 메뉴 활성화시 초기화
         brightnessSlider.value = colorAdjustments.postExposure.value;
+        MasterVolumeSlider.value = AudioListener.volume;
 
         UpdateOnOffText();
     }
 
     void Start()
     {
-        // 오디오 슬라이더 저장 값 불러오기 , 없으면 기본 값 1
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
-
-        // 오디오믹서의 현재 볼륨을 슬라이더 값으로 변환
-        audioMixer.GetFloat("MasterVolume", out float masterDb);
-        masterVolumeSlider.value = Mathf.Pow(10, masterDb / 20);
-        audioMixer.GetFloat("MasterVolume", out float bgmDb);
-        masterVolumeSlider.value = Mathf.Pow(10, bgmDb / 20);
-        audioMixer.GetFloat("MasterVolume", out float sfxDb);
-        masterVolumeSlider.value = Mathf.Pow(10, sfxDb / 20);
-
-
-        // 리스너 등록
+        // 슬라이더 초기화
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
-        masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
-        bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
-        sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
-
-        // 초기 오디오 볼륨 설정
-        SetMasterVolume(masterVolumeSlider.value);
-        SetBGMVolume(bgmVolumeSlider.value);
-        SetSFXVolume(sfxVolumeSlider.value);
+        MasterVolumeSlider.onValueChanged.AddListener(SetVolume);
 
         // 해상도 리스트 추가
         resolutions = Screen.resolutions;
@@ -137,39 +112,12 @@ public class MenuDisplayer : MonoBehaviour
         colorAdjustments.postExposure.value = Mathf.Lerp(-1f, 1f, value);
     }
     
-    // 전체 볼륨 설정
-    public void SetMasterVolume(float volume)
+    // 볼륨 설정
+    public void SetVolume(float volume)
     {
-        float dbVolume = (volume > 0.0001f) ? Mathf.Log10(volume) * 20 : -80f;
-        audioMixer.SetFloat("MasterVolume", dbVolume);
-        PlayerPrefs.SetFloat("MasterVolume", volume);
-        PlayerPrefs.Save();
-        Debug.Log($"Master Volume Set: {volume} (dB: {dbVolume})");
+        AudioListener.volume = volume; 
+    }
 
-        // 오디오 믹서 값 변경 후 슬라이더 반영
-        audioMixer.GetFloat("MasterVolume", out float newDbVolume);
-        masterVolumeSlider.value = Mathf.Pow(10, newDbVolume / 20);
-    }
-    // 배경음 설정
-    public void SetBGMVolume(float volume)
-    {
-        float dbVolume = (volume > 0.0001f) ? Mathf.Log10(volume) * 20 : -80f;
-        audioMixer.SetFloat("BGMVolume", dbVolume);
-        PlayerPrefs.SetFloat("BGMVolume", volume);
-        PlayerPrefs.Save();
-        audioMixer.GetFloat("BGMVolume", out float newDbVolume);
-        bgmVolumeSlider.value = Mathf.Pow(10, newDbVolume / 20);
-    }
-    // 효과음 설정
-    public void SetSFXVolume(float volume)
-    {
-        float dbVolume = (volume > 0.0001f) ? Mathf.Log10(volume) * 20 : -80f;
-        audioMixer.SetFloat("SFXVolume", dbVolume);
-        PlayerPrefs.SetFloat("SFXVolume", volume);
-        PlayerPrefs.Save();
-        audioMixer.GetFloat("SFXVolume", out float newDbVolume);
-        sfxVolumeSlider.value = Mathf.Pow(10, newDbVolume / 20);
-    }
     // 해상도 설정
     public void SetResolution(int index)
     {
@@ -196,7 +144,7 @@ public class MenuDisplayer : MonoBehaviour
             OnOffButtonText.text = "Off";
         }
     }
-    // 세이브 정보 슬롯 텍스트 업데이트
+
     public void UpdateSaveSlotUI()
     {
         SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
@@ -211,7 +159,7 @@ public class MenuDisplayer : MonoBehaviour
             saveSlotText.text = "Empty Slot";
         }
     }
-    // 클릭시 저장 게임 로드 
+
     public void OnLoadClicked()
     {
         SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
