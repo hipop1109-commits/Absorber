@@ -9,7 +9,7 @@ public class LoadingSceneManager : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
-    static public IEnumerator LoadScene()
+    IEnumerator LoadScene()
     {
         string nextScene = SceneController.GetTargetScene(); // 이동할 씬 가져오기
         if (string.IsNullOrEmpty(nextScene))

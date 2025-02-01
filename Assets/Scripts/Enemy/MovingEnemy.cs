@@ -16,7 +16,6 @@ public class MovingEnemy : BaseEnemy
     [SerializeField] private Transform player;
     private Vector3 originalScale; // 초기 로컬 스케일 저장
 
-
     protected override void Start()
     {
         base.Start();
