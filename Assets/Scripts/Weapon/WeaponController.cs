@@ -90,6 +90,8 @@ public class WeaponController : MonoBehaviour
         RockEffect.SetActive(false);
         WaterEffect.SetActive(false);
         GrassEffect.SetActive(false);
+
+        bulletPool = FindAnyObjectByType<ObjectPool>();
     }
 
     private void Update()

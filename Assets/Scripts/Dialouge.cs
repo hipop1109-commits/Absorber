@@ -70,12 +70,6 @@ public class Dialouge : MonoBehaviour
         leftTextBox.text = "";
         rightTextBox.text = "";
         Debug.Log("대화가 끝났습니다.");
-        StartCoroutine(LoadNextScene());
-    }
-
-    IEnumerator LoadNextScene()
-    {
-        yield return new WaitForSeconds(1f); // 1초 대기 후 씬 전환
-        SceneManager.LoadScene("TutorialScene"); //원하는 씬 이름으로 변경
+        SceneController.LoadNextScene();
     }
 }
