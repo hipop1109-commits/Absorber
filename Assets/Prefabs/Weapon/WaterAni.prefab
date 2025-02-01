@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1690090606502766704}
   - component: {fileID: 416775235973479744}
   - component: {fileID: 1096100436942573239}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WaterAni
   m_TagString: Attack
   m_Icon: {fileID: 0}
