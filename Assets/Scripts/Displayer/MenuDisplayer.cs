@@ -43,7 +43,20 @@ public class MenuDisplayer : MonoBehaviour
     // 세이브 슬롯 텍스트
     [SerializeField] private TextMeshProUGUI saveSlotText;
     private SaveManager saveManager;
+    public static MenuDisplayer instance { get; private set; }
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnEnable()
     {
         // 밝기 설정 초기화
