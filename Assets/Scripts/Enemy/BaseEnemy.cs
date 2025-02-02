@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+
 public abstract class BaseEnemy : MonoBehaviour
 {
     [Header("공통 설정")]
@@ -48,10 +50,18 @@ public abstract class BaseEnemy : MonoBehaviour
             if (attack != null)
             {
                 EnemyTakeDamage(attack.damage);
+                StartCoroutine(DestroyAttack(attack.gameObject)); // attack.gameObject 전달            }
             }
         }
     }
-
+    private IEnumerator DestroyAttack(GameObject attackObject)
+    {
+        yield return new WaitForSeconds(0.5f); 
+        if (attackObject != null)
+        {
+            Destroy(attackObject); // attackObject 제거
+        }
+    }
 
     // 데미지를 입을때
     public void EnemyTakeDamage(int damage)
@@ -108,7 +118,7 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         if (itemPrefab != null)
         {
-            // 적 위치보다 약간 위에 아이템 생성
+            // 적 위치보다 약간 위에 아이템z 생성
             GameObject item = Instantiate(itemPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
             Rigidbody2D rb = item.GetComponent<Rigidbody2D>();
