@@ -274,11 +274,13 @@ public class PlayerController : MonoBehaviour
         {
             // 이동 입력이 있는 경우 Walk 상태로 전환
             stateMachine.TransitionTo(stateMachine.walkState);
+            AudioManager.Instance.PlayLoopSound(AudioManager.AudioType.PlayerWalk);
         }
         else
         {
             // 이동 입력이 없는 경우 Idle 상태로 전환
             stateMachine.TransitionTo(stateMachine.idleState);
+            AudioManager.Instance.StopLoopSound(AudioManager.AudioType.PlayerWalk);
         }
 
 
@@ -325,8 +327,6 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 targetVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 0.1f); // 부드러운 변화
-                      
-            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerWalk);
         }
     }
 

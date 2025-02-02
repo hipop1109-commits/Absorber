@@ -55,6 +55,7 @@ public class AudioManager : MonoBehaviour
     public void ButtonSound()
     {
         clickSound.Play();
+        Debug.Log("버튼 클릭음 재생");
     }
 
     // 버튼 마우스 오버 사운드 재생

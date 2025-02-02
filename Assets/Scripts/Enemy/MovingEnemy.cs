@@ -89,8 +89,6 @@ public class MovingEnemy : BaseEnemy
             {
                 stateMachine.TransitionTo(stateMachine.walkState);
             }
-
-            Debug.Log("speed : " + speed);
             // 스프라이트 방향 조정
             AdjustSpriteDirection(speed);
         }

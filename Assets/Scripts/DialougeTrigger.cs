@@ -62,6 +62,7 @@ public class DialogueTrigger : MonoBehaviour
         if (currentLineIndex >= dialogueLines.Count - 1) // 마지막 대화인지 먼저 체크
         {
             EndDialogue();
+            AudioManager.Instance.ButtonSound();
             return;
         }
 

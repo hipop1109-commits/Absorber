@@ -34,6 +34,7 @@ public class Dialouge : MonoBehaviour
         if (currentLineIndex < dialogueLines.Count)
         {
             ShowDialogueLine();
+            AudioManager.Instance.ButtonSound();
         }
         else
         {
