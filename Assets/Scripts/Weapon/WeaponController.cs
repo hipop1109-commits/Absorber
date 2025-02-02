@@ -87,10 +87,10 @@ public class WeaponController : MonoBehaviour
     {
         //빨아들이는 범위를 꺼둠
         AbsorbRange.SetActive(false);
+        GrassEffect.SetActive(false);
         RockEffect.SetActive(false);
         WaterEffect.SetActive(false);
-        GrassEffect.SetActive(false);
-
+      
         bulletPool = FindAnyObjectByType<ObjectPool>();
     }
 
