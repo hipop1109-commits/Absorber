@@ -29,7 +29,7 @@ public class SceneController : MonoBehaviour
     };
 
     // 스테이지 추적 변수 
-    private static int currentStage = 1;
+    private static int currentStage = 0;
 
     private static string targetScene;
 

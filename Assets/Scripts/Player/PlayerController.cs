@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviour
         {
             dashCooldownTimer -= Time.deltaTime;
         }
+       
     }
 
     private void OnEnable()

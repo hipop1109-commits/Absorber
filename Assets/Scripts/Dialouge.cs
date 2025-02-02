@@ -26,6 +26,12 @@ public class Dialouge : MonoBehaviour
     void Start()
     {
         ShowDialogueLine(); // 첫 대화 표시
+        DisableSingletons();
+    }
+
+    private void OnDestroy()
+    {
+        EnableSingletons(); // 씬 떠날 때 싱글톤 다시 활성화
     }
 
     public void OnClickNext()
@@ -72,5 +78,17 @@ public class Dialouge : MonoBehaviour
         rightTextBox.text = "";
         Debug.Log("대화가 끝났습니다.");
         SceneController.LoadNextScene();
+    }
+
+    private void DisableSingletons()
+    {
+        if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(false);
+        if (UIManager.Instance != null) UIManager.Instance.gameObject.SetActive(false);
+    }
+
+    private void EnableSingletons()
+    {
+        if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(true);
+        if (UIManager.Instance != null) UIManager.Instance.gameObject.SetActive(true);
     }
 }
