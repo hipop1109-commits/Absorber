@@ -14,6 +14,9 @@ public abstract class BaseEnemy : MonoBehaviour
     public EnemyStateMachine stateMachine; // 상태 머신 참조
     private HashSet<Collider2D> processedAttacks = new HashSet<Collider2D>(); // 이미 처리된 Attack 오브젝트 추적
 
+    public event System.Action<int> BossHealthChaged; // 보스 체력 바 변경 이벤트
+    public int GetHp() => hp; // 보스 현재 체력 가져오기
+
     protected virtual void Awake()
     {
         playerController = FindFirstObjectByType<PlayerController>();
@@ -69,6 +72,7 @@ public abstract class BaseEnemy : MonoBehaviour
         if (isDie) return;
 
         hp -= damage;
+        BossHealthChaged?.Invoke(hp); // 보스 체력 바 이벤트 실행
         if (hp <= 0)
         {
             Die();
@@ -100,6 +104,13 @@ public abstract class BaseEnemy : MonoBehaviour
         stateMachine.TransitionTo(stateMachine.dieState);
         Debug.Log(stateMachine.CurrentState);
         Debug.Log($"{gameObject.name} 사망");
+
+        // 보스 체력 바 비활성화
+        BossLifeDisplayer bossLifeDisplayer = GetComponent<BossLifeDisplayer>();
+        if (bossLifeDisplayer != null)
+        {
+            bossLifeDisplayer.HideBossLifeBar();
+        }
 
         // 일정 시간 후 적 제거
         Invoke("DestroyEnemy", 1f);

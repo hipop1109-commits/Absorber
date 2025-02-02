@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton <GameManager>
 {
-    
-    // Ŭ���� or ���ӿ��� �˾�â
     [SerializeField] private GameObject popupCanvas;
     
     private bool isCleared;
@@ -32,6 +30,7 @@ public class GameManager : Singleton <GameManager>
         }
 
         playerController = FindObjectOfType<PlayerController>();
+
     }
 
     void Update()

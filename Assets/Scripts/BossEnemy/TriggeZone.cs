@@ -1,15 +1,21 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TriggerZone : MonoBehaviour
 {
-    [SerializeField] private ArmadiloPattern boss; // º¸½º ¸ó½ºÅÍ ½ºÅ©¸³Æ® ÂüÁ¶
+    [SerializeField] private ArmadiloPattern boss; // ë³´ìŠ¤ ëª¬ìŠ¤í„° ìŠ¤í¬ë¦½íŠ¸ ì°¸ì¡°
+    [SerializeField] private BossLifeDisplayer bossLifeDisplayer; // ë³´ìŠ¤ ì²´ë ¥ë°” UI
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("ÀÔ±¸ °¨Áö: º¸½º È°¼ºÈ­");
-            boss.ActivateMovingState(); // º¸½ºÀÇ »óÅÂ¸¦ MovingÀ¸·Î º¯°æ
+            Debug.Log("ì…êµ¬ ê°ì§€: ë³´ìŠ¤ í™œì„±í™”");
+            boss.ActivateMovingState(); // ë³´ìŠ¤ì˜ ìƒíƒœë¥¼ Movingìœ¼ë¡œ ë³€ê²½
+
+            if(bossLifeDisplayer != null) // ë³´ìŠ¤ ì²´ë ¥ ë°” í™œì„±í™”
+            {
+                bossLifeDisplayer.ShowBossLifeBar();
+            }
         }
     }
 }
