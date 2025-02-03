@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         {
             dashCooldownTimer -= Time.deltaTime;
         }
-       
+
     }
 
     private void OnEnable()
@@ -164,6 +164,8 @@ public class PlayerController : MonoBehaviour
         //게임 오버 패널 활성화
         GameManager.Instance.ShowGameOverPanel();
         AudioManager.Instance.PlaySound(AudioManager.AudioType.GameOver);
+
+
     }
 
 
@@ -346,14 +348,23 @@ public class PlayerController : MonoBehaviour
         dashCooldownTimer = player.DashCooldown; // 대쉬 쿨타임 설정
         stateMachine.TransitionTo(stateMachine.idleState); // Idle 상태로 전환
     }
-    
+
     // 떨어졌을때 죽게하기
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("DeadZone"))
+        if (collision.gameObject.CompareTag("DeadZone"))
         {
             Die();
             Debug.Log("주금");
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("HurtOb"))
+        {
+            TakeDamage(5);
         }
     }
 

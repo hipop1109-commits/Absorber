@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -90,7 +90,7 @@ public class WeaponController : MonoBehaviour
         GrassEffect.SetActive(false);
         RockEffect.SetActive(false);
         WaterEffect.SetActive(false);
-      
+
         bulletPool = FindAnyObjectByType<ObjectPool>();
     }
 
@@ -239,18 +239,15 @@ public class WeaponController : MonoBehaviour
         {
             case "water":
                 StartCoroutine(WaterSpray()); //파도타기
-                AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerWaterAttack);
                 break;
             case "potion":
                 StartCoroutine(HealPotion()); //회복포션
                 break;
             case "bullet":
                 StartCoroutine(RockBullet()); //돌총알
-                AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerShootAttack);
                 break;
             case "rockBomb":
                 StartCoroutine(RockBomb()); //돌폭탄
-                AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerBombAttack);
                 break;
             case "treeVine":
                 if (canShoot && GrassGauge > 0)
@@ -280,6 +277,8 @@ public class WeaponController : MonoBehaviour
             RockGauge -= 1f;
             GameObject bullet = bulletPool.GetObject(firePoint.position, firePoint.rotation);
 
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerShootAttack);
+
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -308,6 +307,8 @@ public class WeaponController : MonoBehaviour
             Debug.Log("발사2");
             RockGauge -= 5f;
             GameObject Bomb = Instantiate(bombPrefab, firePoint.position, firePoint.rotation);
+
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerBombAttack);
 
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = Bomb.GetComponent<Rigidbody2D>();
@@ -383,6 +384,7 @@ public class WeaponController : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
             GameObject Heal = Instantiate(HealPrefab, firePoint.position, firePoint.rotation);
+            Debug.Log("Heal : " + Heal);
 
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = Heal.GetComponent<Rigidbody2D>();
@@ -404,6 +406,8 @@ public class WeaponController : MonoBehaviour
 
             Vector3 spawnPosition = firePoint.position + firePoint.right * 4f;
             GameObject WaterGun = Instantiate(WaterPrefab, spawnPosition, firePoint.rotation);
+
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerWaterAttack);
 
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = WaterGun.GetComponent<Rigidbody2D>();

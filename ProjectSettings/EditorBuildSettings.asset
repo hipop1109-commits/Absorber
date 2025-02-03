@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: ccda05b02b5938f439670c54385288bc
   - enabled: 1
     path: Assets/Scenes/ForestScene/Forest.unity
-    guid: bbe8405b859d8854f9530f13ebf3eab7
+    guid: a5a4c89c91c419c45bbbaffa95abbb8b
   - enabled: 1
     path: Assets/Scenes/ForestScene/BossForest.unity
     guid: 02772085269c5fa48a9b1a0a30916432
@@ -25,8 +25,8 @@ EditorBuildSettings:
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/IceScene/SnowNormalScene.unity
-    guid: 3d6f25b20280a104b9701f80337a7267
-  - enabled: 1
+    guid: 66f06183a2f96aa428a94b9c3ccbc69e
+  - enabled: 0
     path: Assets/Scenes/IceScene/SnowNormalScene2.unity
     guid: c50aa955bf559e0498fdc110ddff474f
   - enabled: 1
