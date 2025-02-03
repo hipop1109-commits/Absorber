@@ -21,7 +21,6 @@ TagManager:
   - Potion
   - NextButton
   - DeadZone
-  - HurtOb
   layers:
   - Default
   - TransparentFX
