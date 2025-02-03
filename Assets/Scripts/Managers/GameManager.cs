@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton <GameManager>
 {
-    [SerializeField] private GameObject popupCanvas;
-    
     private bool isCleared;
     public bool IsCleared { get { return isCleared; } }
    
@@ -18,6 +16,8 @@ public class GameManager : Singleton <GameManager>
 
     private Player player;
     private PlayerController playerController;
+
+    [SerializeField] GameObject gameOverPanel;    
     
 
     private void Start()
@@ -45,23 +45,24 @@ public class GameManager : Singleton <GameManager>
         //}
 
     }
-
+    // 게임 오버 패널 활성화
+    public void ShowGameOverPanel()
+    {
+        gameOverPanel.SetActive(true);
+    }
+    // 메인 메뉴 이동
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+    // 게임 종료
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    // 재시작
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
-    void GameOver()
-    {
-        isCleared = false;
-        popupCanvas.SetActive(true);
-    }
-    
-    public void GameClear()
-    {
-        isCleared = true;
-        popupCanvas.SetActive(true);
-    }
-
-
 }
