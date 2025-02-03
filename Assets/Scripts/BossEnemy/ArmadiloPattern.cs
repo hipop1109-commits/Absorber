@@ -81,9 +81,11 @@ public class ArmadiloPattern : MonoBehaviour
             effect.SetActive(false);
         }
 
-        IceJumpEffect.SetActive(false);
+        if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
+            IceJumpEffect.SetActive(false);
 
-        FrogJumpEffect.SetActive(false);
+        if (gameObject.CompareTag("FrogBoss")) // 이름이 "Armadillo"인 경우
+            FrogJumpEffect.SetActive(false);
     }
 
    

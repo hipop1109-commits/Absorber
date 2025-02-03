@@ -53,7 +53,13 @@ public class ObjectPool : MonoBehaviour
 
     public void ReturnObject(GameObject obj)
     {
-        obj.SetActive(false); // 비활성화
-        pool.Enqueue(obj); // 풀에 다시 추가
+        if (obj == null) return; // 이미 삭제된 오브젝트는 반환하지 않음
+
+        if (!pool.Contains(obj))
+        {
+            obj.SetActive(false);
+            pool.Enqueue(obj);
+        }
     }
+
 }
