@@ -161,7 +161,8 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
         isDie = true;
-
+        //게임 오버 패널 활성화
+        GameManager.Instance.ShowGameOverPanel();
     }
 
 
@@ -352,6 +353,10 @@ public class PlayerController : MonoBehaviour
         {
             Die();
             Debug.Log("주금");
+        }
+        if (collision.gameObject.CompareTag("HurtOb"))
+        {
+            TakeDamage(5);
         }
     }
 
