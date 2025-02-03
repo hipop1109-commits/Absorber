@@ -5,13 +5,13 @@ public class BossLifeDisplayer : MonoBehaviour
 {
     // 보스 체력 바
     [SerializeField] private Image bossLifeBar;
-    private BaseEnemy bossEnemy;
+    public BaseEnemy bossEnemy;
     // 보스 체력 바 맥스
     private int bossMaxHp; 
 
     private void Start()
     {
-        bossEnemy = GetComponent<BaseEnemy>();
+        //bossEnemy = GetComponent<BaseEnemy>();
 
         if(bossEnemy != null)
         {

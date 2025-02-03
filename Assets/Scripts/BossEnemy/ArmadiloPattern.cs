@@ -142,7 +142,6 @@ public class ArmadiloPattern : MonoBehaviour
             }
             else if (collision.IsTouching(BackRange.GetComponent<Collider2D>()))
             {
-                Debug.Log("µﬁπÊ«‚");
                 rangeState = RangeState.Back;
             }
             else
