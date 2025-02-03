@@ -50,16 +50,19 @@ public class GameManager : Singleton <GameManager>
     {
         gameOverPanel.SetActive(true);
     }
+
     // 메인 메뉴 이동
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("StartScene");
     }
+
     // 게임 종료
     public void QuitGame()
     {
         Application.Quit();
     }
+
     // 재시작
     void Restart()
     {
