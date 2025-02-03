@@ -21287,6 +21287,18 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 613001805}
+    Ordinal: 11
+    Priority: 0
+    IconType: 0
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 20000
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
 --- !u!4 &613001807
 Transform:
   m_ObjectHideFlags: 0
@@ -76750,7 +76762,6 @@ SceneRoots:
   - {fileID: 6747872175024511857}
   - {fileID: 2087388477}
   - {fileID: 239854825}
-  - {fileID: 613001807}
   - {fileID: 1271471659}
   - {fileID: 1016198744}
   - {fileID: 575944152}
@@ -76762,3 +76773,4 @@ SceneRoots:
   - {fileID: 1993480508}
   - {fileID: 710195974}
   - {fileID: 1333385686}
+  - {fileID: 613001807}
