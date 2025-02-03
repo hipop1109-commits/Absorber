@@ -353,6 +353,10 @@ public class PlayerController : MonoBehaviour
             Die();
             Debug.Log("주금");
         }
+        if (collision.gameObject.CompareTag("HurtOb"))
+        {
+            TakeDamage(5);
+        }
     }
 
     // 바닥 충돌 감지
