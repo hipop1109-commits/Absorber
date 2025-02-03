@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class ArmadiloPattern : MonoBehaviour
@@ -88,7 +89,14 @@ public class ArmadiloPattern : MonoBehaviour
             FrogJumpEffect.SetActive(false);
     }
 
-   
+    protected virtual void Update()
+    {
+        if (currentState == BossState.Moving)
+        {
+            ani.SetTrigger("Walk");
+        }
+    }
+
     private void FixedUpdate()
     {
         if (currentState == BossState.Moving || rangeState == RangeState.Back)
@@ -101,6 +109,8 @@ public class ArmadiloPattern : MonoBehaviour
     {
         if (rangeState == RangeState.Back || rangeState == RangeState.Far || rangeState == RangeState.Air)
         {
+            currentState = BossState.Moving;
+
             // 플레이어를 따라가며 방향 전환
             direction = (playerTransform.position - transform.position).normalized;
             rb.linearVelocity = direction * moveSpeed;
@@ -125,22 +135,22 @@ public class ArmadiloPattern : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !isCooldown)
+        if (collision.gameObject.CompareTag("Player") && !isCooldown && !isExecutingAction)
         {
             if (collision.IsTouching(CloseRange.GetComponent<Collider2D>()))
             {
-                EnqueueAction(CloseAttack());
                 rangeState = RangeState.Close;
+                EnqueueAction(CloseAttack());
             }
             else if (collision.IsTouching(FarRange.GetComponent<Collider2D>()))
             {
-                EnqueueAction(FarAttack());
                 rangeState = RangeState.Far;
+                EnqueueAction(FarAttack());
             }
             else if (collision.IsTouching(AirRange.GetComponent<Collider2D>()))
             {
-                EnqueueAction(AirAttack());
                 rangeState = RangeState.Air;
+                EnqueueAction(AirAttack());
             }
             else if (collision.IsTouching(BackRange.GetComponent<Collider2D>()))
             {
@@ -152,6 +162,8 @@ public class ArmadiloPattern : MonoBehaviour
             }
         }
     }
+
+
 
     private IEnumerator ProcessActions()
     {
@@ -185,15 +197,16 @@ public class ArmadiloPattern : MonoBehaviour
         {
             Stomp();
         }
-        else if (gameObject.CompareTag("CatapillarBoss")) // 특정 태그로 구분
+        else if (gameObject.CompareTag("BugBoss")) // 특정 태그로 구분
         {
-            IceStomp();
+            IceAttack();
         }
         else if (gameObject.CompareTag("FrogBoss")) // 특정 태그로 구분
         {
             FrogTounge();
         }
         yield return new WaitForSeconds(2f); // 공격 시간
+
         StartCooldown();
     }
 
@@ -207,9 +220,9 @@ public class ArmadiloPattern : MonoBehaviour
         {
             Angry();
         }
-        else if (gameObject.CompareTag("CatapillarBoss")) // 특정 태그로 구분
+        else if (gameObject.CompareTag("BugBoss")) // 특정 태그로 구분
         {
-            IceDrop();
+            IceShoot();
         }
         else if (gameObject.CompareTag("FrogBoss")) // 특정 태그로 구분
         {
@@ -229,9 +242,9 @@ public class ArmadiloPattern : MonoBehaviour
         {
             Spine();
         }
-        else if (gameObject.CompareTag("CatapillarBoss")) // 특정 태그로 구분
+        else if (gameObject.CompareTag("BugBoss")) // 특정 태그로 구분
         {
-            IceJump();
+            IceDrop();
         }
         else if (gameObject.CompareTag("FrogBoss")) // 특정 태그로 구분
         {
@@ -244,17 +257,20 @@ public class ArmadiloPattern : MonoBehaviour
     private void StartCooldown()
     {
         isExecutingAction = false; // 현재 행동 종료
-        if(rangeState == RangeState.Far || rangeState == RangeState.Air)
+
+        // 공격 후 다시 이동 상태로 전환 (Idle 상태로 두지 않음)
+        if (rangeState == RangeState.Far || rangeState == RangeState.Air || rangeState == RangeState.Back)
         {
             currentState = BossState.Moving;
         }
-        else 
-        { 
-            currentState = BossState.Idle; 
+        else
+        {
+            currentState = BossState.Idle;
         }
-       
+
         StartCoroutine(Cooldown()); // 쿨타임 시작
     }
+
 
 
     private IEnumerator Cooldown()
@@ -262,9 +278,15 @@ public class ArmadiloPattern : MonoBehaviour
         isCooldown = true;
         yield return new WaitForSeconds(cooldownTime);
         isCooldown = false;
+
+        // 쿨타임이 끝나면 다시 공격 가능하도록 트리거
+        if (!isExecutingAction && actionQueue.Count > 0)
+        {
+            StartCoroutine(ProcessActions());
+        }
     }
 
-    
+
     private void Stomp()
     {
         a_stateMachine.TransitionTo(a_stateMachine.a_StompState);
@@ -369,20 +391,20 @@ public class ArmadiloPattern : MonoBehaviour
         return new Vector2(randomX, randomY);
     }
 
-    private void IceStomp()
+    private void IceAttack()
     {
-        c_stateMachine.TransitionTo(c_stateMachine.c_StompState);
+        c_stateMachine.TransitionTo(c_stateMachine.b_AttackState);
     }
 
     private void IceDrop()
     {
-        c_stateMachine.TransitionTo(c_stateMachine.c_DropState);
+        c_stateMachine.TransitionTo(c_stateMachine.b_DropState);
         StartCoroutine(IceDropEffects());
     }
 
-    private void IceJump()
+    private void IceShoot()
     {
-        c_stateMachine.TransitionTo(c_stateMachine.c_JumpState);
+        c_stateMachine.TransitionTo(c_stateMachine.b_ShootState);
         StartCoroutine(IceJumpEffects());
     }
     

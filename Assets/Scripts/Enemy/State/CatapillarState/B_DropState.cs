@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class C_DropState : IState
+public class B_DropState : IState
 {
     BaseEnemy enemy;
-    public C_DropState(BaseEnemy enemy)
+    public B_DropState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }

@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class C_JumpState : IState
+public class B_AttackState : IState
 {
     BaseEnemy enemy;
-    public C_JumpState(BaseEnemy enemy)
+    public B_AttackState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }
     public void Enter()
     {
-        enemy.GetComponent<Animator>().SetTrigger("Jump");
+        enemy.GetComponent<Animator>().SetTrigger("Attack");
     }
 
     public void Exit()

@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class C_StompState : IState
+public class B_ShootState : IState
 {
     BaseEnemy enemy;
-    public C_StompState(BaseEnemy enemy)
+    public B_ShootState(BaseEnemy enemy)
     {
         this.enemy = enemy;
     }
     public void Enter()
     {
-        enemy.GetComponent<Animator>().SetTrigger("Stomp");
+        enemy.GetComponent<Animator>().SetTrigger("Shoot");
     }
 
     public void Exit()

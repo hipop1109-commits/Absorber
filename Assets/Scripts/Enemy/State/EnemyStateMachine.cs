@@ -14,9 +14,9 @@ public class EnemyStateMachine
     public A_AngryState a_AngryState;
     public A_StompState a_StompState;
     public A_SpineState a_SpineState;
-    public C_StompState c_StompState;
-    public C_DropState c_DropState;
-    public C_JumpState c_JumpState;
+    public B_AttackState b_AttackState;
+    public B_DropState b_DropState;
+    public B_ShootState b_ShootState;
     public F_JumpState f_JumpState;
     public F_ToungeState f_ToungeState;
     public F_SpwanState f_SpwanState;
@@ -32,9 +32,9 @@ public class EnemyStateMachine
         a_AngryState = new A_AngryState(enemy);
         a_StompState = new A_StompState(enemy);
         a_SpineState = new A_SpineState(enemy);
-        c_StompState = new C_StompState(enemy);
-        c_DropState = new C_DropState(enemy);
-        c_JumpState = new C_JumpState(enemy);
+        b_AttackState = new B_AttackState(enemy);
+        b_DropState = new B_DropState(enemy);
+        b_ShootState = new B_ShootState(enemy);
         f_JumpState = new F_JumpState(enemy);
         f_ToungeState = new F_ToungeState(enemy);
         f_SpwanState = new F_SpwanState(enemy);
