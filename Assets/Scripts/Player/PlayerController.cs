@@ -161,7 +161,9 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
         isDie = true;
-
+        //게임 오버 패널 활성화
+        GameManager.Instance.ShowGameOverPanel();
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.GameOver);
     }
 
 
