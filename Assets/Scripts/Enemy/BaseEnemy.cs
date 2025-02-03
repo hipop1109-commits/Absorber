@@ -76,11 +76,13 @@ public abstract class BaseEnemy : MonoBehaviour
         if (hp <= 0)
         {
             Die();
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyDie);
             Debug.Log("Die");
         }
         else
         {
             stateMachine.TransitionTo(stateMachine.hitState);
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyHurt);
             Debug.Log($"{gameObject.name} 체력: {hp}");
         }
     }

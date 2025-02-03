@@ -163,6 +163,7 @@ public class PlayerController : MonoBehaviour
         isDie = true;
         //게임 오버 패널 활성화
         GameManager.Instance.ShowGameOverPanel();
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.GameOver);
     }
 
 
