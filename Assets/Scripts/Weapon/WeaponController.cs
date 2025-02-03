@@ -133,7 +133,7 @@ public class WeaponController : MonoBehaviour
         if (DialogueTrigger.isDialogueActive) return;
         isAbsorbing = true;
         AbsorbRange.SetActive(true);
-        AudioManager.Instance.PlayLoopSound(AudioManager.AudioType.WeaponAbsorb);
+        AudioManager.Instance.PlayLoopSound(AudioManager.AudioType.WeaponAbsorb);               
 
     }
 

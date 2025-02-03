@@ -14,7 +14,8 @@ public class SceneController : MonoBehaviour
         DessertNormalScene,
         DessertBossScene,
         SnowNormalScene,
-        SnowBossScene
+        SnowBossScene,
+        LoadingScene
     }
 
     private static Dictionary<Scenes, Vector2> spawnPositions = new Dictionary<Scenes, Vector2>()

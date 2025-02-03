@@ -396,15 +396,30 @@ public class PlayerController : MonoBehaviour
     // 포션을 3초 뒤에 먹을 수 있도록 하는 코루틴
     private IEnumerator ConsumePotionAfterDelay(GameObject potion)
     {
-        // 3초 기다림
         yield return new WaitForSeconds(3f);
 
+        // 포션이 삭제되지 않았는지 확인
+        if (potion == null)
+        {
+            Debug.LogWarning("포션이 삭제되었습니다!");
+            yield break; // 코루틴 중단
+        }
+
         // 포션 먹기
-        int healAmount = potion.GetComponent<HealPotion>().HealAmount;
+        HealPotion healPotion = potion.GetComponent<HealPotion>();
+        if (healPotion == null)
+        {
+            Debug.LogWarning("포션의 HealPotion 컴포넌트가 없습니다!");
+            yield break; // 코루틴 중단
+        }
+
+        int healAmount = healPotion.HealAmount;
         player.Heal(healAmount);
         stateMachine.TransitionTo(stateMachine.healState);
         AudioManager.Instance.PlaySound(AudioManager.AudioType.Get);
-        Destroy(potion); // 포션 오브젝트 제거
+
+        // 포션 오브젝트 제거
+        Destroy(potion);
     }
 
 }
