@@ -7967,19 +7967,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1173956807}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1163436006}
-        m_TargetAssemblyTypeName: SkillDisplayer, Assembly-CSharp
-        m_MethodName: OpenSkillMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1173956807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12212,6 +12200,18 @@ MonoBehaviour:
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
     IsHidden: 0
+  - Type: 0
+    Name: 
+    GameObject: {fileID: 900661744}
+    Ordinal: 14
+    Priority: 0
+    IconType: 161000
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 3000
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
 --- !u!4 &1680095713
 Transform:
   m_ObjectHideFlags: 0
@@ -14694,6 +14694,8 @@ MonoBehaviour:
     audioSource: {fileID: 38459290}
   - type: 9
     audioSource: {fileID: 220979559}
+  - type: 9
+    audioSource: {fileID: 220979559}
 --- !u!4 &1995635538
 Transform:
   m_ObjectHideFlags: 0
@@ -15748,6 +15750,7 @@ SceneRoots:
   - {fileID: 643713973}
   - {fileID: 323669134}
   - {fileID: 248228658}
+  - {fileID: 900661749}
   - {fileID: 459371649}
   - {fileID: 1163436009}
   - {fileID: 206863786}
@@ -15758,4 +15761,3 @@ SceneRoots:
   - {fileID: 303852808}
   - {fileID: 259122564}
   - {fileID: 1680095713}
-  - {fileID: 900661749}
