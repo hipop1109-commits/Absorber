@@ -2883,9 +2883,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543aeb99bfbc9fe488051817ea541394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupCanvas: {fileID: 0}
   lifeDisplayer: {fileID: 1483750592}
   life: 10
+  gameOverPanel: {fileID: 0}
 --- !u!4 &459371649
 Transform:
   m_ObjectHideFlags: 0
@@ -7397,6 +7397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4110106487841013303, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
     - target: {fileID: 8587632742449647423, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.099957
