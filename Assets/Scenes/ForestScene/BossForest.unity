@@ -46947,6 +46947,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 210168308492484331, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 670427563339822232, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374819913891031981, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1390815947396272997, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3484662065280458730, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_Name
       value: FrogBoss
@@ -46994,6 +47010,14 @@ PrefabInstance:
     - target: {fileID: 4935368326368158916, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210358215764434822, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473639107817973735, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
