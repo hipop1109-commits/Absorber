@@ -6,8 +6,8 @@ public class AudioManager : MonoBehaviour
     // 재생 가능한 오디오 타입 열거형 정의
     public enum AudioType
     {
-        PlayerWalk, PlayerJump, PlayerDash, PlayerDie,
-        PlayerWaterAttack, PlayerShootAttack, PlayerBombAttack, PlayerBomb,
+        PlayerWalk, PlayerJump, PlayerDash, PlayerDie, PlayerHeal,
+        PlayerWaterAttack, PlayerShootAttack, PlayerBombAttack, PlayerBomb, PlayerHealThrow,
         WeaponChange, WeaponAbsorb,
         Get,
         GameOver, GameClear,

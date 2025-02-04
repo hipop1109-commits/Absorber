@@ -375,6 +375,7 @@ public class WeaponController : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
             GameObject Heal = Instantiate(HealPrefab, firePoint.position, firePoint.rotation);
+            AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerHealThrow);
 
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = Heal.GetComponent<Rigidbody2D>();
