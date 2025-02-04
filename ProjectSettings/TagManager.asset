@@ -34,8 +34,8 @@ TagManager:
   - Enemy
   - Attack
   - Player
-  - 
-  - 
+  - PlayerAttack
+  - Range
   - 
   - 
   - 

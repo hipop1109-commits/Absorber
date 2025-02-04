@@ -6939,7 +6939,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 210168308492484331, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 949582083716353503, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6959,7 +6959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1374819913891031981, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1390815947396272997, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_Layer
@@ -6986,8 +6986,12 @@ PrefabInstance:
       value: FrogBoss
       objectReference: {fileID: 0}
     - target: {fileID: 3484662065280458730, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484662065280458730, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3613537629060478886, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7071,7 +7075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8210358215764434822, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8220660510868603660, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7079,7 +7083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8473639107817973735, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8950456108139343827, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12342,7 +12346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1125893217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12356,7 +12360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossLifeBar: {fileID: 1972629892}
-  bossEnemy: {fileID: 1670741129}
+  bossEnemy: {fileID: 1505164008}
 --- !u!114 &1125893218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15309,6 +15313,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497303748}
   m_CullTransparentMesh: 1
+--- !u!114 &1505164008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1984311573718984238, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+  m_PrefabInstance: {fileID: 673207511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429a83e8f3240654890243a3da033b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1505164010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4103895694271575070, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+  m_PrefabInstance: {fileID: 673207511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7038dc6156c6c064cb63f11ccda68acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1505822708
 GameObject:
   m_ObjectHideFlags: 0
@@ -19960,7 +19986,7 @@ PrefabInstance:
     - target: {fileID: 6454038897078364231, guid: 90d26e7f6af48244e9abcfd86f1a9950, type: 3}
       propertyPath: boss
       value: 
-      objectReference: {fileID: 1670741132}
+      objectReference: {fileID: 1505164010}
     - target: {fileID: 6454038897078364231, guid: 90d26e7f6af48244e9abcfd86f1a9950, type: 3}
       propertyPath: bossLifeDisplayer
       value: 
