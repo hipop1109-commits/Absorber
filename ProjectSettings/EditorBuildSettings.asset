@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 42c5311d135767942ad86d60dcaeb4b7
+  - enabled: 1
     path: Assets/Scenes/TutorialScene/DialougeScene.unity
     guid: 2c5d49ef28886d640897dbb0cd6bb617
   - enabled: 1
@@ -26,9 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IceScene/SnowNormalScene.unity
     guid: 66f06183a2f96aa428a94b9c3ccbc69e
-  - enabled: 0
-    path: Assets/Scenes/IceScene/SnowNormalScene2.unity
-    guid: c50aa955bf559e0498fdc110ddff474f
+  - enabled: 1
+    path: Assets/Scenes/IceScene/SnowBossScene.unity
+    guid: 95921062870b8f946b2a6e4ed741de20
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: e0826c2ce321d5f42b6fdd5b3aad6670
