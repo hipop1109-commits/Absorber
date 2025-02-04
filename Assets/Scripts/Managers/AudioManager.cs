@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
     public enum AudioType
     {
         PlayerWalk, PlayerJump, PlayerDash, PlayerDie, PlayerHeal,
-        PlayerWaterAttack, PlayerShootAttack, PlayerBombAttack, PlayerBomb,
+        PlayerWaterAttack, PlayerShootAttack, PlayerBombAttack, PlayerBomb, PlayerHealThrow,
         WeaponChange, WeaponAbsorb,
         Get,
         GameOver, GameClear,

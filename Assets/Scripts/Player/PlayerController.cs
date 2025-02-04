@@ -419,7 +419,8 @@ public class PlayerController : MonoBehaviour
         int healAmount = healPotion.HealAmount;
         player.Heal(healAmount);
         stateMachine.TransitionTo(stateMachine.healState);
-        AudioManager.Instance.PlaySound(AudioManager.AudioType.Get);
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerHeal);
+        Debug.Log("heal sound");
 
         // 포션 오브젝트 제거
         Destroy(potion);
