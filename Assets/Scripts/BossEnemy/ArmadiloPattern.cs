@@ -23,10 +23,7 @@ public class ArmadiloPattern : MonoBehaviour
     [SerializeField] private GameObject[] StompEffect;
     [SerializeField] private float effectDuration = 0.33f;
 
-    [SerializeField] private GameObject IceSpinePrefab;
-    [SerializeField] private GameObject[] IceAttackEffect;
-    [SerializeField] private BoxCollider2D spineSpawnArea;
-
+    [SerializeField] private GameObject IceJumpEffect;
 
     [SerializeField] private GameObject FrogJumpEffect;
 
@@ -38,7 +35,6 @@ public class ArmadiloPattern : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints; // 가시 발사 지점
     [SerializeField] private float fireRate = 0.5f; // 가시 발사 간격
     [SerializeField] private int totalSpines = 5;
-
 
     private Animator ani;
     private bool isTransitioning = false;
@@ -64,7 +60,7 @@ public class ArmadiloPattern : MonoBehaviour
         {
             a_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
-        else if (gameObject.CompareTag("BugBoss")) // 이름이 "Armadillo"인 경우
+        else if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
         {
             b_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
@@ -86,12 +82,8 @@ public class ArmadiloPattern : MonoBehaviour
             effect.SetActive(false);
         }
 
-        if (gameObject.CompareTag("CatapillarBoss")) {
-            foreach (var effect in IceAttackEffect)
-            {
-                effect.SetActive(false);
-            }
-        }
+        if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
+            IceJumpEffect.SetActive(false);
 
         if (gameObject.CompareTag("FrogBoss")) // 이름이 "Armadillo"인 경우
             FrogJumpEffect.SetActive(false);
@@ -101,16 +93,9 @@ public class ArmadiloPattern : MonoBehaviour
     {
         if (currentState == BossState.Moving)
         {
-            ani.ResetTrigger("Idle");
             ani.SetTrigger("Walk");
         }
-        else if (currentState == BossState.Idle)
-        {
-            ani.ResetTrigger("Walk");
-            ani.SetTrigger("Idle");
-        }
     }
-
 
     private void FixedUpdate()
     {
@@ -124,10 +109,8 @@ public class ArmadiloPattern : MonoBehaviour
     {
         if (rangeState == RangeState.Back || rangeState == RangeState.Far || rangeState == RangeState.Air)
         {
-            if (currentState != BossState.Moving)
-            {
-                currentState = BossState.Moving;
-            }
+            currentState = BossState.Moving;
+
             // 플레이어를 따라가며 방향 전환
             direction = (playerTransform.position - transform.position).normalized;
             rb.linearVelocity = direction * moveSpeed;
@@ -356,56 +339,19 @@ public class ArmadiloPattern : MonoBehaviour
 
     }
 
-    private IEnumerator IceAttackEffects()
+    private IEnumerator IceJumpEffects()
     {
-        foreach (var effect in IceAttackEffect)
-        {
-            // 이펙트 활성화
-            effect.SetActive(true);
-            // 설정한 시간 동안 활성 상태 유지
-            yield return new WaitForSeconds(0.5f);
-            effect.SetActive(false); // 효과 비활성화
-        }
+            IceJumpEffect.SetActive(true);
+            yield return new WaitForSeconds(1.5f); // 효과 지속 시간
+            IceJumpEffect.SetActive(false); // 효과 비활성화
     }
 
     private IEnumerator IceDropEffects()
     {
-        int spineCount = Random.Range(15, 20); // 랜덤 개수 설정 (예: 3~7개)
-
-        for (int i = 0; i < spineCount; i++)
-        {
-            Vector2 randomPosition = GetRandomPositionInSpineArea();
-            GameObject spine = Instantiate(IceSpinePrefab, randomPosition, Quaternion.identity);
-
-            Rigidbody2D rb = spine.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.down * Random.Range(3f, 6f); // 랜덤한 속도로 떨어지게 설정
-            }
-
-            Destroy(spine, 5f);
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f)); // 랜덤한 간격으로 생성
-        }
+        IceJumpEffect.SetActive(true);
+        yield return new WaitForSeconds(1.5f); // 효과 지속 시간
+        IceJumpEffect.SetActive(false); // 효과 비활성화
     }
-
-    private Vector2 GetRandomPositionInSpineArea()
-    {
-        if (spineSpawnArea == null)
-        {
-            Debug.LogError("Spine Spawn Area가 설정되지 않았습니다!");
-            return Vector2.zero;
-        }
-
-        Vector2 center = spineSpawnArea.bounds.center;
-        Vector2 size = spineSpawnArea.bounds.size;
-
-        float randomX = Random.Range(center.x - size.x / 2, center.x + size.x / 2);
-        float randomY = Random.Range(center.y - size.y / 2, center.y + size.y / 2);
-
-        return new Vector2(randomX, randomY);
-    }
-
-
 
     private IEnumerator FrogJumpEffects()
     {
@@ -448,7 +394,6 @@ public class ArmadiloPattern : MonoBehaviour
     private void IceAttack()
     {
         b_stateMachine.TransitionTo(b_stateMachine.b_AttackState);
-        StartCoroutine(IceAttackEffects());
     }
 
     private void IceDrop()
@@ -459,6 +404,18 @@ public class ArmadiloPattern : MonoBehaviour
 
     private void IceShoot()
     {
+        if (b_stateMachine == null)
+        {
+            Debug.LogError("b_stateMachine이 null입니다! IceShoot 실행 불가.");
+            return;
+        }
+
+        if (b_stateMachine.b_ShootState == null)
+        {
+            Debug.LogError("b_ShootState이 null입니다! 상태 전환 불가.");
+            return;
+        }
+
         b_stateMachine.TransitionTo(b_stateMachine.b_ShootState);
     }
 

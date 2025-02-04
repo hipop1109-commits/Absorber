@@ -639,13 +639,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619407351}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 4.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 655742399}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 492, y: -61}
@@ -679,7 +679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3066368160729659664, guid: bf7bc2074c3da28408ecd9ab0802fa2e, type: 3}
+  m_Sprite: {fileID: 7500124953959912266, guid: 4c0c1f02ec1f53246a4183463005b9a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -923,9 +923,6 @@ MonoBehaviour:
   npcImage: {fileID: 619407354}
   leftTextBox: {fileID: 1002174268}
   rightTextBox: {fileID: 319719680}
-  fadeImage: {fileID: 0}
-  fadeDuration: 1.5
-  EndingPopup: {fileID: 0}
 --- !u!4 &736530144
 Transform:
   m_ObjectHideFlags: 0
