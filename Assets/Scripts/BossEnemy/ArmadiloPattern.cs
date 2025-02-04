@@ -46,7 +46,7 @@ public class ArmadiloPattern : MonoBehaviour
     [SerializeField] private float cooldownTime = 3f;
     public PlayerController player;
     public EnemyStateMachine a_stateMachine;
-    public EnemyStateMachine c_stateMachine;
+    public EnemyStateMachine b_stateMachine;
     public EnemyStateMachine f_stateMachine;
 
     [SerializeField] private GameObject PlayerEnter;
@@ -62,7 +62,7 @@ public class ArmadiloPattern : MonoBehaviour
         }
         else if (gameObject.CompareTag("CatapillarBoss")) // 이름이 "Armadillo"인 경우
         {
-            c_stateMachine = GetComponent<BaseEnemy>().stateMachine;
+            b_stateMachine = GetComponent<BaseEnemy>().stateMachine;
         }
         else if (gameObject.CompareTag("FrogBoss")) // 이름이 "Armadillo"인 경우
         {
@@ -393,22 +393,34 @@ public class ArmadiloPattern : MonoBehaviour
 
     private void IceAttack()
     {
-        c_stateMachine.TransitionTo(c_stateMachine.b_AttackState);
+        b_stateMachine.TransitionTo(b_stateMachine.b_AttackState);
     }
 
     private void IceDrop()
     {
-        c_stateMachine.TransitionTo(c_stateMachine.b_DropState);
+        b_stateMachine.TransitionTo(b_stateMachine.b_DropState);
         StartCoroutine(IceDropEffects());
     }
 
     private void IceShoot()
     {
-        c_stateMachine.TransitionTo(c_stateMachine.b_ShootState);
-        StartCoroutine(IceJumpEffects());
+        if (b_stateMachine == null)
+        {
+            Debug.LogError("b_stateMachine이 null입니다! IceShoot 실행 불가.");
+            return;
+        }
+
+        if (b_stateMachine.b_ShootState == null)
+        {
+            Debug.LogError("b_ShootState이 null입니다! 상태 전환 불가.");
+            return;
+        }
+
+        b_stateMachine.TransitionTo(b_stateMachine.b_ShootState);
     }
-    
-    
+
+
+
     private void FrogJump()
     {
         f_stateMachine.TransitionTo(f_stateMachine.f_JumpState);
