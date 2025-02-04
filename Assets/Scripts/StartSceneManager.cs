@@ -4,6 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneManager : MonoBehaviour
 {
+    private void Start()
+    {
+        DisableSingletons();
+    }
+
+    private void OnDestroy()
+    {
+        EnableSingletons(); // æ¿ ∂∞≥Ø ∂ß ΩÃ±€≈Ê ¥ŸΩ√ »∞º∫»≠
+    }
     public void OnClickResentGameStart()
     {
         SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
@@ -18,5 +27,17 @@ public class StartSceneManager : MonoBehaviour
     public void OnClickQuit()
     {
         Application.Quit();
+    }
+
+    private void DisableSingletons()
+    {
+        if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(false);
+        if (SkillUIManager.Instance != null) SkillUIManager.Instance.gameObject.SetActive(false);
+    }
+
+    private void EnableSingletons()
+    {
+        if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(true);
+        if (SkillUIManager.Instance != null) SkillUIManager.Instance.gameObject.SetActive(true);
     }
 }

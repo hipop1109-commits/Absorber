@@ -1591,6 +1591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f79f5d72609291448bac9e62035f854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveMessage: {fileID: 0}
 --- !u!114 &168763527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3390,7 +3391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6000236788259992069, guid: eb6ee9a7f77b7b64e800d5b24ebdca53, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8306370792118651571, guid: eb6ee9a7f77b7b64e800d5b24ebdca53, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3463,17 +3464,6 @@ MonoBehaviour:
   damage: 10
   itemPrefab: {fileID: 7548755192223622589, guid: 83aad3daec26a4f9d9d83ec3614d2320, type: 3}
   playerController: {fileID: 0}
---- !u!114 &312011067 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5780970330457445376, guid: eb6ee9a7f77b7b64e800d5b24ebdca53, type: 3}
-  m_PrefabInstance: {fileID: 312011061}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 312011062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7038dc6156c6c064cb63f11ccda68acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &313384324
 GameObject:
   m_ObjectHideFlags: 0
@@ -7105,7 +7095,10 @@ PrefabInstance:
     - {fileID: 7842392897948409719, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
     - {fileID: 3799216876985536025, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4935368326368158916, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 755910343}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
 --- !u!1 &686662488
@@ -9361,6 +9354,97 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753835066}
   m_CullTransparentMesh: 1
+--- !u!1 &755910342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 755910343}
+  - component: {fileID: 755910344}
+  - component: {fileID: 755910345}
+  m_Layer: 8
+  m_Name: Hit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &755910343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755910342}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 96, y: -40.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1586334012}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &755910344
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755910342}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.34697342, y: 0.02727127}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 23.553246, y: 22.566868}
+  m_EdgeRadius: 0
+--- !u!114 &755910345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755910342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19749eabb81eceb45a45e263c7a27122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &763330344
 GameObject:
   m_ObjectHideFlags: 0
@@ -12272,7 +12356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossLifeBar: {fileID: 1972629892}
-  bossEnemy: {fileID: 312011064}
+  bossEnemy: {fileID: 1670741129}
 --- !u!114 &1125893218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14780,6 +14864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f79f5d72609291448bac9e62035f854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveMessage: {fileID: 0}
 --- !u!4 &1422278457
 Transform:
   m_ObjectHideFlags: 0
@@ -16325,6 +16410,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577318731}
   m_CullTransparentMesh: 1
+--- !u!4 &1586334012 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4935368326368158916, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+  m_PrefabInstance: {fileID: 673207511}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1598568953
 GameObject:
   m_ObjectHideFlags: 0
@@ -18291,7 +18381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 248703180}
-  overSound: {fileID: 1517845049}
+  startButtonOverSound: {fileID: 0}
+  buttonOverSound: {fileID: 0}
+  sliderSound: {fileID: 0}
   audios:
   - type: 0
     audioSource: {fileID: 1150128963}
@@ -19868,7 +19960,7 @@ PrefabInstance:
     - target: {fileID: 6454038897078364231, guid: 90d26e7f6af48244e9abcfd86f1a9950, type: 3}
       propertyPath: boss
       value: 
-      objectReference: {fileID: 312011067}
+      objectReference: {fileID: 1670741132}
     - target: {fileID: 6454038897078364231, guid: 90d26e7f6af48244e9abcfd86f1a9950, type: 3}
       propertyPath: bossLifeDisplayer
       value: 

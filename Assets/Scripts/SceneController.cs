@@ -15,6 +15,7 @@ public class SceneController : MonoBehaviour
         DessertBossScene,
         SnowNormalScene,
         SnowBossScene,
+        EndingScene,
         LoadingScene
     }
 

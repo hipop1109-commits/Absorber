@@ -17,9 +17,7 @@ public class MenuDisplayer : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
 
     private bool isGamePaused = false;
-    private bool isFullScreen = Screen.fullScreen;
-
-
+    
     // 메뉴 내부 패널
     [SerializeField]private GameObject savePanel;  
     [SerializeField]private GameObject videoPanel;
@@ -48,6 +46,9 @@ public class MenuDisplayer : MonoBehaviour
     // 세이브 슬롯 텍스트
     [SerializeField] private TextMeshProUGUI saveSlotText;
     private SaveManager saveManager;
+
+    private bool isFullScreen;
+
     public static MenuDisplayer instance { get; private set; }
 
     private void Awake()
@@ -62,7 +63,7 @@ public class MenuDisplayer : MonoBehaviour
             Destroy(gameObject);
         }
 
-        isFullScreen = Screen.fullScreen;
+        bool isFullScreen = Screen.fullScreen;
     }
     private void OnEnable()
     {
