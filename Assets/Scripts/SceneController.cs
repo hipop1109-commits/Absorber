@@ -26,7 +26,7 @@ public class SceneController : MonoBehaviour
         { Scenes.DessertNormalScene, new Vector2(196.2f, -3.3f) },
         { Scenes.DessertBossScene, new Vector2(131.6f, -4f) },
         { Scenes.SnowNormalScene, new Vector2(1076, 51) },
-        { Scenes.SnowBossScene, new Vector2(1645, 23) }
+        { Scenes.SnowBossScene, new Vector2(1900, -92) }
     };
 
     // 스테이지 추적 변수 
