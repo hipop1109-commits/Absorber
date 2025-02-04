@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        player = new Player(100, 30f, 1f, 0.5f);
-        Debug.Log("player : " + player);
+        //hp, dashSpeed, dashCooldown, dashDuration
+        player = new Player(100, 30f, 5f, 0.5f);
 
         // 상태 머신 초기화
         stateMachine = new StateMachine(this);
