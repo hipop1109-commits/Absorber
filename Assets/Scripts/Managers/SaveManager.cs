@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SaveManager : Singleton<SaveManager>
 {
@@ -23,9 +24,11 @@ public class SaveManager : Singleton<SaveManager>
     private Player player;
     private MenuDisplayer menuDisplayer;
 
+    [SerializeField] private GameObject saveMessage;
+
     private void Start()
     {
-        savePath = Application.persistentDataPath + "/saveSlot.json";
+        savePath = Application.persistentDataPath + "/saveSlot.json"; // 저장 경로 설정
     }
     // 게임 세이브
     public void SaveGame()
@@ -43,12 +46,22 @@ public class SaveManager : Singleton<SaveManager>
             currentScene = SceneManager.GetActiveScene().name
         };
 
-        string json = JsonUtility.ToJson(saveData);
-        File.WriteAllText(savePath, json);  
+        string json = JsonUtility.ToJson(saveData); // 데이터를 JSON 형식으로 변환
+        File.WriteAllText(savePath, json);  // 파일로 저장
 
-        Debug.Log("Game Saved: " + savePath);
+        Debug.Log("Game Saved: " + savePath); // 저장 로그 출력
 
         menuDisplayer = FindObjectOfType<MenuDisplayer>();
+
+        if (saveMessage != null) // 세이브 메세지 출력
+            StartCoroutine(ShowSaveMessage());
+    }
+    // 세이브 메세지 출력
+    private IEnumerator ShowSaveMessage()
+    {
+        saveMessage.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        saveMessage.SetActive(false);
     }
     // 게임로드
     public SaveData LoadGame()
@@ -56,7 +69,7 @@ public class SaveManager : Singleton<SaveManager>
         if(File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);
-            return JsonUtility.FromJson<SaveData>(json);
+            return JsonUtility.FromJson<SaveData>(json); // JSON을 객체로 변환
         }
 
         Debug.LogWarning("세이브 파일없어요");
@@ -72,8 +85,8 @@ public class SaveManager : Singleton<SaveManager>
 
             if (saveData.currentScene != currentScene)
             {
-                SceneManager.LoadScene(saveData.currentScene);
-                StartCoroutine(WaitAndLoadData(saveData));
+                SceneManager.LoadScene(saveData.currentScene); // 다른 씬이면 해당 씬으로 변경
+                StartCoroutine(WaitAndLoadData(saveData)); 
             }
             else
             {
@@ -81,6 +94,7 @@ public class SaveManager : Singleton<SaveManager>
             }
         }
     }
+    // 씬 변경 후 데이터 로드
     private IEnumerator WaitAndLoadData(SaveData saveData)
     {
         // 씬이 로드될 때까지 기다림
