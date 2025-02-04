@@ -1,7 +1,10 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+#if UNITY_EDITOR
+using UnityEditor.Experimental.GraphView;
+#endif
 
 public class RopeActive : MonoBehaviour
 {

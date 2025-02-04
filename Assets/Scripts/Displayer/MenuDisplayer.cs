@@ -4,9 +4,12 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEditor.Overlays;
 using UnityEngine.Audio;
+
+#if UNITY_EDITOR
+using UnityEditor.Overlays;
 using UnityEditor.ShaderGraph.Internal;
+#endif
 
 public class MenuDisplayer : MonoBehaviour
 {
