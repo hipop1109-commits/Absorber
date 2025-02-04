@@ -4,8 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneManager : MonoBehaviour
 {
+    private MenuDisplayer mDisplayer;
+    private GameObject menuPanel;
     private void Start()
     {
+        mDisplayer = FindFirstObjectByType<MenuDisplayer>();
+        menuPanel = mDisplayer.transform.Find("MenuPanel")?.gameObject;
         DisableSingletons();
     }
 
@@ -13,6 +17,8 @@ public class StartSceneManager : MonoBehaviour
     {
         EnableSingletons(); // æ¿ ∂∞≥Ø ∂ß ΩÃ±€≈Ê ¥ŸΩ√ »∞º∫»≠
     }
+
+
     public void OnClickResentGameStart()
     {
         SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
@@ -23,12 +29,16 @@ public class StartSceneManager : MonoBehaviour
     {
         SceneController.LoadNextScene();
     }
-    // ∏ﬁ¥∫ ∆–≥Œ ¥›±‚
+
     public void OnClickQuit()
     {
         Application.Quit();
     }
 
+    public void OnClickSetting()
+    {
+        menuPanel.gameObject.SetActive(true);
+    }
     private void DisableSingletons()
     {
         if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(false);
