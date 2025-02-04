@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     public StateMachine stateMachine; // 캐릭터의 상태를 관리할 상태 머신
     RopeActive grappling;
+
     public static PlayerController instance { get; private set; }
 
     private void Awake()
@@ -117,6 +118,11 @@ public class PlayerController : MonoBehaviour
         SceneController.Scenes currentScene = (SceneController.Scenes)System.Enum.Parse(typeof(SceneController.Scenes), scene.name);
         Vector2 spawnPosition = SceneController.GetSpawnPosition(currentScene);
         transform.position = spawnPosition; // 새 씬에서 위치 설정
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     // 플레이어가 데미지를 받을 때

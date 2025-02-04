@@ -6116,7 +6116,7 @@ GameObject:
   - component: {fileID: 280232727}
   - component: {fileID: 280232726}
   - component: {fileID: 280232725}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Concept enemy icon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -14457,7 +14457,7 @@ GameObject:
   - component: {fileID: 798132280}
   - component: {fileID: 798132279}
   - component: {fileID: 798132278}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Concept enemy icon (1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -41916,7 +41916,7 @@ GameObject:
   - component: {fileID: 2098531855}
   - component: {fileID: 2098531854}
   - component: {fileID: 2098531853}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Concept enemy icon (2)
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -7,6 +7,12 @@ public class LoadingSceneManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(LoadScene());
+        DisableSingletons();
+    }
+
+    private void OnDestroy()
+    {
+        EnableSingletons(); // 씬 떠날 때 싱글톤 다시 활성화
     }
 
     static public IEnumerator LoadScene()
@@ -20,5 +26,15 @@ public class LoadingSceneManager : MonoBehaviour
         yield return new WaitForSeconds(RandomTime); // 로딩 시간 연출 (페이드 효과 가능)
 
         SceneManager.LoadScene(nextScene); // 대상 씬 로드
+    }
+
+    private void DisableSingletons()
+    {
+        if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(false);
+    }
+
+    private void EnableSingletons()
+    {
+        if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(true);
     }
 }

@@ -10,33 +10,41 @@ public class Dialouge : MonoBehaviour
     [System.Serializable]
     public class DialogueLine
     {
-        public string speaker; // "Protagonist" ¶Ç´Â "NPC"
-        public string text;    // ´ëÈ­ ³»¿ë
+        public string speaker; // "Protagonist" ï¿½Ç´ï¿½ "NPC"
+        public string text;    // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     }
 
-    public List<DialogueLine> dialogueLines; // ´ëÈ­ µ¥ÀÌÅÍ
+    public List<DialogueLine> dialogueLines; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    public Image protagonistImage; // ÁÖÀÎ°ø ÀÌ¹ÌÁö
+    public Image protagonistImage; // ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
     public Image npcImage;
-    public TMP_Text leftTextBox;  // ÁÖÀÎ°ø ´ëÈ­ TMP ¹Ú½º
-    public TMP_Text rightTextBox; // »ó´ë¹æ ´ëÈ­ TMP ¹Ú½º
+    public TMP_Text leftTextBox;  // ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½È­ TMP ï¿½Ú½ï¿½
+    public TMP_Text rightTextBox; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ TMP ï¿½Ú½ï¿½
 
-    private int currentLineIndex = 0; // ÇöÀç ´ëÈ­ ÀÎµ¦½º
+    private int currentLineIndex = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½Îµï¿½ï¿½ï¿½
+
+    public Image fadeImage; // È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+    public float fadeDuration = 1.5f; // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ã°ï¿½
+    public Canvas EndingPopup;
 
     void Start()
     {
-        ShowDialogueLine(); // Ã¹ ´ëÈ­ Ç¥½Ã
+        ShowDialogueLine(); // Ã¹ ï¿½ï¿½È­ Ç¥ï¿½ï¿½
         DisableSingletons();
+        fadeImage.gameObject.SetActive(false);
+        EndingPopup.gameObject.SetActive(false);
     }
+
+   
 
     private void OnDestroy()
     {
-        EnableSingletons(); // ¾À ¶°³¯ ¶§ ½Ì±ÛÅæ ´Ù½Ã È°¼ºÈ­
+        EnableSingletons(); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ È°ï¿½ï¿½È­
     }
 
     public void OnClickNext()
     {
-        currentLineIndex++; // ´ÙÀ½ ´ëÈ­·Î ÀÌµ¿
+        currentLineIndex++; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ìµï¿½
         if (currentLineIndex < dialogueLines.Count)
         {
             ShowDialogueLine();
@@ -44,39 +52,48 @@ public class Dialouge : MonoBehaviour
         }
         else
         {
-            EndDialogue(); // ´ëÈ­ Á¾·á Ã³¸®
+            EndDialogue(); // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         }
     }
 
     private void ShowDialogueLine()
     {
-        var line = dialogueLines[currentLineIndex]; // ÇöÀç ´ëÈ­ ÁÙ °¡Á®¿À±â
+        var line = dialogueLines[currentLineIndex]; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        // ´ëÈ­ ¹Ú½º ÃÊ±âÈ­
+        // ï¿½ï¿½È­ ï¿½Ú½ï¿½ ï¿½Ê±ï¿½È­
         leftTextBox.text = "";
         rightTextBox.text = "";
 
-        // È­ÀÚ¿¡ µû¶ó ÅØ½ºÆ® Ãâ·Â
+        // È­ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½
         if (line.speaker == "a")
         {
-            protagonistImage.color = Color.white; // ÁÖÀÎ°ø ÀÌ¹ÌÁö ¹à°Ô
-            npcImage.color = new Color(0.5f, 0.5f, 0.5f); // NPC ÀÌ¹ÌÁö ¾îµÓ°Ô
-            leftTextBox.text = line.text; // ÁÖÀÎ°ø ´ëÈ­ ¿ÞÂÊ ¹Ú½º¿¡ Ãâ·Â
+            protagonistImage.color = Color.white; // ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+            npcImage.color = new Color(0.5f, 0.5f, 0.5f); // NPC ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ó°ï¿½
+            leftTextBox.text = line.text; // ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
         else if (line.speaker == "b")
         {
-            protagonistImage.color = new Color(0.5f, 0.5f, 0.5f); // ÁÖÀÎ°ø ÀÌ¹ÌÁö ¾îµÓ°Ô
-            npcImage.color = Color.white; // NPC ÀÌ¹ÌÁö ¹à°Ô
-            rightTextBox.text = line.text; // »ó´ë¹æ ´ëÈ­ ¿À¸¥ÂÊ ¹Ú½º¿¡ Ãâ·Â
+            protagonistImage.color = new Color(0.5f, 0.5f, 0.5f); // ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ó°ï¿½
+            npcImage.color = Color.white; // NPC ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+            rightTextBox.text = line.text; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
     }
 
     private void EndDialogue()
     {
-        // ´ëÈ­ Á¾·á Ã³¸® (¿¹: ÅØ½ºÆ® ¹Ú½º ÃÊ±âÈ­)
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ (ï¿½ï¿½: ï¿½Ø½ï¿½Æ® ï¿½Ú½ï¿½ ï¿½Ê±ï¿½È­)
         leftTextBox.text = "";
         rightTextBox.text = "";
-        SceneController.LoadNextScene();
+        Debug.Log("ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+
+        if (SceneManager.GetActiveScene().name == "EndingScene")
+        {
+            StartCoroutine(FadeOutAndPopScene());
+        }
+        else
+        {
+            SceneController.LoadNextScene();
+        }
     }
 
     private void DisableSingletons()
@@ -89,5 +106,25 @@ public class Dialouge : MonoBehaviour
     {
         if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(true);
         if (UIManager.Instance != null) UIManager.Instance.gameObject.SetActive(true);
+    }
+
+    private IEnumerator FadeOutAndPopScene()
+    {
+        fadeImage.gameObject.SetActive(true);
+        Color color = fadeImage.color;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            color.a = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        color.a = 1f;
+        fadeImage.color = color;
+
+        EndingPopup.gameObject.SetActive(true);
     }
 }
