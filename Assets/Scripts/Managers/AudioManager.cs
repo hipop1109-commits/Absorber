@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     // 버튼 클릭 및 마우스 오버 사운드
     public AudioSource clickSound;
     public AudioSource overSound;
+    public AudioSource sliderSound;
 
 
     [System.Serializable]
@@ -54,13 +55,18 @@ public class AudioManager : MonoBehaviour
     public void ButtonSound()
     {
         clickSound.Play();
-        Debug.Log("버튼 클릭음 재생");
     }
 
     // 버튼 마우스 오버 사운드 재생
     public void ButtonOverSound()
     {
         overSound.Play();
+    }
+
+    // 슬라이드 사운드 재생
+    public void SliderSound()
+    {
+        sliderSound.Play();
     }
 
     // 오디오 딕셔너리 초기화
@@ -78,7 +84,6 @@ public class AudioManager : MonoBehaviour
     {
         if (audioDic.TryGetValue(audioType, out AudioSource audioSource))
         {
-            Debug.Log("소리 재생");
             audioSource.Play(); // 다시 재생
         }
         else

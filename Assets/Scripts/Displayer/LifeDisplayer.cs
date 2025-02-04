@@ -28,7 +28,8 @@ public class LifeDisplayer : MonoBehaviour
 /*        var playerController = FindObjectOfType<PlayerController>();
         if (playerController != null && playerController.player != null)
         {
-            Debug.Log($"PlayerMaxHp: {playerController.player.PlayerMaxHp}");
+            
+        ($"PlayerMaxHp: {playerController.player.PlayerMaxHp}");
         }
         else
         {
@@ -52,12 +53,10 @@ public class LifeDisplayer : MonoBehaviour
             if (i < activeImages)
             {
                 lifeImages[i].SetActive(true);
-                Debug.Log("heal");
             }
             else
             {
                 lifeImages[i].SetActive(false);
-                Debug.Log("damage");
             }
         }
     }

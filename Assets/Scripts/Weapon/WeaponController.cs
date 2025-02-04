@@ -155,7 +155,6 @@ public class WeaponController : MonoBehaviour
 
         if (!isAbsorbing)
         {
-            Debug.Log("isAbsorbing이 false여서 리턴됨");
             return;
         }
         // 태그에 따라 효과 활성화
@@ -213,21 +212,18 @@ public class WeaponController : MonoBehaviour
         {
             RockGauge += FillSpeed * Time.deltaTime;
             RockGauge = Mathf.Clamp(RockGauge, 0, MaxGauge);
-            Debug.Log("돌 게이지: " + RockGauge);
         }
 
         if (isGrassActive)
         {
             GrassGauge += FillSpeed * Time.deltaTime;
             GrassGauge = Mathf.Clamp(GrassGauge, 0, MaxGauge);
-            Debug.Log("풀 게이지: " + GrassGauge);
         }
 
         if (isWaterActive)
         {
             WaterGauge += FillSpeed * Time.deltaTime;
             WaterGauge = Mathf.Clamp(WaterGauge, 0, MaxGauge);
-            Debug.Log("물 게이지: " + WaterGauge);
         }
     }
 
@@ -269,10 +265,8 @@ public class WeaponController : MonoBehaviour
 
     private IEnumerator RockBullet()
     {
-        Debug.Log("발사");
         if (canShoot && RockGauge > 0 && WaterGauge > 0)
         {
-            Debug.Log("발사2");
             WaterGauge -= 1f;
             RockGauge -= 1f;
             GameObject bullet = bulletPool.GetObject(firePoint.position, firePoint.rotation);
@@ -301,10 +295,8 @@ public class WeaponController : MonoBehaviour
 
     private IEnumerator RockBomb()
     {
-        Debug.Log("발사3");
         if (canShoot && RockGauge > 0)
         {
-            Debug.Log("발사2");
             RockGauge -= 5f;
             GameObject Bomb = Instantiate(bombPrefab, firePoint.position, firePoint.rotation);
 
@@ -324,7 +316,6 @@ public class WeaponController : MonoBehaviour
 
     public void RockPlatform()
     {
-        Debug.Log("발사3");
         if (canShoot && RockGauge > 0 && GrassGauge > 0)
         {
             RockGauge -= 5f;
@@ -384,7 +375,6 @@ public class WeaponController : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
             GameObject Heal = Instantiate(HealPrefab, firePoint.position, firePoint.rotation);
-            Debug.Log("Heal : " + Heal);
 
             // 총알의 Rigidbody2D에 속도 추가
             Rigidbody2D rb = Heal.GetComponent<Rigidbody2D>();

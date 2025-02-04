@@ -77,13 +77,11 @@ public abstract class BaseEnemy : MonoBehaviour
         {
             Die();
             AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyDie);
-            Debug.Log("Die");
         }
         else
         {
             stateMachine.TransitionTo(stateMachine.hitState);
             AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyHurt);
-            Debug.Log($"{gameObject.name} 체력: {hp}");
         }
     }
 
@@ -94,7 +92,6 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         //스킬 데미지(TakeDamage는 적에게 닿았을때 체력이 닳는 메서드기 때문에 Attack을 받았을때 조금 더 닳게 함)
         playerController.TakeDamage(damage + 10);
-        Debug.Log("스킬 데미지");
     }
 
     /// <summary>
@@ -104,8 +101,6 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         isDie = true; // 사망 상태 설정
         stateMachine.TransitionTo(stateMachine.dieState);
-        Debug.Log(stateMachine.CurrentState);
-        Debug.Log($"{gameObject.name} 사망");
 
         // 보스 체력 바 비활성화
         BossLifeDisplayer bossLifeDisplayer = GetComponent<BossLifeDisplayer>();

@@ -76,7 +76,6 @@ public class Dialouge : MonoBehaviour
         // 대화 종료 처리 (예: 텍스트 박스 초기화)
         leftTextBox.text = "";
         rightTextBox.text = "";
-        Debug.Log("대화가 끝났습니다.");
         SceneController.LoadNextScene();
     }
 

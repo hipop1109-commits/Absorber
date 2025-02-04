@@ -132,8 +132,6 @@ public class PlayerController : MonoBehaviour
 
             //Player 무적 시간
             Invoke("Invincibility", invincibilityTime);
-
-            Debug.Log($"Player Hp : {player.PlayerHp}");
         }
         if (!player.IsAlive() && !isDie)
         {
@@ -153,11 +151,9 @@ public class PlayerController : MonoBehaviour
         foreach (var enableObject in enableObjects)
         {
             enableObject.SetActive(false);
-            Debug.Log("비활성화");
         }
         stateMachine.TransitionTo(stateMachine.dieState);
         AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerDie);
-        Debug.Log("Player Die");
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
         isDie = true;
@@ -355,7 +351,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("DeadZone"))
         {
             Die();
-            Debug.Log("주금");
         }
     }
 
@@ -391,7 +386,6 @@ public class PlayerController : MonoBehaviour
         // 에너지 코어 드랍 먹기
         if (collision.gameObject.CompareTag("EnergyCore"))
         {
-            Debug.Log("EnergyCore");
             player.GetEnergyCore(1);
             AudioManager.Instance.PlaySound(AudioManager.AudioType.Get);
             Destroy(collision.gameObject);
@@ -412,7 +406,6 @@ public class PlayerController : MonoBehaviour
         // 포션이 삭제되지 않았는지 확인
         if (potion == null)
         {
-            Debug.LogWarning("포션이 삭제되었습니다!");
             yield break; // 코루틴 중단
         }
 
@@ -420,7 +413,6 @@ public class PlayerController : MonoBehaviour
         HealPotion healPotion = potion.GetComponent<HealPotion>();
         if (healPotion == null)
         {
-            Debug.LogWarning("포션의 HealPotion 컴포넌트가 없습니다!");
             yield break; // 코루틴 중단
         }
 

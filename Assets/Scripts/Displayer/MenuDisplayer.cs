@@ -17,6 +17,8 @@ public class MenuDisplayer : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
 
     private bool isGamePaused = false;
+    private bool isFullScreen = Screen.fullScreen;
+
 
     // 메뉴 내부 패널
     [SerializeField]private GameObject savePanel;  
@@ -93,9 +95,19 @@ public class MenuDisplayer : MonoBehaviour
 
         // 리스너 등록
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
-        masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
-        bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
-        sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        masterVolumeSlider.onValueChanged.AddListener((value) => {
+            SetMasterVolume(value);
+            AudioManager.Instance.SliderSound();
+        });
+        bgmVolumeSlider.onValueChanged.AddListener((value) => {
+            SetBGMVolume(value);
+            AudioManager.Instance.SliderSound();
+        });
+        sfxVolumeSlider.onValueChanged.AddListener((value) => {
+            SetSFXVolume(value);
+            AudioManager.Instance.SliderSound();
+        });
+
 
         // 초기 오디오 볼륨 설정
         SetMasterVolume(masterVolumeSlider.value);
@@ -151,6 +163,7 @@ public class MenuDisplayer : MonoBehaviour
     private void AdjustBrightness(float value)
     {
         colorAdjustments.postExposure.value = Mathf.Lerp(-1f, 1f, value);
+        AudioManager.Instance.SliderSound();
     }
     
     // 전체 볼륨 설정
@@ -160,7 +173,6 @@ public class MenuDisplayer : MonoBehaviour
         audioMixer.SetFloat("MasterVolume", dbVolume);
         PlayerPrefs.SetFloat("MasterVolume", volume);
         PlayerPrefs.Save();
-        Debug.Log($"Master Volume Set: {volume} (dB: {dbVolume})");
 
         // 오디오 믹서 값 변경 후 슬라이더 반영
         audioMixer.GetFloat("MasterVolume", out float newDbVolume);
@@ -196,22 +208,17 @@ public class MenuDisplayer : MonoBehaviour
     // 풀스크린 버튼
     public void ToggleFullScreen()
     {
-        Screen.fullScreen = !Screen.fullScreen;
+        isFullScreen = !isFullScreen; // 로컬 변수로 상태 관리
+        Screen.fullScreen = isFullScreen;
         UpdateOnOffText();
-        
     }
+
     // 풀스크린 온오프
     private void UpdateOnOffText()
     {
-        if(Screen.fullScreen)
-        {
-            OnOffButtonText.text = "On";
-        }
-        else
-        {
-            OnOffButtonText.text = "Off";
-        }
+        OnOffButtonText.text = isFullScreen ? "On" : "Off";
     }
+
     // 세이브 정보 슬롯 텍스트 업데이트
     public void UpdateSaveSlotUI()
     {
