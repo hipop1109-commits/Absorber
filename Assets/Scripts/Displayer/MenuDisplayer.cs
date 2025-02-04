@@ -61,6 +61,8 @@ public class MenuDisplayer : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        isFullScreen = Screen.fullScreen;
     }
     private void OnEnable()
     {
@@ -80,9 +82,9 @@ public class MenuDisplayer : MonoBehaviour
     void Start()
     {
         // 오디오 슬라이더 저장 값 불러오기 , 없으면 기본 값 1
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 0.5f);
+        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume", 0.5f);
+        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
 
         // 오디오믹서의 현재 볼륨을 슬라이더 값으로 변환
         audioMixer.GetFloat("MasterVolume", out float masterDb);
@@ -97,15 +99,15 @@ public class MenuDisplayer : MonoBehaviour
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
         masterVolumeSlider.onValueChanged.AddListener((value) => {
             SetMasterVolume(value);
-            AudioManager.Instance.SliderSound();
+            SliderSoundPlay();
         });
         bgmVolumeSlider.onValueChanged.AddListener((value) => {
             SetBGMVolume(value);
-            AudioManager.Instance.SliderSound();
+            SliderSoundPlay();
         });
         sfxVolumeSlider.onValueChanged.AddListener((value) => {
             SetSFXVolume(value);
-            AudioManager.Instance.SliderSound();
+            SliderSoundPlay();
         });
 
 
@@ -125,14 +127,14 @@ public class MenuDisplayer : MonoBehaviour
 
         saveManager = SaveManager.Instance;
         UpdateSaveSlotUI();
-        
+        // 초기 풀스크린 상태를 반영
+        UpdateOnOffText();
     }
 
     private void Update()
     {   // Esc 로 메뉴 패널 활성화
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            
             OpenMenu();
         }
     }
@@ -163,6 +165,11 @@ public class MenuDisplayer : MonoBehaviour
     private void AdjustBrightness(float value)
     {
         colorAdjustments.postExposure.value = Mathf.Lerp(-1f, 1f, value);
+        SliderSoundPlay();
+    }
+
+    private void SliderSoundPlay()
+    {
         AudioManager.Instance.SliderSound();
     }
     
