@@ -230,11 +230,12 @@ public class MenuDisplayer : MonoBehaviour
     public void UpdateSaveSlotUI()
     {
         SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
-
+        
         if (saveData != null)
         {
-            saveSlotText.text = $"HP: {saveData.playerHP}, Energy: {saveData.energyCore}, " +
-                                $"({saveData.lastSavedTime})";
+            saveSlotText.text = $"({saveData.lastSavedTime})";
+                                
+            //$"HP: {saveData.playerHP}, Energy: {saveData.energyCore}, " + $
         }
         else
         {
