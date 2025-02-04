@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RedDoctorIdle3-Walk_07_0: 990151745932897085
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

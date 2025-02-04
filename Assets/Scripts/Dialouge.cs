@@ -23,11 +23,19 @@ public class Dialouge : MonoBehaviour
 
     private int currentLineIndex = 0; // 현재 대화 인덱스
 
+    public Image fadeImage; // 화면을 덮을 흰색 이미지
+    public float fadeDuration = 1.5f; // 페이드 시간
+    public Canvas EndingPopup;
+
     void Start()
     {
         ShowDialogueLine(); // 첫 대화 표시
         DisableSingletons();
+        fadeImage.gameObject.SetActive(false);
+        EndingPopup.gameObject.SetActive(false);
     }
+
+   
 
     private void OnDestroy()
     {
@@ -77,7 +85,15 @@ public class Dialouge : MonoBehaviour
         leftTextBox.text = "";
         rightTextBox.text = "";
         Debug.Log("대화가 끝났습니다.");
-        SceneController.LoadNextScene();
+
+        if (SceneManager.GetActiveScene().name == "EndingScene")
+        {
+            StartCoroutine(FadeOutAndPopScene());
+        }
+        else
+        {
+            SceneController.LoadNextScene();
+        }
     }
 
     private void DisableSingletons()
@@ -90,5 +106,25 @@ public class Dialouge : MonoBehaviour
     {
         if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(true);
         if (UIManager.Instance != null) UIManager.Instance.gameObject.SetActive(true);
+    }
+
+    private IEnumerator FadeOutAndPopScene()
+    {
+        fadeImage.gameObject.SetActive(true);
+        Color color = fadeImage.color;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            color.a = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        color.a = 1f;
+        fadeImage.color = color;
+
+        EndingPopup.gameObject.SetActive(true);
     }
 }
