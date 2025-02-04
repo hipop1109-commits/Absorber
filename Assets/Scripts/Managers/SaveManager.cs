@@ -42,7 +42,7 @@ public class SaveManager : Singleton<SaveManager>
             playerY = playerController.transform.position.y,
             playerHP = playerController.player.PlayerHp,
             energyCore = playerController.player.EnergyCore,
-            lastSavedTime = DateTime.Now.ToString("g"),
+            lastSavedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
             currentScene = SceneManager.GetActiveScene().name
         };
 
