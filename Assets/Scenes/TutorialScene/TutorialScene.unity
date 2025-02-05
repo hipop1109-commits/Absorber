@@ -43125,10 +43125,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: NextButton
       objectReference: {fileID: 0}
-    - target: {fileID: 1032710703630518781, guid: 7fcb97973fffdad44a8bcdaaccf1f1c4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2699531744913613893, guid: 7fcb97973fffdad44a8bcdaaccf1f1c4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -43209,18 +43205,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6385973569526394138, guid: 7fcb97973fffdad44a8bcdaaccf1f1c4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385973569526394138, guid: 7fcb97973fffdad44a8bcdaaccf1f1c4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6385973569526394138, guid: 7fcb97973fffdad44a8bcdaaccf1f1c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7391637465781893235, guid: 7fcb97973fffdad44a8bcdaaccf1f1c4, type: 3}
       propertyPath: m_Name
       value: DialougeCanvas
@@ -43237,10 +43221,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8417686016355847400, guid: 7fcb97973fffdad44a8bcdaaccf1f1c4, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -3066368160729659664, guid: bf7bc2074c3da28408ecd9ab0802fa2e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

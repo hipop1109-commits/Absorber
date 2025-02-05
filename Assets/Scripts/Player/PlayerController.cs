@@ -166,20 +166,8 @@ public class PlayerController : MonoBehaviour
         //게임 오버 패널 활성화
         GameManager.Instance.ShowGameOverPanel();
         AudioManager.Instance.PlaySound(AudioManager.AudioType.GameOver);
-    }
 
-    public void Restart()
-    {
-        foreach (var enableObject in enableObjects)
-        {
-            enableObject.SetActive(true);
-            // FreezeAll 해제
-            rb.constraints = RigidbodyConstraints2D.None;
-            // Z축 회전만 고정
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
 
-            isDie = false;
-        }
     }
 
 
