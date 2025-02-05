@@ -76109,11 +76109,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
+      propertyPath: normalFOV
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: zoomInSize
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: zoomOutSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
+      propertyPath: zoomedOutFOV
       value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []

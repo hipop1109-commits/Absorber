@@ -87,7 +87,6 @@ public class Dialouge : MonoBehaviour
         // ��ȭ ���� ó�� (��: �ؽ�Ʈ �ڽ� �ʱ�ȭ)
         leftTextBox.text = "";
         rightTextBox.text = "";
-        Debug.Log("��ȭ�� �������ϴ�.");
 
         if (SceneManager.GetActiveScene().name == "EndingScene")
         {
