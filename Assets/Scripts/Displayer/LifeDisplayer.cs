@@ -21,23 +21,8 @@ public class LifeDisplayer : MonoBehaviour
     }
 
     [SerializeField] private PlayerController playerController;
-
    
-    void Start()
-    {
-/*        var playerController = FindObjectOfType<PlayerController>();
-        if (playerController != null && playerController.player != null)
-        {
-            
-        ($"PlayerMaxHp: {playerController.player.PlayerMaxHp}");
-        }
-        else
-        {
-            Debug.LogError("PlayerController or Player is not initialized.");
-        }*/
-    }
-
-
+    
     // 생명 이미지 활성화, 비활성화
     public void SetLives(int life, int maxHp)
     {
