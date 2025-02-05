@@ -36,7 +36,6 @@ public class SaveManager : Singleton<SaveManager>
     {
         if (justLoaded)
         {
-            Debug.Log("자동저장 5초 후");
             return;
         }
         if (playerController == null)
@@ -80,7 +79,6 @@ public class SaveManager : Singleton<SaveManager>
             return JsonUtility.FromJson<SaveData>(json); // JSON을 객체로 변환
         }
 
-        Debug.LogWarning("세이브 파일없어요");
         return null;
     }
 

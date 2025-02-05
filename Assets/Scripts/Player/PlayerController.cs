@@ -166,10 +166,16 @@ public class PlayerController : MonoBehaviour
         //게임 오버 패널 활성화
         GameManager.Instance.ShowGameOverPanel();
         AudioManager.Instance.PlaySound(AudioManager.AudioType.GameOver);
+        Invoke("TimeStop", 1f);
+    }
+    void TimeStop()
+    {
+        Time.timeScale = 0f;
     }
 
     public void Restart()
     {
+        Time.timeScale = 1f;
         foreach (var enableObject in enableObjects)
         {
             enableObject.SetActive(true);
@@ -226,18 +232,24 @@ public class PlayerController : MonoBehaviour
     //우클릭 흡수
     public void OnAbsorb()
     {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
         WeaponController.Instance.AbsorbClick();
     }
 
     //우클릭 흡수 취소
     public void OnAbsorbCancle()
     {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
         WeaponController.Instance.AbsorbClickUp();
     }
 
     //좌클릭 방출
     public void OnEmit()
     {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
         Combination();
         WeaponController.Instance.WeaponSelect();
     }
@@ -246,6 +258,8 @@ public class PlayerController : MonoBehaviour
     //좌클릭 방출 취소
     public void OnEmitCancle()
     {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
         WeaponController.Instance.WeaponLeft();
     }
 
@@ -323,6 +337,8 @@ public class PlayerController : MonoBehaviour
     // 대쉬 입력 처리
     public void OnSprint(InputValue value)
     {
+        if (isDie) return; // isDie가 true라면 상태 전환을 막음
+
         if (value.isPressed && !isDashing && dashCooldownTimer <= 0)
         {
             // 가만히 있을 때도 대쉬 방향을 지정하기 위해 flipX 또는 마우스 위치를 기준으로 방향 설정
@@ -437,7 +453,6 @@ public class PlayerController : MonoBehaviour
         player.Heal(healAmount);
         stateMachine.TransitionTo(stateMachine.healState);
         AudioManager.Instance.PlaySound(AudioManager.AudioType.PlayerHeal);
-        Debug.Log("heal sound");
 
         // 포션 오브젝트 제거
         Destroy(potion);

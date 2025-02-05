@@ -26,7 +26,6 @@ public class StartSceneManager : MonoBehaviour
         if (saveData != null)
         {
             SaveManager.Instance.LoadGameData(saveData);
-            Debug.Log("저장된 게임 불러오기");
         }
         else
         {
