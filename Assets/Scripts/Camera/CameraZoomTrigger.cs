@@ -1,45 +1,44 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class CameraZoomTrigger : MonoBehaviour
 {
-    public float zoomedOutFOV = 80f; // 줌아웃할 때 FOV
-    public float normalFOV = 60f; // 기본 FOV
+    private Coroutine zoomCoroutine;
+
+    public float zoomOutSize = 8f; // 줌아웃할 크기
+    public float zoomInSize = 5f; // 원래 크기
     public float zoomSpeed = 2f; // 줌 속도
 
-    private bool isZoomed = false;
-
-    void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.CompareTag("Player")) // 플레이어가 들어오면
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")) // 플레이어가 범위에 들어왔을 때
         {
-            isZoomed = true;
-            StopAllCoroutines();
-            StartCoroutine(ChangeFOV(zoomedOutFOV)); // 줌아웃
+            if (zoomCoroutine != null) StopCoroutine(zoomCoroutine);
+            zoomCoroutine = StartCoroutine(ZoomCamera(zoomOutSize));
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // 플레이어가 나가면
+        if (other.CompareTag("Player")) // 플레이어가 범위를 벗어났을 때
         {
-            isZoomed = false;
-            StopAllCoroutines();
-            StartCoroutine(ChangeFOV(normalFOV)); // 원래대로
+            if (zoomCoroutine != null) StopCoroutine(zoomCoroutine);
+            zoomCoroutine = StartCoroutine(ZoomCamera(zoomInSize));
         }
     }
 
-    System.Collections.IEnumerator ChangeFOV(float targetFOV)
+    private IEnumerator ZoomCamera(float targetSize)
     {
-        float startFOV = UnityEngine.Camera.main.fieldOfView;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < 1f)
+        while (Mathf.Abs(UnityEngine.Camera.main.orthographicSize - targetSize) > 0.01f)
         {
-            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(startFOV, targetFOV, elapsedTime * zoomSpeed);
-            elapsedTime += Time.deltaTime;
+            UnityEngine.Camera.main.orthographicSize = Mathf.Lerp(UnityEngine.Camera.main.orthographicSize, targetSize, Time.deltaTime * zoomSpeed);
             yield return null;
         }
-
-        UnityEngine.Camera.main.fieldOfView = targetFOV;
+        UnityEngine.Camera.main.orthographicSize = targetSize;
     }
 }
