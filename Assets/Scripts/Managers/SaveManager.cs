@@ -57,10 +57,12 @@ public class SaveManager : Singleton<SaveManager>
 
         Debug.Log("Game Saved: " + savePath); // 저장 로그 출력
 
-        menuDisplayer = FindObjectOfType<MenuDisplayer>();
+        menuDisplayer = FindFirstObjectByType<MenuDisplayer>();
 
         if (saveMessage != null) // 세이브 메세지 출력
             StartCoroutine(ShowSaveMessage());
+
+        StartCoroutine(DontAutoSave());
     }
     // 세이브 메세지 출력
     private IEnumerator ShowSaveMessage()
@@ -106,6 +108,7 @@ public class SaveManager : Singleton<SaveManager>
         // 씬이 로드될 때까지 기다림
         yield return new WaitUntil(() => SceneManager.GetActiveScene().name == saveData.currentScene);
         yield return new WaitForSeconds(0.1f);
+       
 
         while (playerController == null)
         {
@@ -124,7 +127,7 @@ public class SaveManager : Singleton<SaveManager>
         playerController.player.RoadEnergyCore(saveData.energyCore);
         playerController.transform.position = new Vector3(saveData.playerX, saveData.playerY, 0);
         // UI 업데이트
-        LifeDisplayer.Instance.SetLives(player.PlayerHp, player.PlayerMaxHp);
+        LifeDisplayer.Instance.SetLives(playerController.player.PlayerHp, playerController.player.PlayerMaxHp);
         // 게임 로드 직후 일정 시간동안 자동 저장 방지
         StartCoroutine(DontAutoSave());
     }
