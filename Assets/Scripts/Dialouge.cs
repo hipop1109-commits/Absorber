@@ -31,8 +31,11 @@ public class Dialouge : MonoBehaviour
     {
         ShowDialogueLine(); // ù ��ȭ ǥ��
         DisableSingletons();
-        fadeImage.gameObject.SetActive(false);
-        EndingPopup.gameObject.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "EndingScene")
+        {
+            fadeImage.gameObject.SetActive(false);
+            EndingPopup.gameObject.SetActive(false);
+        }
     }
 
    
