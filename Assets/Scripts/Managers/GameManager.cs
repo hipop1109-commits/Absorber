@@ -55,6 +55,11 @@ public class GameManager : Singleton <GameManager>
     {
         SceneManager.LoadScene("StartScene");
     }
+    // New Game, 포레스트 씬으로 로드
+    public void NewGame()
+    {
+        SceneManager.LoadScene("Forest");
+    }
     // 게임 종료
     public void QuitGame()
     {
