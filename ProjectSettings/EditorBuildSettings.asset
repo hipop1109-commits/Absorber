@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IceScene/SnowBossScene.unity
     guid: 95921062870b8f946b2a6e4ed741de20
+  - enabled: 1
+    path: Assets/Scenes/EtcScene/EndingScene.unity
+    guid: a19cc205986221b46b098adffc76d436
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
