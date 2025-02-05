@@ -16,6 +16,10 @@ public class Hookg : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        grappling = GameObject.Find("Player").GetComponent<RopeActive>();
+        Debug.Log(grappling);
+        joint2D = GetComponent<DistanceJoint2D>();
     }
 
     //로프 불러오기
@@ -25,8 +29,7 @@ public class Hookg : MonoBehaviour
 
     private void Start()
     {
-        grappling = GameObject.Find("Player").GetComponent<RopeActive>();
-        joint2D = GetComponent<DistanceJoint2D>();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
