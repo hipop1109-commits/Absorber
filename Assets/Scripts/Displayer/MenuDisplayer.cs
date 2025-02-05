@@ -23,6 +23,8 @@ public class MenuDisplayer : MonoBehaviour
     [SerializeField]private GameObject savePanel;  
     [SerializeField]private GameObject videoPanel;
     [SerializeField] private GameObject soundPanel;
+    [SerializeField] private GameObject mainMenuPanel;
+
     [SerializeField] private GameObject loadNoticePanel;
 
     // 해상도 드롭다운
@@ -257,6 +259,7 @@ public class MenuDisplayer : MonoBehaviour
 
             Time.timeScale = 1;
             PlayerController.instance.Restart();
+            UpdateSaveSlotUI();
         }
         else
         {
@@ -282,12 +285,19 @@ public class MenuDisplayer : MonoBehaviour
         }
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("StartScene");
+
+    }
+
     // 세이브 메뉴 오픈
     public void OpenSaveMenu()
     {
         soundPanel.SetActive(false);
         videoPanel.SetActive(false);
         savePanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
     }
     // 사운드 메뉴 오픈
     public void OpenSoundMenu()
@@ -295,6 +305,7 @@ public class MenuDisplayer : MonoBehaviour
         soundPanel.SetActive(true);
         videoPanel.SetActive(false);
         savePanel.SetActive(false);
+        mainMenuPanel.SetActive(false);
     }
     // 비디오 메뉴 오픈 
     public void OpenVideoMenu()
@@ -302,5 +313,14 @@ public class MenuDisplayer : MonoBehaviour
         soundPanel.SetActive(false);
         videoPanel.SetActive(true);
         savePanel.SetActive(false);
+        mainMenuPanel.SetActive(false);
+    }
+    // 메인 메뉴 오픈 
+    public void OpenMainMenu()
+    {
+        soundPanel.SetActive(false);
+        videoPanel.SetActive(false);
+        savePanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
     }
 }
