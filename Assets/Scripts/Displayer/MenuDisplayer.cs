@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor.Overlays;
@@ -22,7 +23,8 @@ public class MenuDisplayer : MonoBehaviour
     [SerializeField]private GameObject savePanel;  
     [SerializeField]private GameObject videoPanel;
     [SerializeField] private GameObject soundPanel;
-    
+    [SerializeField] private GameObject loadNoticePanel;
+
     // 해상도 드롭다운
     [SerializeField] private TMP_Dropdown resolutionDropdown;
 
@@ -254,9 +256,32 @@ public class MenuDisplayer : MonoBehaviour
             menuPanel.SetActive(false);
 
             Time.timeScale = 1;
+            PlayerController.instance.Restart();
+        }
+        else
+        {
+            loadNoticePanel.SetActive(true);
         }
     }
-  
+
+    // 로딩 패널 버튼을 눌렀을 때 실행되는 함수
+    public void OnClickYesLoadingPanel()
+    {
+        // 현재 활성화된 씬의 이름을 가져옴
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (currentSceneName != "StartScene")
+        {
+            // 현재 씬이 StartScene이 아니면 StartScene으로 이동
+            SceneManager.LoadScene("StartScene");
+        }
+        else
+        {
+            // 현재 씬이 StartScene이면 지정된 오브젝트 비활성화
+            loadNoticePanel.SetActive(false);
+        }
+    }
+
     // 세이브 메뉴 오픈
     public void OpenSaveMenu()
     {
