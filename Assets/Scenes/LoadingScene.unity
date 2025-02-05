@@ -4127,7 +4127,7 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 2074411386}
   bgmVolumeSlider: {fileID: 1293213378}
   sfxVolumeSlider: {fileID: 2126915038}
-  saveSlotText: {fileID: 0}
+  saveSlotText: {fileID: 179835475}
 --- !u!114 &677496586
 MonoBehaviour:
   m_ObjectHideFlags: 0
