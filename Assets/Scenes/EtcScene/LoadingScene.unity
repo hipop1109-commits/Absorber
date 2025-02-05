@@ -1973,6 +1973,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9a5ee3ee903b154f9cd6819be226cd9, type: 3}
+--- !u!114 &303852809 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1018749114392496344, guid: a9a5ee3ee903b154f9cd6819be226cd9, type: 3}
+  m_PrefabInstance: {fileID: 303852808}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7800bf76456c27244b9998997a35b2bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &313592656
 GameObject:
   m_ObjectHideFlags: 0
@@ -7810,6 +7821,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 451839279164256797, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
+      propertyPath: bulletPool
+      value: 
+      objectReference: {fileID: 303852809}
     - target: {fileID: 3872197701955360699, guid: b6f2c3d25a2d07c4f956fe44ddc6dfbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -40.9
@@ -15254,6 +15269,8 @@ MonoBehaviour:
     audioSource: {fileID: 1445878695}
   - type: 9
     audioSource: {fileID: 1822215023}
+  - type: 6
+    audioSource: {fileID: 448859210}
 --- !u!4 &1995635538
 Transform:
   m_ObjectHideFlags: 0

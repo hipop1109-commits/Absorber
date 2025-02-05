@@ -50206,6 +50206,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4918103224778096275, guid: e7d6861fe72337e42bdd5e865b5862ba, type: 3}
+      propertyPath: hp
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7017871975294365233, guid: e7d6861fe72337e42bdd5e865b5862ba, type: 3}
       propertyPath: m_Name
       value: ArmaBoss

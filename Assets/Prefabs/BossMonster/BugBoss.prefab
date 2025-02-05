@@ -1199,9 +1199,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3649208784108714565, guid: 7234f509a323273478628c501c87dd8e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3710059576548008500}
-    - targetCorrespondingSourceObject: {fileID: 3649208784108714565, guid: 7234f509a323273478628c501c87dd8e, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 692449765971998301}
     - targetCorrespondingSourceObject: {fileID: 3649208784108714565, guid: 7234f509a323273478628c501c87dd8e, type: 3}
       insertIndex: -1
@@ -1288,23 +1285,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3649208784108714565, guid: 7234f509a323273478628c501c87dd8e, type: 3}
   m_PrefabInstance: {fileID: 8230105722790488678}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3710059576548008500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4653253617331916835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429a83e8f3240654890243a3da033b08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDie: 0
-  hp: 50
-  damage: 10
-  itemPrefab: {fileID: 7548755192223622589, guid: 83aad3daec26a4f9d9d83ec3614d2320, type: 3}
-  playerController: {fileID: 0}
 --- !u!114 &692449765971998301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,6 +1410,7 @@ MonoBehaviour:
   damage: 10
   itemPrefab: {fileID: 7548755192223622589, guid: 83aad3daec26a4f9d9d83ec3614d2320, type: 3}
   playerController: {fileID: 0}
+  isAttacking: 0
 --- !u!4 &5790420027816904768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2480500271776768550, guid: 7234f509a323273478628c501c87dd8e, type: 3}
