@@ -209,6 +209,7 @@ public class ArmadiloPattern : MonoBehaviour
         isExecutingAction = true;
         currentState = BossState.Attacking;
         rb.linearVelocity = Vector2.zero;
+        GetComponent<BaseEnemy>().isAttacking = true;
         // 근거리 공격 애니메이션 실행
         if (gameObject.CompareTag("ArmadilloBoss")) // 이름이 "Armadillo"인 경우
         {
@@ -223,7 +224,7 @@ public class ArmadiloPattern : MonoBehaviour
             FrogTounge();
         }
         yield return new WaitForSeconds(2f); // 공격 시간
-
+        GetComponent<BaseEnemy>().isAttacking = false;
         StartCooldown();
     }
 
@@ -232,6 +233,7 @@ public class ArmadiloPattern : MonoBehaviour
         isExecutingAction = true;
         currentState = BossState.Attacking;
         rb.linearVelocity = Vector2.zero;
+        GetComponent<BaseEnemy>().isAttacking = true;
         // 먼 거리 공격 애니메이션 실행
         if (gameObject.CompareTag("ArmadilloBoss"))// 이름이 "Armadillo"인 경우
         {
@@ -246,6 +248,7 @@ public class ArmadiloPattern : MonoBehaviour
             FrogJump();
         }
         yield return new WaitForSeconds(2f); // 공격 시간
+        GetComponent<BaseEnemy>().isAttacking = false;
         StartCooldown();
     }
 
@@ -254,6 +257,7 @@ public class ArmadiloPattern : MonoBehaviour
         isExecutingAction = true;
         currentState = BossState.Attacking;
         rb.linearVelocity = Vector2.zero;
+        GetComponent<BaseEnemy>().isAttacking = true;
         // 공중 공격 애니메이션 실행
         if (gameObject.CompareTag("ArmadilloBoss")) // 이름이 "Armadillo"인 경우
         {
@@ -268,6 +272,7 @@ public class ArmadiloPattern : MonoBehaviour
             FrogSpwan();
         }
         yield return new WaitForSeconds(2f); // 공격 시간
+        GetComponent<BaseEnemy>().isAttacking = false;
         StartCooldown();
     }
 
