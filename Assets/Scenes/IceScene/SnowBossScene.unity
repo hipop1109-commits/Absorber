@@ -16532,8 +16532,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 10.276113
-  orthographic: 1
+  field of view: 12
+  orthographic: 0
   orthographic size: 30
   m_Depth: 0
   m_CullingMask:
@@ -16559,7 +16559,7 @@ Transform:
   m_GameObject: {fileID: 472162682}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1584, y: 47, z: -190}
+  m_LocalPosition: {x: 1648, y: 21, z: -190}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22729,12 +22729,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
+      propertyPath: normalFOV
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: zoomInSize
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: zoomOutSize
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
+      propertyPath: zoomedOutFOV
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30435,6 +30443,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2487455099804395496, guid: d98c47482c58741459ddfb49c45681d4, type: 3}
   m_PrefabInstance: {fileID: 894551227}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &894551229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3710059576548008500, guid: d98c47482c58741459ddfb49c45681d4, type: 3}
+  m_PrefabInstance: {fileID: 894551227}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429a83e8f3240654890243a3da033b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &901688817
 GameObject:
   m_ObjectHideFlags: 0
@@ -69932,7 +69951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossLifeBar: {fileID: 165213617}
-  bossEnemy: {fileID: 0}
+  bossEnemy: {fileID: 894551229}
 --- !u!114 &2136689564
 MonoBehaviour:
   m_ObjectHideFlags: 0
