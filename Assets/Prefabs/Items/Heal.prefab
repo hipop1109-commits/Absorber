@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560cd9011f0e31b45ae074e185c4e005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealAmount: 10
+  HealAmount: 30
 --- !u!250 &3738424443733605341
 PointEffector2D:
   m_ObjectHideFlags: 0

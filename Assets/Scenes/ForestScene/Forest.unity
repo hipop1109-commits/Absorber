@@ -9040,12 +9040,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5159936885394601153, guid: 16cad176d9cfbc64b8f5773060aeee0c, type: 3}
       propertyPath: dialogueLines.Array.data[1].text
-      value: "\uADF8\uB798, \uC232\uC758 \uBCC0\uD654\uBB34\uC30D\uD55C \uD658\uACBD\uC740
+      value: "\uADF8\uB798, \uC232\uC758 \uBCC0\uD654\uBB34\uC30D\uD55C \uD658\uACBD\uC740                
         \uC2E4\uD5D8\uC5D0 \uCD5C\uC801\uD654\uB41C \uC7A5\uC18C\uC9C0."
       objectReference: {fileID: 0}
     - target: {fileID: 5159936885394601153, guid: 16cad176d9cfbc64b8f5773060aeee0c, type: 3}
       propertyPath: dialogueLines.Array.data[2].text
-      value: "\uBE44\uD589\uAE30\uB97C \uD5A5\uD574 \uC55E\uC73C\uB85C \uB098\uC544\uAC00\uBD10,
+      value: "\uBE44\uD589\uAE30\uB97C \uD5A5\uD574 \uC55E\uC73C\uB85C \uB098\uC544\uAC00\uBD10,      
         \uAC74\uD22C\uB97C \uBE44\uB124."
       objectReference: {fileID: 0}
     - target: {fileID: 5159936885394601153, guid: 16cad176d9cfbc64b8f5773060aeee0c, type: 3}
