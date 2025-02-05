@@ -166,13 +166,24 @@ public class PlayerController : MonoBehaviour
         //게임 오버 패널 활성화
         GameManager.Instance.ShowGameOverPanel();
         AudioManager.Instance.PlaySound(AudioManager.AudioType.GameOver);
-
-
     }
 
+    public void Restart()
+    {
+        foreach (var enableObject in enableObjects)
+        {
+            enableObject.SetActive(true);
+            // FreezeAll 해제
+            rb.constraints = RigidbodyConstraints2D.None;
+            // Z축 회전만 고정
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-    //select1값을 가져오는 메소드 
-    public int GetSelect1()
+            isDie = false;
+        }
+    }
+
+        //select1값을 가져오는 메소드 
+        public int GetSelect1()
     {
         return select1;
     }
@@ -358,6 +369,12 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
+
+        // 힐링 포션을 일정 시간이 지난 후 먹기
+        if (collision.gameObject.CompareTag("Potion"))
+        {
+            StartCoroutine(ConsumePotionAfterDelay(collision.gameObject));
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -395,12 +412,6 @@ public class PlayerController : MonoBehaviour
             player.GetEnergyCore(1);
             AudioManager.Instance.PlaySound(AudioManager.AudioType.Get);
             Destroy(collision.gameObject);
-        }
-
-        // 힐링 포션을 일정 시간이 지난 후 먹기
-        if (collision.gameObject.CompareTag("Potion"))
-        {
-            StartCoroutine(ConsumePotionAfterDelay(collision.gameObject));
         }
     }
 
