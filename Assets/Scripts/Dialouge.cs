@@ -103,12 +103,14 @@ public class Dialouge : MonoBehaviour
     {
         if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(false);
         if (UIManager.Instance != null) UIManager.Instance.gameObject.SetActive(false);
+        if (SkillUIManager.Instance != null) SkillUIManager.Instance.gameObject.SetActive(false);
     }
 
     private void EnableSingletons()
     {
         if (PlayerController.instance != null) PlayerController.instance.gameObject.SetActive(true);
         if (UIManager.Instance != null) UIManager.Instance.gameObject.SetActive(true);
+        if (SkillUIManager.Instance != null) SkillUIManager.Instance.gameObject.SetActive(true);
     }
 
     private IEnumerator FadeOutAndPopScene()
