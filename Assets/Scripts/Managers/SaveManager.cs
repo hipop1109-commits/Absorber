@@ -23,6 +23,7 @@ public class SaveManager : Singleton<SaveManager>
     private PlayerController playerController;
     private Player player;
     private MenuDisplayer menuDisplayer;
+    private bool justLoaded = false; // 게임 로드 직후 세이브 방지 
 
     [SerializeField] private GameObject saveMessage;
 
@@ -33,6 +34,11 @@ public class SaveManager : Singleton<SaveManager>
     // 게임 세이브
     public void SaveGame()
     {
+        if (justLoaded)
+        {
+            Debug.Log("자동저장 5초 후");
+            return;
+        }
         if (playerController == null)
             playerController = FindObjectOfType<PlayerController>();
 
@@ -60,7 +66,7 @@ public class SaveManager : Singleton<SaveManager>
     private IEnumerator ShowSaveMessage()
     {
         saveMessage.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         saveMessage.SetActive(false);
     }
     // 게임로드
@@ -113,11 +119,19 @@ public class SaveManager : Singleton<SaveManager>
     {
         if (playerController == null)
             playerController = FindObjectOfType<PlayerController>();
-
+        // 세이브 데이터 적용
         playerController.player.RoadPlayerHp(saveData.playerHP);
         playerController.player.RoadEnergyCore(saveData.energyCore);
         playerController.transform.position = new Vector3(saveData.playerX, saveData.playerY, 0);
-        //player.EnergyCoreTextUpdate();
+        // UI 업데이트
         LifeDisplayer.Instance.SetLives(player.PlayerHp, player.PlayerMaxHp);
+        // 게임 로드 직후 일정 시간동안 자동 저장 방지
+        StartCoroutine(DontAutoSave());
+    }
+    private IEnumerator DontAutoSave()
+    {
+        justLoaded = true;
+        yield return new WaitForSeconds(5f); // 5초 후 자동 저장 허용
+        justLoaded = false;
     }
 }
