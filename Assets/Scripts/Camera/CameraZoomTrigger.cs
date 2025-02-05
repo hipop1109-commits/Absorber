@@ -8,22 +8,20 @@ public class CameraZoomTrigger : MonoBehaviour
 
     private bool isZoomed = false;
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player")) // 플레이어가 들어오면
         {
             isZoomed = true;
-            StopAllCoroutines();
             StartCoroutine(ChangeFOV(zoomedOutFOV)); // 줌아웃
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player")) // 플레이어가 나가면
         {
             isZoomed = false;
-            StopAllCoroutines();
             StartCoroutine(ChangeFOV(normalFOV)); // 원래대로
         }
     }

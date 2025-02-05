@@ -14,6 +14,9 @@ public abstract class BaseEnemy : MonoBehaviour
     public EnemyStateMachine stateMachine; // 상태 머신 참조
     private HashSet<Collider2D> processedAttacks = new HashSet<Collider2D>(); // 이미 처리된 Attack 오브젝트 추적
 
+    protected bool isHit = false;
+    public bool isAttacking = false;
+
     public event System.Action<int> BossHealthChaged; // 보스 체력 바 변경 이벤트
     public int GetHp() => hp; // 보스 현재 체력 가져오기
 
@@ -68,22 +71,36 @@ public abstract class BaseEnemy : MonoBehaviour
 
     // 데미지를 입을때
     public void EnemyTakeDamage(int damage)
-    {
-        if (isDie) return;
+{
+    if (isDie) return; // 이미 죽은 경우 처리하지 않음
 
-        hp -= damage;
-        BossHealthChaged?.Invoke(hp); // 보스 체력 바 이벤트 실행
-        if (hp <= 0)
-        {
-            Die();
-            AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyDie);
-        }
-        else
-        {
-            stateMachine.TransitionTo(stateMachine.hitState);
-            AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyHurt);
-        }
+    hp -= damage;
+    BossHealthChaged?.Invoke(hp); // 보스 체력 바 이벤트 실행
+
+    if (hp <= 0)
+    {
+        Die();
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyDie);
     }
+    else
+    {
+        // 보스가 공격 중이 아닐 때만 피격 애니메이션 재생
+        if (this is BossEnemy && !isAttacking)
+        {
+            isHit = true; // 피격 애니메이션 차단 플래그 설정
+            stateMachine.TransitionTo(stateMachine.hitState);
+            StartCoroutine(HitCooldown(1f)); // 1초 동안 피격 애니메이션 차단
+        }
+        else if (!(this is BossEnemy))
+        {
+            // 일반 적의 경우 항상 피격 애니메이션 재생
+            stateMachine.TransitionTo(stateMachine.hitState);
+        }
+
+        AudioManager.Instance.PlaySound(AudioManager.AudioType.EnemyHurt);
+    }
+}
+
 
     /// <summary>
     /// 적의 Attack
@@ -141,4 +158,11 @@ public abstract class BaseEnemy : MonoBehaviour
         }
     }
 
+    private IEnumerator HitCooldown(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isHit = false; // 일정 시간이 지나면 다시 피격 가능
+    }
+
+    
 }

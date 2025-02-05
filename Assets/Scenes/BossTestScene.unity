@@ -4184,10 +4184,10 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -35.9
+  near clip plane: 0.01
   far clip plane: 940.92
-  field of view: 60
-  orthographic: 1
+  field of view: 130
+  orthographic: 0
   orthographic size: 20
   m_Depth: -1
   m_CullingMask:
@@ -4213,7 +4213,7 @@ Transform:
   m_GameObject: {fileID: 421760545}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 12, z: -10}
+  m_LocalPosition: {x: 0.5, y: 1.4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6436,6 +6436,10 @@ PrefabInstance:
     - target: {fileID: 3484662065280458730, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_Name
       value: FrogBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484662065280458730, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4935368326368158916, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9535,7 +9539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8056488146725069165, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 110.1
+      value: 91.6
       objectReference: {fileID: 0}
     - target: {fileID: 8056488146725069165, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9574,12 +9578,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
+      propertyPath: normalFOV
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
+      propertyPath: zoomSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: zoomInSize
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
       propertyPath: zoomOutSize
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696370657867602808, guid: 475861100eeae6346a0502ad55f53e36, type: 3}
+      propertyPath: zoomedOutFOV
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11600,7 +11616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossLifeBar: {fileID: 1972629892}
-  bossEnemy: {fileID: 1670741129}
+  bossEnemy: {fileID: 1505164012}
 --- !u!114 &1125893218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14564,6 +14580,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7038dc6156c6c064cb63f11ccda68acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1505164012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1984311573718984238, guid: d8b029a985986de48985ec7c5853e2bd, type: 3}
+  m_PrefabInstance: {fileID: 673207511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429a83e8f3240654890243a3da033b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1505822708
 GameObject:
   m_ObjectHideFlags: 0
@@ -16147,17 +16174,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 346144046}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1670741129 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3710059576548008500, guid: d98c47482c58741459ddfb49c45681d4, type: 3}
-  m_PrefabInstance: {fileID: 632622860586732225}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429a83e8f3240654890243a3da033b08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1726967154
 GameObject:
   m_ObjectHideFlags: 0
