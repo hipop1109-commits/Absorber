@@ -31,11 +31,8 @@ public class Dialouge : MonoBehaviour
     {
         ShowDialogueLine(); // ù ��ȭ ǥ��
         DisableSingletons();
-        if (SceneManager.GetActiveScene().name == "EndingScene")
-        {
-            fadeImage.gameObject.SetActive(false);
-            EndingPopup.gameObject.SetActive(false);
-        }
+        fadeImage.gameObject.SetActive(false);
+        EndingPopup.gameObject.SetActive(false);
     }
 
    
@@ -87,6 +84,7 @@ public class Dialouge : MonoBehaviour
         // ��ȭ ���� ó�� (��: �ؽ�Ʈ �ڽ� �ʱ�ȭ)
         leftTextBox.text = "";
         rightTextBox.text = "";
+        Debug.Log("��ȭ�� �������ϴ�.");
 
         if (SceneManager.GetActiveScene().name == "EndingScene")
         {
