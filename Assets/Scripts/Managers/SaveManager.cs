@@ -40,7 +40,7 @@ public class SaveManager : Singleton<SaveManager>
             return;
         }
         if (playerController == null)
-            playerController = FindObjectOfType<PlayerController>();
+            playerController = FindFirstObjectByType<PlayerController>();
 
         SaveData saveData = new SaveData
         {
@@ -112,7 +112,7 @@ public class SaveManager : Singleton<SaveManager>
 
         while (playerController == null)
         {
-            playerController = FindObjectOfType<PlayerController>();
+            playerController = FindFirstObjectByType<PlayerController>();
         }
         ApplySaveData(saveData);
     }
@@ -121,7 +121,7 @@ public class SaveManager : Singleton<SaveManager>
     private void ApplySaveData(SaveData saveData)
     {
         if (playerController == null)
-            playerController = FindObjectOfType<PlayerController>();
+            playerController = FindFirstObjectByType<PlayerController>();
         // 세이브 데이터 적용
         playerController.player.RoadPlayerHp(saveData.playerHP);
         playerController.player.RoadEnergyCore(saveData.energyCore);

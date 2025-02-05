@@ -145,7 +145,7 @@ public class MenuDisplayer : MonoBehaviour
     {
         isGamePaused = !isGamePaused;
         menuPanel.SetActive(isGamePaused);
-        Time.timeScale = menuPanel.activeSelf ? 0 : 1;
+        Time.timeScale = menuPanel.activeSelf ? 0 : 1; // 메뉴 활성화시 클릭 막기 
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -252,6 +252,8 @@ public class MenuDisplayer : MonoBehaviour
             SaveManager.Instance.LoadGameData(saveData);
             menuPanel.SetActive(false);
             menuPanel.SetActive(false);
+
+            Time.timeScale = 1;
         }
     }
   
