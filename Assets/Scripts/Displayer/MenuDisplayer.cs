@@ -247,7 +247,12 @@ public class MenuDisplayer : MonoBehaviour
     public void OnLoadClicked()
     {
         SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
-        SaveManager.Instance.LoadGameData(saveData);
+        if (saveData != null)
+        {
+            SaveManager.Instance.LoadGameData(saveData);
+            menuPanel.SetActive(false);
+            menuPanel.SetActive(false);
+        }
     }
   
     // 세이브 메뉴 오픈
