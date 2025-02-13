@@ -18,10 +18,10 @@ public class MenuDisplayer : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
 
     private bool isGamePaused = false;
-    
+
     // 메뉴 내부 패널
-    [SerializeField]private GameObject savePanel;  
-    [SerializeField]private GameObject videoPanel;
+    [SerializeField] private GameObject savePanel;
+    [SerializeField] private GameObject videoPanel;
     [SerializeField] private GameObject soundPanel;
     [SerializeField] private GameObject mainMenuPanel;
 
@@ -67,7 +67,9 @@ public class MenuDisplayer : MonoBehaviour
             Destroy(gameObject);
         }
 
-        bool isFullScreen = Screen.fullScreen;
+        isFullScreen = true;
+        Screen.fullScreen = isFullScreen;
+        Debug.Log("isFullScreen : " + isFullScreen);
     }
     private void OnEnable()
     {
@@ -102,15 +104,18 @@ public class MenuDisplayer : MonoBehaviour
 
         // 리스너 등록
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
-        masterVolumeSlider.onValueChanged.AddListener((value) => {
+        masterVolumeSlider.onValueChanged.AddListener((value) =>
+        {
             SetMasterVolume(value);
             SliderSoundPlay();
         });
-        bgmVolumeSlider.onValueChanged.AddListener((value) => {
+        bgmVolumeSlider.onValueChanged.AddListener((value) =>
+        {
             SetBGMVolume(value);
             SliderSoundPlay();
         });
-        sfxVolumeSlider.onValueChanged.AddListener((value) => {
+        sfxVolumeSlider.onValueChanged.AddListener((value) =>
+        {
             SetSFXVolume(value);
             SliderSoundPlay();
         });
@@ -121,14 +126,33 @@ public class MenuDisplayer : MonoBehaviour
         SetBGMVolume(bgmVolumeSlider.value);
         SetSFXVolume(sfxVolumeSlider.value);
 
-        // 해상도 리스트 추가
+        // 해상도 리스트 가져오기
         resolutions = Screen.resolutions;
-        resolutionDropdown.ClearOptions();
 
+        // 해상도 배열이 비어 있는지 확인
+        if (resolutions == null || resolutions.Length == 0)
+        {
+            Debug.LogWarning("No resolutions found. Screen.resolutions might not be populated correctly.");
+            resolutionDropdown.ClearOptions();
+            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData("Default Resolution"));
+            resolutionDropdown.value = 0;
+            return;
+        }
+
+        // 해상도 드롭다운 옵션 채우기
+        resolutionDropdown.ClearOptions();
         foreach (Resolution res in resolutions)
         {
-            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
+            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData($"{res.width} x {res.height}"));
         }
+
+        // 디버그 로그 확인
+        Debug.Log("resolutions : " + resolutions.Length);
+
+        // 현재 해상도를 드롭다운에 설정
+        resolutionDropdown.value = GetCurrentResolutionIndex();
+        resolutionDropdown.RefreshShownValue();
+
 
         saveManager = SaveManager.Instance;
         UpdateSaveSlotUI();
@@ -144,6 +168,21 @@ public class MenuDisplayer : MonoBehaviour
         }
     }
 
+    // 현재 해상도와 일치하는 드롭다운 인덱스 찾기
+    private int GetCurrentResolutionIndex()
+    {
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
+            {
+                return i;
+            }
+        }
+        return 0; // 기본값
+    }
+
+
     // 메뉴 패널 열기
     public void OpenMenu()
     {
@@ -157,7 +196,7 @@ public class MenuDisplayer : MonoBehaviour
     // 메뉴 패널 닫기
     public void CloseMenu()
     {
-        isGamePaused  = false;
+        isGamePaused = false;
         menuPanel.SetActive(false);
 
         Time.timeScale = 1;
@@ -177,7 +216,7 @@ public class MenuDisplayer : MonoBehaviour
     {
         AudioManager.Instance.SliderSound();
     }
-    
+
     // 전체 볼륨 설정
     public void SetMasterVolume(float volume)
     {
@@ -214,7 +253,7 @@ public class MenuDisplayer : MonoBehaviour
     public void SetResolution(int index)
     {
         Resolution selectedResolution = resolutions[index];
-        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen );
+        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen);
     }
 
     // 풀스크린 버튼
@@ -235,11 +274,11 @@ public class MenuDisplayer : MonoBehaviour
     public void UpdateSaveSlotUI()
     {
         SaveManager.SaveData saveData = SaveManager.Instance.LoadGame();
-        
+
         if (saveData != null)
         {
             saveSlotText.text = $"({saveData.lastSavedTime})";
-                                
+
             //$"HP: {saveData.playerHP}, Energy: {saveData.energyCore}, " + $
         }
         else
